@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\MyPC\\source\\repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj": {}
+    "C:\\Users\\MyPC\\Source\\Repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MyPC\\source\\repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj": {
+    "C:\\Users\\MyPC\\Source\\Repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MyPC\\source\\repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj",
+        "projectUniqueName": "C:\\Users\\MyPC\\Source\\Repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj",
         "projectName": "ZdravstveniSistem",
-        "projectPath": "C:\\Users\\MyPC\\source\\repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj",
+        "projectPath": "C:\\Users\\MyPC\\Source\\Repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\ZdravstveniSistem.csproj",
         "packagesPath": "C:\\Users\\MyPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MyPC\\source\\repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\obj\\",
+        "outputPath": "C:\\Users\\MyPC\\Source\\Repos\\course-project-tim-18\\ZdravstveniSistem\\ZdravstveniSistem\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MyPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
