@@ -1,0 +1,15 @@
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.deps.json
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.runtimeconfig.json
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.dll
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.pdb
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfoInputs.cache
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfo.cs
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.dll
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/refint/HealthCare.dll
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.pdb
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache
+/Users/dusanpejanovic/RiderProjects/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/ref/HealthCare.dll
