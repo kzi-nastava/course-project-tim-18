@@ -8,6 +8,7 @@ namespace HealthCare.Patient
 {
     public class Patient : User
     {
-
+        public
+            void pocetak() { }
     }
 }
