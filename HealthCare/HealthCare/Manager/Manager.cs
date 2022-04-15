@@ -8,8 +8,18 @@ namespace HealthCare
         public Manager(string username, string password, Hospital hospital)
         {
             this.username = username;
-            this.password = password;
+            this.Password = password;
             this.hospital = hospital;
         }
+        
+        public Hospital Hospital
+        {
+            get => hospital;
+            set => hospital = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+
+
+   
     }
 }

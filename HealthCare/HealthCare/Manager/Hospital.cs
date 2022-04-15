@@ -27,5 +27,23 @@ namespace HealthCare
             this.stockroom = stockroom;
 
         }
+
+        public string Name
+        {
+            get => name;
+            set => name = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public List<Room> RoomList
+        {
+            get => roomList;
+            set => roomList = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public List<Equipment> Stockroom
+        {
+            get => stockroom;
+            set => stockroom = value ?? throw new ArgumentNullException(nameof(value));
+        }
     }
 }

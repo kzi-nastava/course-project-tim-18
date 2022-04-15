@@ -7,6 +7,7 @@ namespace HealthCare
         private string name;
         private int amount = 0;
 
+        
         public Equipment(EquipmentType equipmentType, string name, int amount)
         {
             this.name = name;
@@ -20,5 +21,22 @@ namespace HealthCare
             this.name = name;
         }
 
+        public EquipmentType EquipmentType
+        {
+            get => equipmentType;
+            set => equipmentType = value;
+        }
+
+        public string Name
+        {
+            get => name;
+            set => name = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public int Amount
+        {
+            get => amount;
+            set => amount = value;
+        }
     }
 }
