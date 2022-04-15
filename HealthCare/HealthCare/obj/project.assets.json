@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\User\\.nuget\\packages\\": {}
+    "C:\\Users\\MyPC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+      "projectUniqueName": "C:\\Users\\MyPC\\Desktop\\usi proj\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
       "projectName": "HealthCare",
-      "projectPath": "C:\\Users\\User\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
-      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
+      "projectPath": "C:\\Users\\MyPC\\Desktop\\usi proj\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+      "packagesPath": "C:\\Users\\MyPC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MyPC\\Desktop\\usi proj\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MyPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
