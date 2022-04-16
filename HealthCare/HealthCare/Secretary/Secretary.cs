@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace HealthCare.Secretary
 {
-    internal class Secretary
+    public class Secretary:User
     {
+        public Secretary(string username, string password)
+        {
+            this.username = username;
+            this.password = password;
+        }
     }
 }
