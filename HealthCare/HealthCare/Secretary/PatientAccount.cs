@@ -10,18 +10,16 @@ namespace HealthCare.Secretary
     {
         private string name;
         private string lastname;
-        private int id;
         private string address;
         private string username;
         private string password;
         private string email;
 
        
-        public PatientAccount(string name,string lastname,int id, string address,string username,string password,string email)
+        public PatientAccount(string name,string lastname, string address,string username,string password,string email)
         {
             this.name = name;
             this.lastname = lastname;
-            this.id = id;
             this.address = address;
             this.username = username;
             this.password = password;
@@ -36,11 +34,6 @@ namespace HealthCare.Secretary
         public string Lastname { 
             get { return lastname; } 
             set { lastname = value; }
-        }
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
         }
         public string Address
         {
@@ -64,6 +57,9 @@ namespace HealthCare.Secretary
             get { return email; }
             set { email = value; }
         }
-
+        public override string ToString()
+        {
+            return  "Ime: " + Name + "\nPrezime: " + Lastname + "\nAdresa: " + Address + "\nKorisnicko ime:" + Username + "\nLozinka: " + Password + "\nEmail: " + Email;
+        }
     }
 }

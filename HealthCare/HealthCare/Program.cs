@@ -1,5 +1,12 @@
 ﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+using HealthCare.Secretary;
+
+SecretaryManu manu = new SecretaryManu();
+bool showMenu = true;
+    while (showMenu)
+    {
+       showMenu = manu.WriteManu();
+}
 
 
 
