@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,8 @@ namespace HealthCare.Secretary
             Console.WriteLine(account);
             Console.WriteLine("-------------------------------------------------------------");
         }
-        public void CreatePatient()
+        public PatientAccount CreateInput()
         {
-            Console.WriteLine("\nTO DO: Create patient");
-
             Console.Write("\nUnesite ime pacijenta: ");
             string name = Console.ReadLine();
 
@@ -39,25 +38,49 @@ namespace HealthCare.Secretary
             Console.Write("Unesite lozinku pacijenta: ");
             string password = Console.ReadLine();
 
-            PatientAccount account = new PatientAccount(name, lastname, address, username, password,email);
-            MedicalRecord(account);
-           // string fileName = "..Data.json";
-            string jsonString = JsonSerializer.Serialize(account);
-            Console.WriteLine(jsonString);
-            //File.WriteAllText(fileName, jsonString);
+            PatientAccount account = new PatientAccount(name, lastname, address, username, password, email);
+            return account;
 
+        }
+        public void JsonWriteFile(PatientAccount account)
+        {
+            string fileName = "Data.json";
+            string jsonString = System.Text.Json.JsonSerializer.Serialize(account);
+            Console.WriteLine(jsonString);
+            File.AppendAllText(fileName, jsonString);
+        }
+        public void JsonReadFile(string name)
+        {
+            string jsonString = String.Empty;
+            jsonString = File.ReadAllText("Data.json");
+            PatientAccount account = JsonConvert.DeserializeObject<PatientAccount>(jsonString);
+            Console.WriteLine(account);
+        }
+        public void CreatePatient()
+        {
+            Console.WriteLine("\n-------------------------KREIRANJE NALOGA-----------------------------");
+
+            PatientAccount account = CreateInput();
+            MedicalRecord(account);
+            JsonWriteFile(account);
         }
         public void ReadPatient()
         {
-            Console.WriteLine("TO DO: Read patient");
+            Console.Write("\nUnesite ime pacijenta: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine("-------------------------PREGLED NALOGA-----------------------------");
+
+            JsonReadFile(name);
+
         }
         public void UpdatePatient()
         {
-            Console.WriteLine("TO DO: Update patient");
+            Console.WriteLine("-------------------------IZMJENA NALOGA-----------------------------");
         }
         public void DeletePatient()
         {
-            Console.WriteLine("TO DO: Delete patient");
+            Console.WriteLine("-------------------------BRISANJE NALOGA-----------------------------");
         }
 
        
