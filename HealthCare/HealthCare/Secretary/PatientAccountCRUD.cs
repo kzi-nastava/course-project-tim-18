@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HealthCare.Secretary
@@ -40,6 +41,10 @@ namespace HealthCare.Secretary
 
             PatientAccount account = new PatientAccount(name, lastname, address, username, password,email);
             MedicalRecord(account);
+           // string fileName = "..Data.json";
+            string jsonString = JsonSerializer.Serialize(account);
+            Console.WriteLine(jsonString);
+            //File.WriteAllText(fileName, jsonString);
 
         }
         public void ReadPatient()
