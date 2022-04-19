@@ -1,32 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
 
 namespace HealthCare
 {
     public class Hospital
     {
         private string name;
-        private List<Room> roomList = new List<Room>();
-        private List<Equipment> stockroom = new List<Equipment>();
+        private List<Room> roomList = new List<Room>() { new Room(RoomType.Undefined, "Magacin") };
 
         public Hospital(string name)
         {
             this.name = name;
         }
 
+        [JsonConstructor]
         public Hospital(string name, List<Room> roomList)
         {
             this.name = name;
             this.roomList = roomList;
         }
 
-        public Hospital(string name, List<Room> roomList, List<Equipment> stockroom)
-        {
-            this.name = name;
-            this.roomList = roomList;
-            this.stockroom = stockroom;
 
-        }
+
 
         public string Name
         {
@@ -40,10 +37,44 @@ namespace HealthCare
             set => roomList = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        public List<Equipment> Stockroom
+
+
+
+        public bool EquipmentExist(string name)
         {
-            get => stockroom;
-            set => stockroom = value ?? throw new ArgumentNullException(nameof(value));
+            for (int i = 0; i < roomList.Count; i++)
+                if (roomList[i].EquipmentExist(name) == true)
+                    return true;
+
+
+            return false;
+        }
+
+
+  
+
+
+
+        public bool RoomExist(string name)
+        {
+            for (int i = 0; i < roomList.Count; i++)
+                if (roomList[i].Name == name)
+                    return true;
+            
+
+            return false;
+        }
+
+
+        public Room GetRoom(string name)
+        {
+            for (int i = 0; i < roomList.Count; i++)
+            {
+                if (roomList[i].Name == name)
+                    return roomList[i];
+            }
+
+            return null;
         }
     }
 }

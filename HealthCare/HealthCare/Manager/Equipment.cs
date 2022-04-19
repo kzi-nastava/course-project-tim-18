@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.Json.Serialization;
+
 namespace HealthCare
 {
     public class Equipment
@@ -7,7 +9,9 @@ namespace HealthCare
         private string name;
         private int amount = 0;
 
-        
+
+
+        [JsonConstructor]
         public Equipment(EquipmentType equipmentType, string name, int amount)
         {
             this.name = name;
@@ -38,5 +42,8 @@ namespace HealthCare
             get => amount;
             set => amount = value;
         }
+
+        
+
     }
 }
