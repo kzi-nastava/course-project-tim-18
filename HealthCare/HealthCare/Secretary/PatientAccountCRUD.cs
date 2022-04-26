@@ -1,16 +1,17 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HealthCare.Secretary
+namespace HealthCare
 {
     public class PatientAccountCRUD
     {
-        public void MedicalRecord(PatientAccount account)
+        public void MedicalRecord(MedicalRecord account)
         {
             Console.WriteLine("\n-------------------------------------------------------------");
             Console.WriteLine("                   ZDRAVSTVENI KARTON                 ");
@@ -18,13 +19,16 @@ namespace HealthCare.Secretary
             Console.WriteLine(account);
             Console.WriteLine("-------------------------------------------------------------");
         }
-        public PatientAccount CreateInput()
+        public MedicalRecord CreateInput()
         {
             Console.Write("\nUnesite ime pacijenta: ");
             string name = Console.ReadLine();
 
             Console.Write("Unesite prezime pacijenta: ");
             string lastname = Console.ReadLine();
+
+            Console.Write("Unesite id pacijenta: ");
+            string id = Console.ReadLine();
 
             Console.Write("Unesite adresu pacijenta: ");
             string address = Console.ReadLine();
@@ -38,40 +42,65 @@ namespace HealthCare.Secretary
             Console.Write("Unesite lozinku pacijenta: ");
             string password = Console.ReadLine();
 
-            PatientAccount account = new PatientAccount(name, lastname, address, username, password, email);
+            MedicalRecord account = new MedicalRecord(name, lastname, address, username, password, email, id);
             return account;
 
         }
-        public void JsonWriteFile(PatientAccount account)
+        public void JsonWriteFile(MedicalRecord account)
         {
             string fileName = "Data.json";
             string jsonString = System.Text.Json.JsonSerializer.Serialize(account);
             Console.WriteLine(jsonString);
             File.AppendAllText(fileName, jsonString);
         }
-        public void JsonReadFile(string name)
+        public void JsonReadFile(string id)
         {
-            string jsonString = String.Empty;
-            jsonString = File.ReadAllText("Data.json");
-            PatientAccount account = JsonConvert.DeserializeObject<PatientAccount>(jsonString);
-            Console.WriteLine(account);
+            //string jsonString = String.Empty;
+            //jsonString = File.ReadAllText("Data.json");
+            //PatientAccount account = JsonConvert.DeserializeObject<PatientAccount>(jsonString);
+            //Console.WriteLine(jsonString);
+
+            /*string fileName = "../../../Data/Appointments.json";
+            string appointmentFileData = "";
+            appointmentFileData = File.ReadAllText(fileName);
+            string[] appointments = appointmentFileData.Split('\n');
+            List<Appointment> appointmentsList = new List<Appointment>();
+            foreach (String s in appointments)
+            {
+                if (s != "")
+                {
+                    Appointment? appointment = JsonSerializer.Deserialize<Appointment>(s);
+                    if (appointment != null)
+                        appointmentsList.Add(appointment);
+
+                }
+            }
+            return appointmentsList;*/
+
+            StreamReader r = new StreamReader("Data.json");
+            string jsonString = r.ReadToEnd();
+            MedicalRecord m = JsonConvert.DeserializeObject<MedicalRecord>(jsonString);
+
+            if (m.Id == id) { Console.WriteLine(m); }
+            else { Console.WriteLine("Neispravan id!"); }
+           
         }
         public void CreatePatient()
         {
             Console.WriteLine("\n-------------------------KREIRANJE NALOGA-----------------------------");
 
-            PatientAccount account = CreateInput();
+            MedicalRecord account = CreateInput();
             MedicalRecord(account);
             JsonWriteFile(account);
         }
         public void ReadPatient()
         {
-            Console.Write("\nUnesite ime pacijenta: ");
-            string name = Console.ReadLine();
+            Console.Write("\nUnesite id pacijenta: ");
+            string id = Console.ReadLine();
 
             Console.WriteLine("-------------------------PREGLED NALOGA-----------------------------");
 
-            JsonReadFile(name);
+            JsonReadFile(id);
 
         }
         public void UpdatePatient()
@@ -81,6 +110,7 @@ namespace HealthCare.Secretary
         public void DeletePatient()
         {
             Console.WriteLine("-------------------------BRISANJE NALOGA-----------------------------");
+          
         }
 
        
