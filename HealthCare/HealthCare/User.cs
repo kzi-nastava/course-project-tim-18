@@ -5,7 +5,6 @@ namespace HealthCare
     {
         protected string username;
         protected string password;
-
-        
+ 
     }
 }

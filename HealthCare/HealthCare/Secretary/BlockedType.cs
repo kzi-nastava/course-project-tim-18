@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace HealthCare
 {
-    public class Appointment
+    public enum BlockedType
     {
-
+        Secretary,
+        System
     }
 }

@@ -8,7 +8,11 @@ namespace HealthCare
 {
     public class SecretaryManu
     {
-        PatientAccountCRUD crud = new PatientAccountCRUD();
+        Secretary crud = new Secretary();
+        public void PrintHeader(string title)
+        {
+            Console.WriteLine("\n-------------------------"+title+"-----------------------------");
+        }
         public void PrintMainManu()
         {
             Console.WriteLine("1. Manipulisanje nalogom pacijenta");
@@ -42,15 +46,19 @@ namespace HealthCare
             switch (Console.ReadLine())
             {
                 case "1":
+                    PrintHeader("KREIRAJ NALOG");
                     crud.CreatePatient();
                     return true;
                 case "2":
+                    PrintHeader("PREGLEDAJ NALOG");
                     crud.ReadPatient();
                     return true;
                 case "3":
+                    PrintHeader("IZMIJENI NALOG");
                     crud.UpdatePatient();
                     return true;
                 case "4":
+                    PrintHeader("OBRISI NALOG");
                     crud.DeletePatient();
                     return true;
                 case "5":
@@ -69,6 +77,7 @@ namespace HealthCare
                     CheckInput();
                     return true;
                 case "2":
+                    crud.UnblockingPatientsAccount();
                     return true;
                 case "3":
                     return true;
