@@ -19,7 +19,7 @@ namespace HealthCare.Doctor
             doctorAppointmentList = null;
         }
 
-        public Doctor(string username, string password, Hospital hospital, List<Appointment> doctorAppointmentList)
+        public Doctor(string username, string password, List<Appointment> doctorAppointmentList)
         {
             this.username = username;
             this.password = password;
