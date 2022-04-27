@@ -154,6 +154,178 @@ namespace HealthCare
             }
         }
 
+        public void Search()
+        {
+
+            bool roomTypeImportant = false;
+            bool equipmentTypeImportant = false;
+            bool equipmentNameImportant = false;
+            bool amountImportant = false;
+
+
+            RoomType roomType = RoomType.Undefined;
+            EquipmentType equipmentType = EquipmentType.HallwayEquipment;
+            string equipmentName = "";
+            int minAmonut = 0;
+            int maxAmount = int.MaxValue;
+
+            string userResponse;
+
+            Console.WriteLine("Da li ti je bitan tip prosotorije? (da/ne)");
+
+            userResponse = Console.ReadLine();
+
+            if (userResponse == "da")
+            {
+                roomTypeImportant = true;
+
+                Console.WriteLine("1.Operacione sala");
+                Console.WriteLine("2.Sala za pregled");
+                Console.WriteLine("3.Soba za odmor");
+                Console.WriteLine("4.Ostalo");
+                Console.WriteLine("Unesi redni broj:"); 
+
+
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "1")
+                    roomType = RoomType.OperationRoom;
+                else if (userResponse == "2")
+                    roomType = RoomType.MedicalExaminationRoom;
+                else if (userResponse == "3")
+                    roomType = RoomType.RestingRoom;
+                else
+                    roomType = RoomType.Undefined;
+
+
+                
+            }
+
+            Console.WriteLine("Da li ti je bitan tip opreme? (da/ne)");
+
+            userResponse = Console.ReadLine();
+
+            if (userResponse == "da")
+            {
+                equipmentTypeImportant = true;
+
+
+                Console.WriteLine("1.Oprema za pregled");
+                Console.WriteLine("2.Oprema za operaciju");
+                Console.WriteLine("3.Sobni nameštaj");
+                Console.WriteLine("4.Oprema za hodnik");
+                Console.WriteLine("Unesi redni broj:");
+
+
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "1")
+                    equipmentType = EquipmentType.MedicalExaminationTools;
+                else if (userResponse == "2")
+                    equipmentType = EquipmentType.OperationTools;
+                else if (userResponse == "3")
+                    equipmentType = EquipmentType.RoomFurniture;
+                else
+                    equipmentType = EquipmentType.HallwayEquipment;
+
+
+            }
+
+
+
+            Console.WriteLine("Da li ti je bitan naziv opreme? (da/ne)");
+
+            userResponse = Console.ReadLine();
+
+            if (userResponse == "da")
+            {
+                equipmentNameImportant = true;
+
+                Console.WriteLine("Unesi naziv opreme: ");
+
+                equipmentName = Console.ReadLine();
+
+
+            }
+
+
+
+            Console.WriteLine("Da li ti je bitna količina opreme? (da/ne)");
+
+            userResponse = Console.ReadLine();
+
+
+            if (userResponse == "da")
+            {
+                amountImportant = true;
+
+                Console.WriteLine("1.Nema na stanju");
+                Console.WriteLine("2.Od 1 dod 10");
+                Console.WriteLine("3.Više od 10");
+                Console.WriteLine("Unesi redni broj:");
+
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "1")
+                {
+                    minAmonut = 0;
+                    maxAmount = 0;
+                }
+                else if (userResponse == "2")
+                {
+
+                    minAmonut = 1;
+                    maxAmount = 10;
+                }
+
+                else
+                {
+                    minAmonut = 10;
+                    maxAmount = int.MaxValue;
+
+                }
+
+
+            }
+
+
+            foreach (Room room in hospital.RoomList)
+            {
+                if (roomTypeImportant == true && room.RoomType != roomType)
+                    continue;
+
+                foreach (Equipment equipment in room.EquipmentList)
+                {
+                    if (equipmentTypeImportant == true && equipmentType != equipment.EquipmentType)
+                        continue;
+
+                    if (equipmentNameImportant == true && equipmentName != equipment.Name)
+                        continue;
+
+                    if (amountImportant == true && (equipment.Amount < minAmonut || equipment.Amount > maxAmount))
+                        continue;
+
+                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("Naziv prostorije: " + room.Name);
+                    Console.WriteLine("Naziv opreme: " + equipment.Name);
+                    Console.WriteLine("Količina opreme: " + equipment.Amount);
+                    Console.WriteLine("------------------------------------");
+
+
+                }
+
+            }
+
+
+
+
+
+                    
+
+
+        }
+
+
         public void Load()
         {
             string fileName = "../../../Data/ManagerData.json";
