@@ -12,3 +12,4 @@ bool showMenu = true;
 
 
 
+Console.WriteLine("aasa");
