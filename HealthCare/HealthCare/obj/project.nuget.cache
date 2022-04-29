@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "TfJ270DJ8aGTkbDVGhOkDZYPKeT7QDfqR4cmBLRAU7+/nN25dWKCMj+uRx+NBz61fBWJE7YxUEV5TKGeXcw+iA==",
+=======
+  "dgSpecHash": "AbumFz0C6mUwqjZpRiRQGeZ6U9NgEii77hU72sl1dH61L/OkJQZnu7we0dj8s/Rrbkaf3DYVIVcMh/4oNQqikg==",
+>>>>>>> Doctor
   "success": true,
   "projectFilePath": "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/HealthCare.csproj",
   "expectedPackageFiles": [],

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,3 +13,12 @@ namespace HealthCare.Doctor
         Examination
     }
 }
+=======
+namespace HealthCare.Doctor;
+
+public enum AppointmentType
+{
+    Operation,
+    Examination
+}
+>>>>>>> Doctor
