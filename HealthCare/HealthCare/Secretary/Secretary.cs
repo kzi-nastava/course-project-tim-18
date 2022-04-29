@@ -26,6 +26,7 @@ namespace HealthCare
         string medicalRecordFile = "../../../Data/MedicalRecord.json";
         string blockedPatientsFile = "../../../Data/BlockedPatients.json";
         string patientFile = "../../../Data/Patient.json";
+        string appointmentFile = "../../../Data/Appointment.json";
 
         MedicalRecord medRecord = new MedicalRecord();
 
@@ -110,6 +111,29 @@ namespace HealthCare
         }
         //----------------------------------------------------------------------------
 
+        //APPOINTMENT-----------------------------------------------------------------
+        public List<Appointment> ReadFromAppointment(string fileName)
+        {
+            string appointmentData = "";
+            appointmentData = File.ReadAllText(fileName);
+            string[] appointments = appointmentData.Split('\n');
+            List<Appointment> appointmentList = new List<Appointment>();
+            foreach (String s in appointments)
+            {
+                if (s != "")
+                {
+                    Appointment? appointment = System.Text.Json.JsonSerializer.Deserialize<Appointment>(s);
+                    if (appointment != null)
+                        appointmentList.Add(appointment);
+                }
+            }
+            return appointmentList;
+
+        }
+
+        //----------------------------------------------------------------------------
+
+
         public string InputUsername()
         {
             Console.Write("\nUnesite korisnicko ime pacijenta: ");
@@ -187,22 +211,42 @@ namespace HealthCare
         public void UnblockingPatientsAccount()
         {
             List<BlockedPatients> blockedPatientslist = ReadFromBlockedPatients(blockedPatientsFile);
+            List<MedicalRecord> medicalRecordList = medRecord.JsonReadFile(medicalRecordFile);
             foreach (BlockedPatients blockedPatient in blockedPatientslist)
-            {
-                Console.WriteLine(blockedPatient);
-            }
-            Console.WriteLine("Odblokirajte korisnicki nalog: ");
-            string unblock = Console.ReadLine();
+                foreach(MedicalRecord medicalRecord in medicalRecordList)
+                    {
+                       if(blockedPatient.Patient.username == medicalRecord.Username)
+                        medRecord.PrintMedicalRecord(medicalRecord);
+                    }
+            string unblock = InputUsername();
 
             foreach (BlockedPatients blockedPatient in blockedPatientslist)
             {
-                Console.WriteLine(blockedPatient);
                 if (blockedPatient.Patient.username == unblock)
                 {
                     DeleteFromBlockedPatients(blockedPatient.Patient.username, blockedPatientsFile);
                     WriteToPatients(blockedPatient.Patient, patientFile);
                 }
             }
+
+
+        }
+        //----------------------------------------------------------------------------
+
+        //PATIENT REQUESTS------------------------------------------------------------
+        public void ViewingPatientRequests()
+        {
+
+            List<Appointment> appointmentlist = ReadFromAppointment(appointmentFile);
+            List<MedicalRecord> medicalRecordList = medRecord.JsonReadFile(medicalRecordFile);
+            foreach (Appointment appointment in appointmentlist)
+                { 
+                    Console.WriteLine(appointment); 
+                }
+                
+            string username = InputUsername();
+            //if input da obrisi ako je ne onda ostaje 
+
 
 
         }

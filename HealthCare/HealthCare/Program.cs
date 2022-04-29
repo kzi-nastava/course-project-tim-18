@@ -2,7 +2,7 @@
 using HealthCare;
 using System.Text.Json;
 
-SecretaryManu manu = new SecretaryManu();
+SecretaryMenu manu = new SecretaryMenu();
 bool showMenu = true;
     while (showMenu)
     {

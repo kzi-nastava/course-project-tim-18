@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HealthCare
 {
-    public class SecretaryManu
+    public class SecretaryMenu
     {
         Secretary crud = new Secretary();
         public void PrintHeader(string title)
@@ -15,10 +15,12 @@ namespace HealthCare
         }
         public void PrintMainManu()
         {
-            Console.WriteLine("1. Manipulisanje nalogom pacijenta");
-            Console.WriteLine("2. Blokiranje pacijenata");
-            Console.WriteLine("3. Pregled zahtjeva");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("-------------OPCIJE---------------");
+            Console.WriteLine("1. Manipulisanje nalogom");
+            Console.WriteLine("2. Blokiraj naloga");
+            Console.WriteLine("3. Odblokiraj naloga");
+            Console.WriteLine("4. Pregled zahtjeva");
+            Console.WriteLine("5. Exit");
             Console.Write("\r\nUnesite broj opcije: ");
 
         }
@@ -77,11 +79,13 @@ namespace HealthCare
                     CheckInput();
                     return true;
                 case "2":
-                    crud.UnblockingPatientsAccount();
+                    crud.ReadPatient();
                     return true;
                 case "3":
+                    crud.UnblockingPatientsAccount();
                     return true;
                 case "4":
+                    crud.ViewingPatientRequests();
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
