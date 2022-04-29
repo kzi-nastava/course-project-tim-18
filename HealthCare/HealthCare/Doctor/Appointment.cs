@@ -1,31 +1,51 @@
 ﻿
 
 using System.Text.Json.Serialization;
+using Microsoft.VisualBasic;
 
 namespace HealthCare.Doctor
 {
     class Appointment
     {
-        private Doctor? doctor;
-        private string patient;
-        private DateTime? dateTime;
-        private AppointmentType? type;
+        private string? doctor;
+        private string? patient { get; set; }
+        private DateTime dateTime { get; set; }
+        private AppointmentType type { get; set; }
 
-        public Appointment()
+        public string Doctor
         {
-            doctor = null;
-            patient = null;
-            dateTime = null;
-            type = null;
+            get => doctor;
+            set => doctor = value;
         }
-
+        public string Patient
+        {
+            get => patient;
+            set => patient = value;
+        }
+        public DateTime DateTime
+        {
+            get => dateTime;
+            set => dateTime = value;
+        }
+        
+        public AppointmentType AppointmentType
+        {
+            get => type;
+            set => type = value;
+        }
         [JsonConstructor]
-        public Appointment(Doctor doctor, string patient, DateTime dateTime, AppointmentType type)
+        public Appointment(string doctor, string patient, DateTime dateTime, AppointmentType type)
         {
             this.doctor = doctor;
             this.patient = patient;
             this.dateTime = dateTime;
             this.type = type;
+        }
+
+        public override string ToString()
+        {
+            return String.Format("Appointment( Doctor: {0}, Patient: {1}, Date&Time: {2}, AppointmentType: {3})", doctor, patient, dateTime, type);
+
         }
     }
 }
