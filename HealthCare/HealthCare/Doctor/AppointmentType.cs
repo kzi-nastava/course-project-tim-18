@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +12,3 @@ namespace HealthCare.Doctor
         Examination
     }
 }
-=======
-namespace HealthCare.Doctor;
-
-public enum AppointmentType
-{
-    Operation,
-    Examination
-}
->>>>>>> Doctor
