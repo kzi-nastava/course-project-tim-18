@@ -112,7 +112,7 @@ namespace HealthCare
             {
                 DateTime timeChecked = Program.stringToDateTime(appointment.TimeOfAppointment);
                 TimeSpan timeDifference = timeWanted.Subtract(timeChecked);
-                if ((timeDifference.TotalMinutes < 16 && doctor == appointment.Doctor) || (timeDifference.TotalMinutes > -16 && doctor == appointment.Doctor))
+                if ((-16 < timeDifference.TotalMinutes && timeDifference.TotalMinutes < 16) && doctor == appointment.Doctor)
                     return false;
             }
             return true;

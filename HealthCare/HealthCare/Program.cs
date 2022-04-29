@@ -29,8 +29,7 @@ namespace HealthCare
         {
             
             Patient patient = new Patient("markop38", "markooo");
-            patient.serializePatient();
-            
+            patient.deletingAppointment();
             Appointment.printingAppointment();
             
 

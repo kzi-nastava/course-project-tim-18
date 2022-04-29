@@ -9,13 +9,20 @@ namespace HealthCare
 {
     class AppointmentRequest
     {
-        Appointment appointment;
+        Appointment newAppointment;
+        Appointment oldAppointment;
         typeOfChange typeOfChange;
 
-        public Appointment Appointment
+        public Appointment NewAppointment
         {
-            get => Appointment;
-            set => Appointment = value;
+            get => newAppointment;
+            set => newAppointment = value;
+        }
+
+        public Appointment OldAppointment
+        {
+            get => oldAppointment;
+            set => oldAppointment = value;
         }
 
         public typeOfChange TypeOfChange
@@ -24,10 +31,11 @@ namespace HealthCare
             set => typeOfChange = value;
         }
 
-        public AppointmentRequest(Appointment appointment, typeOfChange typeOfChange)
+        public AppointmentRequest(Appointment oldAppointment, Appointment newAppointment, typeOfChange typeOfChange)
         {
             this.typeOfChange = typeOfChange;
-            this.appointment = appointment;
+            this.newAppointment = newAppointment;
+            this.oldAppointment = oldAppointment;
         }
 
         public static List<AppointmentRequest> appointmentsRequestDeserialization()

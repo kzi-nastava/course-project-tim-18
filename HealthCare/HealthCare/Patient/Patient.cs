@@ -104,7 +104,8 @@ namespace HealthCare
                 string doctor = Console.ReadLine();
                 List<Appointment> appointments = Appointment.appointmentsDeserialization();
                 bool validationOfNewAppointment = false;
-                int? indexOfRequest = 0;
+                Appointment oldAppointment = new Appointment();
+                int indexOfRequest = 0;
                 for (int i = 0; i < appointments.Count; i++)
                 {
                     if (appointments[i].TimeOfAppointment == timeOfAppointment && appointments[i].Doctor == doctor)
@@ -116,6 +117,7 @@ namespace HealthCare
                         {
                             Console.WriteLine("Unesite ime doktora kod koga zelite novi termin: ");
                             string newDoctor = Console.ReadLine();
+                            oldAppointment = appointments[i];
                             appointments[i].Doctor = newDoctor;
                             if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment, appointments[i].Doctor))
                                 validationOfNewAppointment = true;
@@ -124,9 +126,13 @@ namespace HealthCare
                         {
                             Console.WriteLine("Unesite vreme novog termina: ");
                             string newTimeOfAppointment = Console.ReadLine();
+                            oldAppointment = appointments[i];
                             appointments[i].TimeOfAppointment = newTimeOfAppointment;
                             if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment, appointments[i].Doctor))
+                            {
                                 validationOfNewAppointment = true;
+                                timeOfAppointment = newTimeOfAppointment;
+                            }
                         }
                     }
                 }
@@ -137,10 +143,9 @@ namespace HealthCare
                         Appointment.serializingListOfAppointments(appointments);
                     else
                     {
-                        AppointmentRequest appointmentRequest = new AppointmentRequest(appointments[indexOfRequest], typeOfChange.Update);
+                        AppointmentRequest appointmentRequest = new AppointmentRequest(oldAppointment, appointments[indexOfRequest], typeOfChange.Update);
                         appointmentRequest.serializeAppointmentRequest();
                     }
-                Appointment.serializingListOfAppointments(appointments);
             }
             else
             {
@@ -168,7 +173,7 @@ namespace HealthCare
                     appointment.deletingAppointment();
                 else
                 {
-                    AppointmentRequest appointmentRequest = new AppointmentRequest(appointment, typeOfChange.Delete);
+                    AppointmentRequest appointmentRequest = new AppointmentRequest(appointment, appointment, typeOfChange.Delete);
                     appointmentRequest.serializeAppointmentRequest();
                 }
 
