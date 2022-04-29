@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HealthCare
+namespace HealthCare.Patient
 {
     class AntiTrolCounter
     {
@@ -103,7 +104,7 @@ namespace HealthCare
             int counter = 0;
             foreach(AntiTrolCounter antiTrol in antiTrolList)
             {
-                DateTime changeDate = Program.stringToDateTime(antiTrol.TimeOfChange);
+                DateTime changeDate = DateTime.ParseExact(antiTrol.TimeOfChange, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                 TimeSpan timeDifference = now.Subtract(changeDate);
                 if (timeDifference.TotalDays < 31 && this.PatientUsername == antiTrol.PatientUsername && antiTrol.typeOfChange == typeOfChange.Delete)
                     counter++;
@@ -120,7 +121,7 @@ namespace HealthCare
             int counter = 0;
             foreach (AntiTrolCounter antiTrol in antiTrolList)
             {
-                DateTime changeDate = Program.stringToDateTime(antiTrol.TimeOfChange);
+                DateTime changeDate = DateTime.ParseExact(antiTrol.TimeOfChange, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                 TimeSpan timeDifference = now.Subtract(changeDate);
                 if (timeDifference.TotalDays < 31 && this.PatientUsername == antiTrol.PatientUsername && antiTrol.typeOfChange == typeOfChange.Update)
                     counter++;
@@ -137,7 +138,7 @@ namespace HealthCare
             int counter = 0;
             foreach (AntiTrolCounter antiTrol in antiTrolList)
             {
-                DateTime changeDate = Program.stringToDateTime(antiTrol.TimeOfChange);
+                DateTime changeDate = DateTime.ParseExact(antiTrol.TimeOfChange, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                 TimeSpan timeDifference = now.Subtract(changeDate);
                 if (timeDifference.TotalDays < 31 && this.PatientUsername == antiTrol.PatientUsername && antiTrol.typeOfChange == typeOfChange.Create)
                     counter++;

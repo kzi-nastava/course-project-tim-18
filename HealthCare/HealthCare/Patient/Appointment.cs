@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Globalization;
 
-namespace HealthCare
+namespace HealthCare.Patient
 {
     public class Appointment
     {
@@ -107,10 +108,10 @@ namespace HealthCare
         public static bool isAppointmentValid(string timeOfAppointment, string doctor)
         {
             List<Appointment> appointments = Appointment.appointmentsDeserialization();
-            DateTime timeWanted = Program.stringToDateTime(timeOfAppointment);
+            DateTime timeWanted = DateTime.ParseExact(timeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
             foreach (Appointment appointment in appointments)
             {
-                DateTime timeChecked = Program.stringToDateTime(appointment.TimeOfAppointment);
+                DateTime timeChecked = DateTime.ParseExact(appointment.TimeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                 TimeSpan timeDifference = timeWanted.Subtract(timeChecked);
                 if ((-16 < timeDifference.TotalMinutes && timeDifference.TotalMinutes < 16) && doctor == appointment.Doctor)
                     return false;

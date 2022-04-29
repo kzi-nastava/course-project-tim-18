@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HealthCare
+namespace HealthCare.Patient
 {
     class AppointmentRequests
     {

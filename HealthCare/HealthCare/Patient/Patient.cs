@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HealthCare
+namespace HealthCare.Patient
 {
     public class Patient : User
     {
@@ -27,9 +28,9 @@ namespace HealthCare
             {
                 if (s != "")
                 {
-                    Patient? Patient = JsonSerializer.Deserialize<Patient>(s);
-                    if (Patient != null)
-                        PatientsList.Add(Patient);
+                    Patient? patient = JsonSerializer.Deserialize<Patient>(s);
+                    if (patient != null)
+                        PatientsList.Add(patient);
 
                 }
             }
@@ -43,7 +44,7 @@ namespace HealthCare
             string json = "";
             foreach (Patient patient in patients)
             {
-                if (patient.Username != this.Username && patient.Password != this.Password)
+                if (patient.username != this.username && patient.password != this.password)
                     json += JsonSerializer.Serialize(patient) + "\n";
             }
             File.WriteAllText(fileName, json);
@@ -68,7 +69,7 @@ namespace HealthCare
         {
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
-            AntiTrolCounter counter = new AntiTrolCounter(this.Username, dateInString, typeOfChange.Create);
+            AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Create);
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol == true)
             {
@@ -78,7 +79,7 @@ namespace HealthCare
                 string timeOfAppointment = Console.ReadLine();
                 if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
                 {
-                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.Username);
+                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username);
                     appointment.serializeAppointment();
                 }
             }
@@ -93,7 +94,7 @@ namespace HealthCare
 
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
-            AntiTrolCounter counter = new AntiTrolCounter(this.Username, dateInString, typeOfChange.Update);
+            AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol == true)
             {
@@ -136,7 +137,7 @@ namespace HealthCare
                         }
                     }
                 }
-                DateTime timeChecked = Program.stringToDateTime(timeOfAppointment);
+                DateTime timeChecked = DateTime.ParseExact(timeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if (validationOfNewAppointment == true)
                     if (timeDifference.TotalDays > 2)
@@ -158,7 +159,7 @@ namespace HealthCare
         {
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
-            AntiTrolCounter counter = new AntiTrolCounter(this.Username, dateInString, typeOfChange.Update);
+            AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol == true)
             {
@@ -166,8 +167,8 @@ namespace HealthCare
                 string doctor = Console.ReadLine();
                 Console.WriteLine("Unesite vreme tretmana koji zelite da izbrisete:(u formatu DD/MM/YYYY hh:mm ");
                 string timeOfAppointment = Console.ReadLine();
-                Appointment appointment = new Appointment(timeOfAppointment, doctor, this.Username);
-                DateTime timeChecked = Program.stringToDateTime(timeOfAppointment);
+                Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username);
+                DateTime timeChecked = DateTime.ParseExact(timeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if(timeDifference.TotalDays > 2)
                     appointment.deletingAppointment();
