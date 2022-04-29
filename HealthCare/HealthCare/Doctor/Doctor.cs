@@ -1,44 +1,19 @@
-<<<<<<< HEAD
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HealthCare.Patient;
-=======
-﻿
+
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
->>>>>>> Doctor
 
 namespace HealthCare.Doctor
 {
     class Doctor : User
     {
-<<<<<<< HEAD
-        public string Name;
-        public string Surname;
-        private List<Appointment> doctorAppointmentList;
-=======
         private string name;
         private string surname;
         private string? id;
         private List<Appointment>? appointments;
->>>>>>> Doctor
 
         public Doctor() {
             username = "";
             password = "";
-<<<<<<< HEAD
-            doctorAppointmentList = null;
-        }
-
-        public Doctor(string username, string password, List<Appointment> doctorAppointmentList)
-        {
-            this.username = username;
-            this.password = password;
-            this.doctorAppointmentList = doctorAppointmentList;
-=======
             appointments = new List<Appointment>();
             id = "";
             name = "";
@@ -153,7 +128,6 @@ namespace HealthCare.Doctor
                 }
             }
             
->>>>>>> Doctor
         }
     }
     
