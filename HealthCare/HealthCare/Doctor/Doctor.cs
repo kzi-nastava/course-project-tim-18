@@ -1,13 +1,14 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace HealthCare.Doctor
 {
     class Doctor : User
     {
-        public string Name;
-        public string Surname;
-        private string id;
+        private string name;
+        private string surname;
+        private string? id;
         private List<Appointment>? appointments;
 
         public Doctor() {
@@ -15,24 +16,37 @@ namespace HealthCare.Doctor
             password = "";
             appointments = new List<Appointment>();
             id = "";
-            Name = "";
-            Surname  = "";
+            name = "";
+            surname  = "";
         }
 
-        public string Id { get; set; }
+        public string Id { get => id; set => id = value; }
+        public string Name { get => name; set => name = value; }
+        public string Surname { get => surname; set => surname = value; }
 
-        public List<Appointment> Appointments { get; set; }
+        public List<Appointment> Appointments { get => appointments; set => appointments = value; }
+        
 
+        [JsonConstructor]
         public Doctor(string username, string password,string name, string surname, string id, List<Appointment> appointments)
         {
             this.username = username;
             this.password = password;
-            this.Name = name;
-            this.Surname = surname;
+            this.name = name;
+            this.surname = surname;
             this.id = id;
             this.appointments = appointments;
         }
-        bool CreateAppointment()
+    
+        public override string ToString()
+        {
+            return String.Format("Doctor( Name: {0}, Surname: {1}, ID: {2}, Username: {3}, Password: {4}, Appointments: [{5}])", name, surname, id, username, password, String.Join("; ",appointments));
+        }
+        public void AddAppointment(Appointment appointment)
+        {
+            this.appointments.Add(appointment);
+        }
+        public bool CreateAppointment()
         {
             Console.Write("Unesite  ime i prezime pacijenta:  ");
             string patientFullName = Console.ReadLine();
@@ -41,11 +55,16 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            Console.Write("Unesite datum i vreme pregleda pregleda(format = DD/MM/YYYY hh:mm):  ");
-            string dateTime = Console.ReadLine();
-            if (dateTime == "" ) // TODO regex for datetime
+            Console.Write("Unesite datum i vreme pregleda pregleda(format = dd/MM/yyyy HH:mm):  ");
+            string period = Console.ReadLine();
+            if (period == "")
             {
                 Console.WriteLine("Neodgovarajuc unos");
+                return false;
+            }
+            if (checkIfAvailable(DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null))) // TODO regex for datetime and check if doctor is available
+            {
+                Console.WriteLine("Doktor nije dostupan za dat termin.");
                 return false;
             }
             Console.WriteLine("Izaberite tip termina:");
@@ -57,10 +76,58 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            int z = Int32.Parse(type);
             // TODO patient = new Patient(); 
-            this.appointments.Add(new Appointment(this, patientFullName, DateTime.ParseExact(dateTime, "dd/MM/yyyy HH:mm", null), (AppointmentType)Int32.Parse(type)-1));
+            this.appointments.Add(new Appointment(this.username, patientFullName, DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null), (AppointmentType)Int32.Parse(type)-1));
             return true;
+        }
+
+        private bool checkIfAvailable(DateTime date)
+        {
+            foreach (var a in appointments)
+            {
+                if ((a.DateTime - date).Minutes > 0  && (a.DateTime - date).Minutes < 15)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public void readAppointments()
+        {
+            foreach (Appointment a in appointments)
+            {
+                Console.WriteLine(a);
+            }
+        }
+
+        public void Serialize()
+        {
+            
+        }
+        public void deleteAppointment(int index)
+        {
+            appointments.RemoveAt(index);
+        }
+
+        public void CheckSchedule(DateTime? chosenDate)
+        {
+            if (!chosenDate.HasValue)
+            {
+                chosenDate = DateTime.Today;
+            }
+            
+            for (int i = 0;i < appointments.Count;i++)
+            {
+                if ((appointments[i].DateTime - chosenDate) < TimeSpan.FromDays(4) && appointments[i].DateTime > chosenDate)
+                {
+                    Console.WriteLine(i);
+                    Console.Write("Datum pregleda/operacije: ");
+                    Console.WriteLine(appointments[i].DateTime);
+                    Console.WriteLine("Zdravstveni karton pacijenta: ");
+                    Console.WriteLine(appointments[i].Patient); // TODO add patient info from class
+                }
+            }
+            
         }
     }
     

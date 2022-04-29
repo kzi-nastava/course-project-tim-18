@@ -28,3 +28,18 @@ C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\D
 C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.pdb
 C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.genruntimeconfig.cache
 C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\ref\HealthCare.dll
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.exe
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.deps.json
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.runtimeconfig.json
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.dll
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\ref\HealthCare.dll
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.pdb
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.AssemblyReference.cache
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfoInputs.cache
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfo.cs
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.CoreCompileInputs.cache
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.dll
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\ref\HealthCare.dll
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.pdb
+C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.genruntimeconfig.cache
