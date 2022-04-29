@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HealthCare.Doctor
 {
-    class Operation
+    class Appointment
     {
     }
 }
