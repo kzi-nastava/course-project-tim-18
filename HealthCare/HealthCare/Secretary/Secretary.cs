@@ -1,4 +1,4 @@
-﻿namespace HealthCare
+﻿namespace HealthCare.Secretary
 {
     public class Secretary : User
     {
@@ -20,7 +20,7 @@
         string appointmentFile = "../../../Data/Appointment.json";
 
         MedicalRecord medRecord = new MedicalRecord();
-        Patient patient = new Patient();
+        Patient.Patient patient = new Patient.Patient();
 
         
         public string InputUsername()
@@ -38,8 +38,8 @@
             newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
             newMedicalRecord.SerializePatient(medicalRecord, medicalRecordFile);
 
-            Patient patient = new Patient(medicalRecord.Username, medicalRecord.Password);
-            patient.SerializePatient();
+            Patient.Patient patient = new Patient.Patient(medicalRecord.Username, medicalRecord.Password);
+            patient.serializePatient();
         }
 
         public void ReadPatientAccount()
@@ -49,12 +49,12 @@
             string account = "";
             MedicalRecord newMedicalRecord = new MedicalRecord();
             List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
-            List<Patient> patientList = patient.PatientDeserialization();
+            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
             foreach (MedicalRecord medicalRecord in medicalRecordList)
-                foreach(Patient patient in patientList)
+                foreach(Patient.Patient patient in patientList)
                     {
-                        if (medicalRecord.Username == username && patient.username == username)
+                        if (medicalRecord.Username == username && patient.Username == username)
                         {
                             newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
                             Console.Write("Da li zelite blokirati ovaj nalog? ");
@@ -72,13 +72,13 @@
 
             string username = InputUsername();
 
-            Patient newPatient = new Patient();
+            Patient.Patient newPatient = new Patient.Patient();
             MedicalRecord newMedicalRecord = new MedicalRecord();
-            List<Patient> patientList = newPatient.PatientDeserialization();
+            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
-            foreach (Patient patient in patientList)
+            foreach (Patient.Patient patient in patientList)
             {
-                if(patient.username == username)
+                if(patient.Username == username)
                     newMedicalRecord.DeleteFromMedicalRecord(username);
                     patient.DeleteFromPatients(username);
                
@@ -97,35 +97,35 @@
         //BLOCKING--------------------------------------------------------------------
         public void BlockingPatientAccount(string username,string password)
         {
-            Patient patient = new Patient(username,password);
+            Patient.Patient patient = new Patient.Patient(username,password);
             patient.DeleteFromPatients(username);
-            BlockedPatients blockedPatient = new BlockedPatients(BlockedType.Secretary,patient);
-            blockedPatient.SerializeBlockedPatient();
+            Patient.BlockedPatients blockedPatient = new Patient.BlockedPatients(Patient.BlockedType.Secretary,patient);
+            blockedPatient.serializeBlockedPatient();
         }
 
         public void UnblockingPatientsAccount()
         {
             MedicalRecord newMedicalRecord = new MedicalRecord();
-            BlockedPatients newBlockedPatient = new BlockedPatients();
+            Patient.BlockedPatients newBlockedPatient = new Patient.BlockedPatients();
 
-            List<BlockedPatients> blockedPatientsList = newBlockedPatient.BlockedPatientsDeserialization();
+            List<Patient.BlockedPatients> blockedPatientsList = Patient.BlockedPatients.blockedPatientsDeserialization();
             List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
 
-            foreach (BlockedPatients blockedPatient in blockedPatientsList)
+            foreach (Patient.BlockedPatients blockedPatient in blockedPatientsList)
                 foreach(MedicalRecord medicalRecord in medicalRecordList)
                     {
-                       if(blockedPatient.Patient.username == medicalRecord.Username)
+                       if(blockedPatient.Patient.Username == medicalRecord.Username)
                         newMedicalRecord.ViewMedicalRecord(medicalRecord);
                     }
             string unblock = InputUsername();
 
-            foreach (BlockedPatients blockedPatient in blockedPatientsList)
+            foreach (Patient.BlockedPatients blockedPatient in blockedPatientsList)
             {
-                if (blockedPatient.Patient.username == unblock)
+                if (blockedPatient.Patient.Username == unblock)
                 {
-                    Patient patient = new Patient(blockedPatient.Patient.username, blockedPatient.Patient.password);
-                    newBlockedPatient.DeleteFromBlockedPatients(blockedPatient.Patient.username, blockedPatientsFile);
-                    patient.SerializePatient();
+                    Patient.Patient patient = new Patient.Patient(blockedPatient.Patient.Username, blockedPatient.Patient.Password);
+                    newBlockedPatient.DeleteFromBlockedPatients(blockedPatient.Patient.Username, blockedPatientsFile);
+                    patient.serializePatient();
                 }
             }
 
@@ -136,10 +136,10 @@
         //PATIENT REQUESTS------------------------------------------------------------
         public void ViewingPatientRequests()
         {
-            AppointmentRequests newAppointmentRequest = new AppointmentRequests();
+            Patient.AppointmentRequests newAppointmentRequest = new Patient.AppointmentRequests();
 
-            List<AppointmentRequests> appointmentlist = newAppointmentRequest.appointmentsRequestDeserialization();
-            foreach (AppointmentRequests appointment in appointmentlist)
+            List<Patient.AppointmentRequests> appointmentlist = newAppointmentRequest.appointmentsRequestDeserialization();
+            foreach (Patient.AppointmentRequests appointment in appointmentlist)
                 { 
                     Console.WriteLine(appointment);
                 }
@@ -153,7 +153,7 @@
             string date = Console.ReadLine();
             Console.WriteLine(date);
             
-            foreach (AppointmentRequests appointment in appointmentlist)
+            foreach (Patient.AppointmentRequests appointment in appointmentlist)
             {
                 if(appointment.NewAppointment.TimeOfAppointment == date && appointment.NewAppointment.Doctor == doctor)
                 {
@@ -164,20 +164,20 @@
             }
         }
 
-        private void MenageRequestes(AppointmentRequests appointmentRequest)
+        private void MenageRequestes(Patient.AppointmentRequests appointmentRequest)
         {
-           
-            Appointment newAppointment = new Appointment(appointmentRequest.NewAppointment.TimeOfAppointment, appointmentRequest.NewAppointment.Doctor, appointmentRequest.NewAppointment.Patient);
-            Appointment oldAppointment = new Appointment(appointmentRequest.OldAppointment.TimeOfAppointment,appointmentRequest.OldAppointment.Doctor,appointmentRequest.OldAppointment.Patient);
+
+            Patient.Appointment newAppointment = new Patient.Appointment(appointmentRequest.NewAppointment.TimeOfAppointment, appointmentRequest.NewAppointment.Doctor, appointmentRequest.NewAppointment.Patient);
+            Patient.Appointment oldAppointment = new Patient.Appointment(appointmentRequest.OldAppointment.TimeOfAppointment,appointmentRequest.OldAppointment.Doctor,appointmentRequest.OldAppointment.Patient);
             
-            if (appointmentRequest.TypeOfChange == typeOfChange.Delete)
+            if (appointmentRequest.TypeOfChange == Patient.typeOfChange.Delete)
             {
-                oldAppointment.deletingAppointment(oldAppointment);
+                oldAppointment.deletingAppointmentFromSecretary(oldAppointment);
                 appointmentRequest.DeletingAppointmentRequest();
             }
-            if (appointmentRequest.TypeOfChange == typeOfChange.Update)
+            if (appointmentRequest.TypeOfChange == Patient.typeOfChange.Update)
             {
-                oldAppointment.deletingAppointment(oldAppointment);
+                oldAppointment.deletingAppointmentFromSecretary(oldAppointment);
                 newAppointment.serializeAppointment();
                 appointmentRequest.DeletingAppointmentRequest();
             }

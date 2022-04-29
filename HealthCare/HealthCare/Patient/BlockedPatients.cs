@@ -29,6 +29,11 @@ namespace HealthCare.Patient
             this.patient = patient;
         }
 
+        public BlockedPatients()
+        {
+           
+        }
+
         public static List<BlockedPatients> blockedPatientsDeserialization()
         {
             string fileName = "../../../Data/BlockedPatients.json";
@@ -62,5 +67,23 @@ namespace HealthCare.Patient
             File.WriteAllText(fileName, json);
         }
 
+        public void DeleteFromBlockedPatients(string username, string fileName)
+        {
+            List<BlockedPatients> blockedPatients = blockedPatientsDeserialization();
+            string json = "";
+            foreach (BlockedPatients blockedPatient in blockedPatients)
+            {
+                if (blockedPatient.Patient.Username != username)
+                {
+                    json += System.Text.Json.JsonSerializer.Serialize(blockedPatient) + "\n";
+                }
+            }
+            File.WriteAllText(fileName, json);
+        }
+
+        public override string ToString()
+        {
+            return BlockedType + "," + patient.Username + "," + patient.Password;
+        }
     }
 }
