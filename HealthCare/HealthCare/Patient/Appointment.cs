@@ -16,6 +16,8 @@ namespace HealthCare.Patient
         string doctor;
 
         string patient;
+
+        Doctor.AppointmentType appointmentType;
         
 
         public string TimeOfAppointment
@@ -36,19 +38,35 @@ namespace HealthCare.Patient
             set => patient = value ?? throw new ArgumentNullException(nameof(value));
         }
 
+        public HealthCare.Doctor.AppointmentType AppointmentType
+        {
+            get => appointmentType;
+            set => appointmentType = value;
+        }
+
         public Appointment()
         {
             timeOfAppointment = "";
             doctor = "";
             patient = "";
+            appointmentType = HealthCare.Doctor.AppointmentType.Examination;
         }
 
         [JsonConstructor]
+        public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.AppointmentType appointmentType)
+        {
+            this.timeOfAppointment = timeOfAppointment;
+            this.doctor = doctor;
+            this.patient = patient;
+            this.appointmentType = appointmentType;
+        }
+
         public Appointment(string timeOfAppointment, string doctor, string patient)
         {
             this.timeOfAppointment = timeOfAppointment;
             this.doctor = doctor;
             this.patient = patient;
+            this.appointmentType = HealthCare.Doctor.AppointmentType.Examination;
         }
 
         public static List<Appointment> appointmentsDeserialization()

@@ -10,11 +10,25 @@ namespace HealthCare.Patient
 {
     public class Patient : User
     {
+        MedicalRecord medicalRecord;
+
+        public MedicalRecord MedicalRecord
+        {
+            get => medicalRecord;
+            set => medicalRecord = value ?? throw new ArgumentNullException(nameof(value));
+        }
 
         public Patient(string username, string password)
         {
             this.username = username;
             this.password = password;
+        }
+
+        public Patient(string username, string password, MedicalRecord medicalRecord)
+        {
+            this.username = username;
+            this.password = password;
+            this.medicalRecord = medicalRecord;
         }
 
         public static List<Patient> patientDeserialization()
@@ -79,7 +93,7 @@ namespace HealthCare.Patient
                 string timeOfAppointment = Console.ReadLine();
                 if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
                 {
-                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username);
+                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username, HealthCare.Doctor.AppointmentType.Examination);
                     appointment.serializeAppointment();
                 }
             }
