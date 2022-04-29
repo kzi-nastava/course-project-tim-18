@@ -217,5 +217,24 @@ namespace HealthCare.Patient
             }
             File.WriteAllText(fileName, json);
         }
+
+        public void patientMenu()
+        {
+            Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Izalazak iz menua");
+            string option = Console.ReadLine();
+            while (option == "5")
+            {
+                if (option == "1")
+                    this.makingAppointment();
+                if (option == "2")
+                    this.changingAppointment();
+                if (option == "3")
+                    this.deletingAppointment();
+                if (option == "4")
+                    Appointment.printingAppointment();
+                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Izalazak iz menua");
+                option = Console.ReadLine();
+            }
+        }
     }
 }
