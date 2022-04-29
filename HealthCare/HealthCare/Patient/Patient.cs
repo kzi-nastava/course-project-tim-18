@@ -144,7 +144,7 @@ namespace HealthCare.Patient
                         Appointment.serializingListOfAppointments(appointments);
                     else
                     {
-                        AppointmentRequest appointmentRequest = new AppointmentRequest(oldAppointment, appointments[indexOfRequest], typeOfChange.Update);
+                        AppointmentRequests appointmentRequest = new AppointmentRequests(oldAppointment, appointments[indexOfRequest], typeOfChange.Update);
                         appointmentRequest.serializeAppointmentRequest();
                     }
             }
@@ -174,7 +174,7 @@ namespace HealthCare.Patient
                     appointment.deletingAppointment();
                 else
                 {
-                    AppointmentRequest appointmentRequest = new AppointmentRequest(appointment, appointment, typeOfChange.Delete);
+                    AppointmentRequests appointmentRequest = new AppointmentRequests(appointment, appointment, typeOfChange.Delete);
                     appointmentRequest.serializeAppointmentRequest();
                 }
 
