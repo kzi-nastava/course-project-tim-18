@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
@@ -13,7 +15,7 @@ namespace HealthCare
         string doctor;
 
         string patient;
-
+        
 
         public string TimeOfAppointment
         {
@@ -48,12 +50,7 @@ namespace HealthCare
             this.patient = patient;
         }
 
-        public override string ToString()
-        {
-            return TimeOfAppointment + "," + Doctor + ","+ Patient;
-        }
-
-        public List<Appointment> appointmentsDeserialization()
+        public static List<Appointment> appointmentsDeserialization()
         {
             string fileName = "../../../Data/Appointments.json";
             string appointmentFileData = "";
@@ -85,7 +82,7 @@ namespace HealthCare
             json += JsonSerializer.Serialize(this) + "\n"; ;
             File.WriteAllText(fileName, json);
         }
-
+    
         public static void printingAppointment()
         {
             string fileName = "../../../Data/Appointments.json";
@@ -94,17 +91,45 @@ namespace HealthCare
             Console.WriteLine(appointmentFileData);
         }
 
-        public void deletingAppointment(Appointment oldAppointment)
+        public void deletingAppointment()
         {
             string fileName = "../../../Data/Appointments.json";
             List<Appointment> appointments = appointmentsDeserialization();
             string json = "";
             foreach (Appointment appointment in appointments)
             {
-                if (appointment.Doctor != oldAppointment.Doctor && appointment.TimeOfAppointment != oldAppointment.TimeOfAppointment)
+                if(appointment.Doctor != this.Doctor && appointment.TimeOfAppointment != this.TimeOfAppointment)
                     json += JsonSerializer.Serialize(appointment) + "\n";
             }
             File.WriteAllText(fileName, json);
         }
+
+        public static bool isAppointmentValid(string timeOfAppointment, string doctor)
+        {
+            List<Appointment> appointments = Appointment.appointmentsDeserialization();
+            DateTime timeWanted = Program.stringToDateTime(timeOfAppointment);
+            foreach (Appointment appointment in appointments)
+            {
+                DateTime timeChecked = Program.stringToDateTime(appointment.TimeOfAppointment);
+                TimeSpan timeDifference = timeWanted.Subtract(timeChecked);
+                if ((-16 < timeDifference.TotalMinutes && timeDifference.TotalMinutes < 16) && doctor == appointment.Doctor)
+                    return false;
+            }
+            return true;
+        }
+
+        public static void serializingListOfAppointments(List<Appointment> listOfAppointments)
+        {
+            string fileName = "../../../Data/Appointments.json";
+            string json = "";
+            foreach (Appointment appointment in listOfAppointments)
+            {
+                json += JsonSerializer.Serialize(appointment) + "\n";
+            }
+
+            File.WriteAllText(fileName, json);
+        }
     }
-   }
+}
+
+
