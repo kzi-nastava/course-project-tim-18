@@ -16,6 +16,9 @@ namespace HealthCare.Patient
             this.username = username;
             this.password = password;
         }
+        public Patient()
+        {
+        }
 
         public static List<Patient> patientDeserialization()
         {
@@ -184,6 +187,21 @@ namespace HealthCare.Patient
                 this.blockingPatient();
                 Console.WriteLine("Prevelik broj brisanja vas nalog je sada blokiran: ");
             }
+        }
+
+        public void DeleteFromPatients(string username)
+        {
+            string fileName = "../../../Data/Patient.json";
+            List<Patient> blockedPatients = patientDeserialization();
+            string json = "";
+            foreach (Patient blockedPatient in blockedPatients)
+            {
+                if (blockedPatient.username != username)
+                {
+                    json += System.Text.Json.JsonSerializer.Serialize(blockedPatient) + "\n";
+                }
+            }
+            File.WriteAllText(fileName, json);
         }
     }
 }

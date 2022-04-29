@@ -130,6 +130,19 @@ namespace HealthCare.Patient
 
             File.WriteAllText(fileName, json);
         }
+
+        public void deletingAppointmentFromSecretary(Appointment oldAppointment)
+        {
+            string fileName = "../../../Data/Appointments.json";
+            List<Appointment> appointments = appointmentsDeserialization();
+            string json = "";
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.Doctor != oldAppointment.Doctor && appointment.TimeOfAppointment != oldAppointment.TimeOfAppointment)
+                    json += JsonSerializer.Serialize(appointment) + "\n";
+            }
+            File.WriteAllText(fileName, json);
+        }
     }
 }
 
