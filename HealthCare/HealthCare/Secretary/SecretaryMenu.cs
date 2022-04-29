@@ -49,19 +49,19 @@ namespace HealthCare
             {
                 case "1":
                     PrintHeader("KREIRAJ NALOG");
-                    crud.CreatePatient();
+                    crud.CreatePatientAccount();
                     return true;
                 case "2":
                     PrintHeader("PREGLEDAJ NALOG");
-                    crud.ReadPatient();
+                    crud.ReadPatientAccount();
                     return true;
                 case "3":
                     PrintHeader("IZMIJENI NALOG");
-                    crud.UpdatePatient();
+                    crud.UpdatePatientAccount();
                     return true;
                 case "4":
                     PrintHeader("OBRISI NALOG");
-                    crud.DeletePatient();
+                    crud.DeletePatientAccount();
                     return true;
                 case "5":
                     return false;
@@ -79,7 +79,7 @@ namespace HealthCare
                     CheckInput();
                     return true;
                 case "2":
-                    crud.ReadPatient();
+                    crud.ReadPatientAccount();
                     return true;
                 case "3":
                     crud.UnblockingPatientsAccount();

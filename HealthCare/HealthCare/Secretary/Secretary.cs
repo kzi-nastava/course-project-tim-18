@@ -1,12 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-namespace HealthCare
+﻿namespace HealthCare
 {
     public class Secretary : User
     {
@@ -19,7 +11,6 @@ namespace HealthCare
             this.username = username;
             this.password = password;
         }
-
         public string username { get; set; }
         public string password { get; set; }
 
@@ -29,111 +20,9 @@ namespace HealthCare
         string appointmentFile = "../../../Data/Appointment.json";
 
         MedicalRecord medRecord = new MedicalRecord();
+        Patient patient = new Patient();
 
-        //PATIENTS--------------------------------------------------------------------
-        public void WriteToPatients(Patient patient, string fileName)
-        {
-            string jsonString = System.Text.Json.JsonSerializer.Serialize(patient) + "\n";
-            File.AppendAllText(fileName, jsonString);
-
-        }
-        public void DeleteFromPatients(string username, string fileName)
-        {
-            List<Patient> blockedPatients = ReadFromPatients(fileName);
-            string json = "";
-            foreach (Patient blockedPatient in blockedPatients)
-            {
-                if (blockedPatient.username != username)
-                {
-                    json += System.Text.Json.JsonSerializer.Serialize(blockedPatient) + "\n";
-                }
-            }
-            File.WriteAllText(fileName, json);
-        }
-        public List<Patient> ReadFromPatients(string fileName)
-        {
-            string blockedPatientsData = "";
-            blockedPatientsData = File.ReadAllText(fileName);
-            string[] blockedPatients = blockedPatientsData.Split('\n');
-            List<Patient> blockedPatientsList = new List<Patient>();
-            foreach (String s in blockedPatients)
-            {
-                if (s != "")
-                {
-                    Patient? blockedPatient = System.Text.Json.JsonSerializer.Deserialize<Patient>(s);
-                    if (blockedPatient != null)
-                        blockedPatientsList.Add(blockedPatient);
-                }
-            }
-            return blockedPatientsList;
-
-        }
-        //----------------------------------------------------------------------------
-
-
-        //BLOCKED PATIENTS------------------------------------------------------------
-        public void WriteToBlockedPatients(BlockedPatients blockedPatients, string fileName)
-        {
-            string jsonString = System.Text.Json.JsonSerializer.Serialize(blockedPatients) + "\n";
-            File.AppendAllText(fileName, jsonString);
-
-        }
-        public void DeleteFromBlockedPatients(string username, string fileName)
-        {
-            List<BlockedPatients> blockedPatients = ReadFromBlockedPatients(fileName);
-            string json = "";
-            foreach (BlockedPatients blockedPatient in blockedPatients)
-            {
-                if (blockedPatient.Patient.username != username)
-                {
-                    json += System.Text.Json.JsonSerializer.Serialize(blockedPatient) + "\n";
-                }
-            }
-            File.WriteAllText(fileName, json);
-        }
-        public List<BlockedPatients> ReadFromBlockedPatients(string fileName)
-        {
-            string blockedPatientsData = "";
-            blockedPatientsData = File.ReadAllText(fileName);
-            string[] blockedPatients = blockedPatientsData.Split('\n');
-            List<BlockedPatients> blockedPatientsList = new List<BlockedPatients>();
-            foreach (String s in blockedPatients)
-            {
-                if (s != "")
-                {
-                    BlockedPatients? blockedPatient = System.Text.Json.JsonSerializer.Deserialize<BlockedPatients>(s);
-                    if (blockedPatient != null)
-                        blockedPatientsList.Add(blockedPatient);
-                }
-            }
-            return blockedPatientsList;
-
-        }
-        //----------------------------------------------------------------------------
-
-        //APPOINTMENT-----------------------------------------------------------------
-        public List<Appointment> ReadFromAppointment(string fileName)
-        {
-            string appointmentData = "";
-            appointmentData = File.ReadAllText(fileName);
-            string[] appointments = appointmentData.Split('\n');
-            List<Appointment> appointmentList = new List<Appointment>();
-            foreach (String s in appointments)
-            {
-                if (s != "")
-                {
-                    Appointment? appointment = System.Text.Json.JsonSerializer.Deserialize<Appointment>(s);
-                    if (appointment != null)
-                        appointmentList.Add(appointment);
-                }
-            }
-            return appointmentList;
-
-        }
-
-        //----------------------------------------------------------------------------
-
-
+        
         public string InputUsername()
         {
             Console.Write("\nUnesite korisnicko ime pacijenta: ");
@@ -142,58 +31,65 @@ namespace HealthCare
         }
 
         //CRUD------------------------------------------------------------------------
-        public void CreatePatient()
+        public void CreatePatientAccount()
         {
-            MedicalRecord record = medRecord.CreateInput();
-            medRecord.MedicalRecordView(record);
-            medRecord.JsonWriteFile(record, medicalRecordFile);
+            MedicalRecord newMedicalRecord = new MedicalRecord();
+            MedicalRecord medicalRecord = newMedicalRecord.CreateInput();
+            newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
+            newMedicalRecord.SerializePatient(medicalRecord, medicalRecordFile);
 
-            //KREIRANJEM NALOGA KREIRA SE I PACIJENT?
-            Patient patient = new Patient(record.Username, record.Password);
-            WriteToPatients(patient, patientFile);
+            Patient patient = new Patient(medicalRecord.Username, medicalRecord.Password);
+            patient.SerializePatient();
         }
 
-        public void ReadPatient()
+        public void ReadPatientAccount()
         {
             string username = InputUsername();
+
             string account = "";
-            List<MedicalRecord> medicalRecordlist = medRecord.JsonReadFile(medicalRecordFile);
-            List<Patient> patientList = ReadFromPatients(patientFile);
-            foreach (MedicalRecord record in medicalRecordlist)
+            MedicalRecord newMedicalRecord = new MedicalRecord();
+            List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
+            List<Patient> patientList = patient.PatientDeserialization();
+
+            foreach (MedicalRecord medicalRecord in medicalRecordList)
                 foreach(Patient patient in patientList)
                     {
-                        if (record.Username == username && patient.username == username)
+                        if (medicalRecord.Username == username && patient.username == username)
                         {
-                        //Console.WriteLine(record);
-                            medRecord.PrintMedicalRecord(record);
+                            newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
                             Console.Write("Da li zelite blokirati ovaj nalog? ");
-                            string blocked = Console.ReadLine();
-                            if (blocked == "da")
+                            string userResponse = Console.ReadLine();
+                            if (userResponse == "da")
                             {
-                                BlockingPatientAccount(record.Username,record.Password);
+                                BlockingPatientAccount(medicalRecord.Username,medicalRecord.Password);
                             }
                         } 
                     }
         }
 
-        public void DeletePatient()
+        public void DeletePatientAccount()
         {
+
             string username = InputUsername();
-            List<Patient> patientList = ReadFromPatients(patientFile);
+
+            Patient newPatient = new Patient();
+            MedicalRecord newMedicalRecord = new MedicalRecord();
+            List<Patient> patientList = newPatient.PatientDeserialization();
+
             foreach (Patient patient in patientList)
             {
                 if(patient.username == username)
-                    medRecord.JsonDeleteFromFile(username, medicalRecordFile);
-                    DeleteFromPatients(username, patientFile);
-
+                    newMedicalRecord.DeleteFromMedicalRecord(username);
+                    patient.DeleteFromPatients(username);
+               
             }
-            
+            Console.WriteLine("Uspjesno obrisan korisnik!");
         }
 
-        public void UpdatePatient()
+        public void UpdatePatientAccount()
         {
-            DeletePatient();
-            CreatePatient();
+            DeletePatientAccount();
+            CreatePatientAccount();
         }
         //----------------------------------------------------------------------------
 
@@ -201,31 +97,35 @@ namespace HealthCare
         //BLOCKING--------------------------------------------------------------------
         public void BlockingPatientAccount(string username,string password)
         {
-            DeleteFromPatients(username, patientFile);
-            
             Patient patient = new Patient(username,password);
+            patient.DeleteFromPatients(username);
             BlockedPatients blockedPatient = new BlockedPatients(BlockedType.Secretary,patient);
-            WriteToBlockedPatients(blockedPatient, blockedPatientsFile);
+            blockedPatient.SerializeBlockedPatient();
         }
 
         public void UnblockingPatientsAccount()
         {
-            List<BlockedPatients> blockedPatientslist = ReadFromBlockedPatients(blockedPatientsFile);
-            List<MedicalRecord> medicalRecordList = medRecord.JsonReadFile(medicalRecordFile);
-            foreach (BlockedPatients blockedPatient in blockedPatientslist)
+            MedicalRecord newMedicalRecord = new MedicalRecord();
+            BlockedPatients newBlockedPatient = new BlockedPatients();
+
+            List<BlockedPatients> blockedPatientsList = newBlockedPatient.BlockedPatientsDeserialization();
+            List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
+
+            foreach (BlockedPatients blockedPatient in blockedPatientsList)
                 foreach(MedicalRecord medicalRecord in medicalRecordList)
                     {
                        if(blockedPatient.Patient.username == medicalRecord.Username)
-                        medRecord.PrintMedicalRecord(medicalRecord);
+                        newMedicalRecord.ViewMedicalRecord(medicalRecord);
                     }
             string unblock = InputUsername();
 
-            foreach (BlockedPatients blockedPatient in blockedPatientslist)
+            foreach (BlockedPatients blockedPatient in blockedPatientsList)
             {
                 if (blockedPatient.Patient.username == unblock)
                 {
-                    DeleteFromBlockedPatients(blockedPatient.Patient.username, blockedPatientsFile);
-                    WriteToPatients(blockedPatient.Patient, patientFile);
+                    Patient patient = new Patient(blockedPatient.Patient.username, blockedPatient.Patient.password);
+                    newBlockedPatient.DeleteFromBlockedPatients(blockedPatient.Patient.username, blockedPatientsFile);
+                    patient.SerializePatient();
                 }
             }
 
@@ -236,19 +136,52 @@ namespace HealthCare
         //PATIENT REQUESTS------------------------------------------------------------
         public void ViewingPatientRequests()
         {
+            AppointmentRequests newAppointmentRequest = new AppointmentRequests();
 
-            List<Appointment> appointmentlist = ReadFromAppointment(appointmentFile);
-            List<MedicalRecord> medicalRecordList = medRecord.JsonReadFile(medicalRecordFile);
-            foreach (Appointment appointment in appointmentlist)
+            List<AppointmentRequests> appointmentlist = newAppointmentRequest.appointmentsRequestDeserialization();
+            foreach (AppointmentRequests appointment in appointmentlist)
                 { 
-                    Console.WriteLine(appointment); 
+                    Console.WriteLine(appointment);
                 }
-                
-            string username = InputUsername();
-            //if input da obrisi ako je ne onda ostaje 
 
+            DateTime date1 = new DateTime();
+            Console.Write("Unesite ime doktora: ");
+            string doctor = Console.ReadLine();
+            
+            
+            Console.Write("Unesite datum i vrijeme: ");
+            string date = Console.ReadLine();
+            Console.WriteLine(date);
+            
+            foreach (AppointmentRequests appointment in appointmentlist)
+            {
+                if(appointment.NewAppointment.TimeOfAppointment == date && appointment.NewAppointment.Doctor == doctor)
+                {
 
+                    Console.WriteLine(appointment);
+                    MenageRequestes(appointment);
+                } 
+            }
+        }
 
+        private void MenageRequestes(AppointmentRequests appointmentRequest)
+        {
+           
+            Appointment newAppointment = new Appointment(appointmentRequest.NewAppointment.TimeOfAppointment, appointmentRequest.NewAppointment.Doctor, appointmentRequest.NewAppointment.Patient);
+            Appointment oldAppointment = new Appointment(appointmentRequest.OldAppointment.TimeOfAppointment,appointmentRequest.OldAppointment.Doctor,appointmentRequest.OldAppointment.Patient);
+            
+            if (appointmentRequest.TypeOfChange == typeOfChange.Delete)
+            {
+                oldAppointment.deletingAppointment(oldAppointment);
+                appointmentRequest.DeletingAppointmentRequest();
+            }
+            if (appointmentRequest.TypeOfChange == typeOfChange.Update)
+            {
+                oldAppointment.deletingAppointment(oldAppointment);
+                newAppointment.serializeAppointment();
+                appointmentRequest.DeletingAppointmentRequest();
+            }
+            
         }
         //----------------------------------------------------------------------------
     }

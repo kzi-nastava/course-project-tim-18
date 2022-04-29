@@ -93,8 +93,8 @@ namespace HealthCare
             return "Ime: " + Name + "\nPrezime: " + Lastname + "\nAdresa: " + Address + "\nKorisnicko ime:" + Username + "\nLozinka: " + Password + "\nEmail: " + Email + "\nVisina: " + Height + "\nTezina: " + Weight+ "Krvna grupa: "+ BloodType +"\n";
         }
 
-        //TO DO>>>> create func for reading and making record(save to file MedRec.json)
-        public void PrintMedicalRecord(MedicalRecord record)
+        
+        public void ViewMedicalRecord(MedicalRecord record)
         {
             string[] title = { "Ime", "Prezime", "Adresa","Korisnicko ime","Lozinka","Email","Visina","Tezina","Krvna grupa" };
             string[] population = { record.Name, record.Lastname, record.Address ,record.Username,record.Password,record.Email,record.Height,record.Weight,record.bloodType};
@@ -106,38 +106,25 @@ namespace HealthCare
             Console.WriteLine(sb);
         }
 
-        public void MedicalRecordView(MedicalRecord account)
+        public void PrintMedicalRecordHeader(MedicalRecord account)
         {
             Console.WriteLine("\n-------------------------------------------------------------");
             Console.WriteLine("                   ZDRAVSTVENI KARTON                 ");
             Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine(account);
+            ViewMedicalRecord(account);
             Console.WriteLine("-------------------------------------------------------------");
         }
 
-        public void JsonWriteFile(MedicalRecord account, string fileName)
+        public void SerializePatient(MedicalRecord account, string fileName)
         {
             string jsonString = System.Text.Json.JsonSerializer.Serialize(account) + "\n";
             File.AppendAllText(fileName, jsonString);
 
         }
 
-        public void JsonDeleteFromFile(string username, string fileName)
+        public List<MedicalRecord> MedicalRecordDeserialization()
         {
-            List<MedicalRecord> medicalRecords = JsonReadFile(fileName);
-            string json = "";
-            foreach (MedicalRecord MedicalRecord in medicalRecords)
-            {
-                if (MedicalRecord.Username != username)
-                {
-                    json += System.Text.Json.JsonSerializer.Serialize(MedicalRecord) + "\n";
-                }
-            }
-            File.WriteAllText(fileName, json);
-        }
-
-        public List<MedicalRecord> JsonReadFile(string fileName)
-        {
+            string fileName = "../../../Data/MedicalRecord.json";
             string medicalRecordData = "";
             medicalRecordData = File.ReadAllText(fileName);
             string[] medicalRecords = medicalRecordData.Split('\n');
@@ -153,6 +140,21 @@ namespace HealthCare
             }
             return medicalRecordList;
 
+        }
+
+        public void DeleteFromMedicalRecord(string username)
+        {
+            string fileName = "../../../Data/MedicalRecord.json";
+            List<MedicalRecord> medicalRecords = MedicalRecordDeserialization();
+            string json = "";
+            foreach (MedicalRecord MedicalRecord in medicalRecords)
+            {
+                if (MedicalRecord.Username != username)
+                {
+                    json += System.Text.Json.JsonSerializer.Serialize(MedicalRecord) + "\n";
+                }
+            }
+            File.WriteAllText(fileName, json);
         }
 
         public MedicalRecord CreateInput()
