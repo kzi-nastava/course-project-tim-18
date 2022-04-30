@@ -1,7 +1,6 @@
 {
   "format": 1,
   "restore": {
-<<<<<<< HEAD
     "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/HealthCare.csproj": {}
   },
   "projects": {
@@ -16,23 +15,6 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/dusanpejanovic/.nuget/NuGet/NuGet.Config"
-=======
-    "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj": {}
-  },
-  "projects": {
-    "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
-        "projectName": "HealthCare",
-        "projectPath": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
-        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> 4116fbb02f46e36a0dfa685ea2f8d29ed2efca5f
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -76,11 +58,7 @@
               "privateAssets": "all"
             }
           },
-<<<<<<< HEAD
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
-=======
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
->>>>>>> 4116fbb02f46e36a0dfa685ea2f8d29ed2efca5f
         }
       }
     }
