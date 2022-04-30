@@ -8,7 +8,7 @@ namespace HealthCare
     public class Hospital
     {
         private string name;
-        private List<Room> roomList = new List<Room>() { new Room(RoomType.Undefined, "Magacin") };
+        private List<Room> rooms = new List<Room>() { new Room(RoomType.Undefined, "Magacin") };
 
         public Hospital(string name)
         {
@@ -16,10 +16,10 @@ namespace HealthCare
         }
 
         [JsonConstructor]
-        public Hospital(string name, List<Room> roomList)
+        public Hospital(string name, List<Room> rooms)
         {
             this.name = name;
-            this.roomList = roomList;
+            this.rooms = rooms;
         }
 
 
@@ -31,10 +31,10 @@ namespace HealthCare
             set => name = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        public List<Room> RoomList
+        public List<Room> Rooms
         {
-            get => roomList;
-            set => roomList = value ?? throw new ArgumentNullException(nameof(value));
+            get => rooms;
+            set => rooms = value ?? throw new ArgumentNullException(nameof(value));
         }
 
 
@@ -42,8 +42,8 @@ namespace HealthCare
 
         public bool EquipmentExist(string name)
         {
-            for (int i = 0; i < roomList.Count; i++)
-                if (roomList[i].EquipmentExist(name) == true)
+            for (int i = 0; i < rooms.Count; i++)
+                if (rooms[i].EquipmentExist(name) == true)
                     return true;
 
 
@@ -51,14 +51,10 @@ namespace HealthCare
         }
 
 
-  
-
-
-
         public bool RoomExist(string name)
         {
-            for (int i = 0; i < roomList.Count; i++)
-                if (roomList[i].Name == name)
+            for (int i = 0; i < rooms.Count; i++)
+                if (rooms[i].Name == name)
                     return true;
             
 
@@ -68,10 +64,10 @@ namespace HealthCare
 
         public Room GetRoom(string name)
         {
-            for (int i = 0; i < roomList.Count; i++)
+            for (int i = 0; i < rooms.Count; i++)
             {
-                if (roomList[i].Name == name)
-                    return roomList[i];
+                if (rooms[i].Name == name)
+                    return rooms[i];
             }
 
             return null;

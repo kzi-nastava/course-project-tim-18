@@ -7,7 +7,7 @@ namespace HealthCare
     public class Manager : User
     {
         private Hospital? hospital;
-        private List<ManagerRequest> managerRequestList;
+        private List<ManagerRequest> managerRequests;
 
 
         public Manager()
@@ -15,18 +15,18 @@ namespace HealthCare
             username = "";
             password = "";
             hospital = null;
-            ManagerRequestList = null;
+            managerRequests = null;
         }
 
 
 
         [JsonConstructor]
-        public Manager(string username, string password, Hospital hospital, List<ManagerRequest> managerRequestList)
+        public Manager(string username, string password, Hospital hospital, List<ManagerRequest> managerRequests)
         {
             this.username = username;
             this.password = password;
             this.hospital = hospital;
-            this.ManagerRequestList = managerRequestList;
+            this.managerRequests = managerRequests;
         }
 
 
@@ -35,7 +35,7 @@ namespace HealthCare
             get => hospital;
             set => hospital = value ?? throw new ArgumentNullException(nameof(value));
         }
-        public List<ManagerRequest>? ManagerRequestList { get => managerRequestList; set => managerRequestList = value; }
+        public List<ManagerRequest>? ManagerRequests { get => managerRequests; set => managerRequests = value; }
 
 
 
@@ -96,7 +96,7 @@ namespace HealthCare
                 return;
             }
 
-            managerRequestList.Add(new ManagerRequest(oldRoom, newRoom, equipment, amountInt, executionDate, false));
+            managerRequests.Add(new ManagerRequest(oldRoom, newRoom, equipment, amountInt, executionDate, false));
 
 
         }
@@ -118,9 +118,9 @@ namespace HealthCare
         public void ExecuteTodayRequests()
         {
 
-            for (int i = 0; i < managerRequestList.Count; i++)
+            for (int i = 0; i < managerRequests.Count; i++)
             {
-                ManagerRequest managerRequest = ManagerRequestList[i];
+                ManagerRequest managerRequest = managerRequests[i];
 
                 if (managerRequest.ExecutionDate == DateTime.Today && managerRequest.Executed == false)
                 {
@@ -289,7 +289,7 @@ namespace HealthCare
             }
 
 
-            foreach (Room room in hospital.RoomList)
+            foreach (Room room in hospital.Rooms)
             {
                 if (roomTypeImportant == true && room.RoomType != roomType)
                     continue;
@@ -328,24 +328,24 @@ namespace HealthCare
 
         public void Load()
         {
-            string fileName = "../../../Data/ManagerData.json";
-            string jsonString = File.ReadAllText(fileName);
-            Manager m = JsonSerializer.Deserialize<Manager>(jsonString)!;
+            string file = "../../../Data/ManagerData.json";
+            string json = File.ReadAllText(file);
+            Manager m = JsonSerializer.Deserialize<Manager>(json)!;
             username = m.Username;
             password = m.Password;
             hospital = m.Hospital;
-            managerRequestList = m.ManagerRequestList;
+            managerRequests = m.managerRequests;
             ExecuteTodayRequests();
 
-        }
+        }   
 
         public void Save()
         {
             ExecuteTodayRequests();
 
-            string fileName = "../../../Data/ManagerData.json";
-            string jsonString = JsonSerializer.Serialize(this);
-            File.WriteAllText(fileName, jsonString);
+            string file = "../../../Data/ManagerData.json";
+            string json = JsonSerializer.Serialize(this);
+            File.WriteAllText(file, json);
         }
     }
 }

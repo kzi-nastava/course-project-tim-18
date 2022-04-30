@@ -1,24 +1,28 @@
 ﻿<Properties StartupConfiguration="{8208ADFB-A20A-4097-85A4-7B7733925DB4}|Default">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.HealthCare PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="HealthCare/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="HealthCare/Doctor/Doctor.cs">
     <Files>
       <File FileName="HealthCare/Doctor/Doctor.cs" Line="15" Column="1" />
-      <File FileName="HealthCare/Program.cs" Line="5" Column="25" />
+      <File FileName="HealthCare/Program.cs" Line="10" Column="1" />
       <File FileName="HealthCare/User.cs" Line="1" Column="1" />
       <File FileName="HealthCare/Manager/RoomType.cs" Line="1" Column="1" />
-      <File FileName="HealthCare/Manager/Equipment.cs" Line="44" Column="10" />
+      <File FileName="HealthCare/Manager/Equipment.cs" Line="20" Column="10" />
       <File FileName="HealthCare/Doctor/AppointmentType.cs" Line="1" Column="1" />
       <File FileName="HealthCare/Doctor/Appointment.cs" Line="1" Column="1" />
       <File FileName="HealthCare/Manager/EquipmentType.cs" Line="1" Column="1" />
-      <File FileName="HealthCare/Manager/ManagerRequest.cs" Line="1" Column="1" />
-      <File FileName="HealthCare/Manager/Hospital.cs" Line="1" Column="1" />
-      <File FileName="HealthCare/Manager/Manager.cs" Line="242" Column="39" />
+      <File FileName="HealthCare/Manager/ManagerRequest.cs" Line="26" Column="40" />
+      <File FileName="HealthCare/Manager/Hospital.cs" Line="51" Column="10" />
+      <File FileName="HealthCare/Manager/Manager.cs" Line="284" Column="3" />
       <File FileName="HealthCare/Manager/Room.cs" Line="1" Column="1" />
       <File FileName="HealthCare/Data/ManagerData.json" Line="1" Column="1" />
-      <File FileName="HealthCare/Patient/Patient.cs" Line="1" Column="1" />
+      <File FileName="HealthCare/Patient/Patient.cs" Line="3" Column="24" />
+      <File FileName="HealthCare/Secretary/Secretary.cs" Line="14" Column="23" />
+      <File FileName="HealthCare/Data/DoctorsData.json" Line="1" Column="1" />
+      <File FileName="HealthCare/Data/AntiTrol.json" Line="1" Column="1" />
+      <File FileName="HealthCare/Data/AppointmentsRequest.json" Line="1" Column="1" />
+      <File FileName="HealthCare/Data/Appointments.json" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -26,12 +30,12 @@
           <Node name="HealthCare" expanded="True">
             <Node name="HealthCare" expanded="True">
               <Node name="Data" expanded="True" />
-              <Node name="Doctor" expanded="True" />
-              <Node name="Manager" expanded="True" />
-              <Node name="Patient" expanded="True">
-                <Node name="Patient.cs" selected="True" />
+              <Node name="Doctor" expanded="True">
+                <Node name="Doctor.cs" selected="True" />
               </Node>
-              <Node name="Program.cs" selected="True" />
+              <Node name="Manager" expanded="True" />
+              <Node name="Patient" expanded="True" />
+              <Node name="Secretary" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -41,6 +45,7 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.HealthCare PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -45,59 +45,46 @@ C:/Users/MyPC/Desktop/usi proj/course-project-tim-18/HealthCare/HealthCare/obj/D
 /Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache
 /Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/ref/HealthCare.dll
 =======
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.exe
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.deps.json
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.runtimeconfig.json
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.dll
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.pdb
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.AssemblyReference.cache
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfoInputs.cache
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfo.cs
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.CoreCompileInputs.cache
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.dll
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\refint\HealthCare.dll
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.pdb
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.genruntimeconfig.cache
-C:\Users\MyPC\Desktop\usi proj\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\ref\HealthCare.dll
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.exe
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.deps.json
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.runtimeconfig.json
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.dll
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\ref\HealthCare.dll
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.pdb
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.AssemblyReference.cache
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfoInputs.cache
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfo.cs
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.CoreCompileInputs.cache
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.dll
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\ref\HealthCare.dll
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.pdb
-C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.genruntimeconfig.cache
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.exe
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.deps.json
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.runtimeconfig.json
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.dll
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/ref/HealthCare.dll
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.pdb
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfoInputs.cache
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfo.cs
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.dll
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/ref/HealthCare.dll
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.pdb
+C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache
 >>>>>>> Doctor
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.AssemblyReference.cache
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfoInputs.cache
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfo.cs
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.CoreCompileInputs.cache
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.dll
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\refint\HealthCare.dll
-C:\Users\MyPC\Documents\GitHub\course-project-tim-18\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.pdb
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.exe
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.deps.json
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.runtimeconfig.json
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.dll
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\bin\Debug\net6.0\HealthCare.pdb
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\bin\Debug\net6.0\Newtonsoft.Json.dll
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.AssemblyReference.cache
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfoInputs.cache
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.AssemblyInfo.cs
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.CoreCompileInputs.cache
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.csproj.CopyComplete
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.dll
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\refint\HealthCare.dll
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.pdb
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\HealthCare.genruntimeconfig.cache
-C:\Users\Asus\OneDrive\Dokumenti\GitHub\HealthCare\HealthCare\obj\Debug\net6.0\ref\HealthCare.dll
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfoInputs.cache
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfo.cs
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.dll
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/refint/HealthCare.dll
+C:/Users/MyPC/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.pdb
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.exe
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.deps.json
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.runtimeconfig.json
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.dll
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/bin/Debug/net6.0/HealthCare.pdb
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/bin/Debug/net6.0/Newtonsoft.Json.dll
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfoInputs.cache
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.AssemblyInfo.cs
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.CopyComplete
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.dll
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/refint/HealthCare.dll
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.pdb
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache
+C:/Users/Asus/OneDrive/Dokumenti/GitHub/HealthCare/HealthCare/obj/Debug/net6.0/ref/HealthCare.dll
+/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/bin/Debug/net6.0/Newtonsoft.Json.dll
+/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/Debug/net6.0/HealthCare.csproj.CopyComplete

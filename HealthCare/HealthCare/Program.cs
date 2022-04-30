@@ -1,7 +1,14 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using HealthCare;
 using HealthCare.Secretary;
-using System.Text.Json;
+
+
+
+Manager m = new Manager();
+m.Load();
+
+
+
 
 SecretaryMenu manu = new SecretaryMenu();
 bool showMenu = true;
