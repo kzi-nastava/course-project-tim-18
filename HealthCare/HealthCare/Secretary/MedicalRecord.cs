@@ -90,7 +90,7 @@ namespace HealthCare.Secretary
         
         public override string ToString()
         {
-            return "Ime: " + Name + "\nPrezime: " + Lastname + "\nAdresa: " + Address + "\nKorisnicko ime:" + Username + "\nLozinka: " + Password + "\nEmail: " + Email + "\nVisina: " + Height + "\nTezina: " + Weight+ "Krvna grupa: "+ BloodType +"\n";
+            return "Ime: " + Name + "\nPrezime: " + Lastname + "\nAdresa: " + Address + "\nKorisnicko ime:" + Username + "\nLozinka: " + Password + "\nEmail: " + Email + "\nVisina: " + Height + "\nTezina: " + Weight+ "\nKrvna grupa: "+ BloodType +"\n";
         }
 
         
@@ -106,7 +106,7 @@ namespace HealthCare.Secretary
             Console.WriteLine(sb);
         }
 
-        public void PrintMedicalRecordHeader(MedicalRecord account)
+        public void PrintMedicalRecord(MedicalRecord account)
         {
             Console.WriteLine("\n-------------------------------------------------------------");
             Console.WriteLine("                   ZDRAVSTVENI KARTON                 ");
@@ -115,8 +115,9 @@ namespace HealthCare.Secretary
             Console.WriteLine("-------------------------------------------------------------");
         }
 
-        public void SerializePatient(MedicalRecord account, string fileName)
+        public void SerializePatient(MedicalRecord account)
         {
+            string fileName = "../../../Data/MedicalRecord.json";
             string jsonString = System.Text.Json.JsonSerializer.Serialize(account) + "\n";
             File.AppendAllText(fileName, jsonString);
 

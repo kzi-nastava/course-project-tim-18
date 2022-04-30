@@ -28,10 +28,14 @@ List<Secretary> secretaries = Secretary.Deserialize();
 
 
 
+<<<<<<< HEAD
 
 
 
 SecretaryMenu menu = new SecretaryMenu();
+=======
+Secretary manu = new Secretary();
+>>>>>>> 4116fbb02f46e36a0dfa685ea2f8d29ed2efca5f
 bool showMenu = true;
     while (showMenu)
     {

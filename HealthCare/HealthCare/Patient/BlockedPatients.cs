@@ -69,8 +69,9 @@ namespace HealthCare.Patient
             File.WriteAllText(fileName, json);
         }
 
-        public void DeleteFromBlockedPatients(string username, string fileName)
+        public void DeleteFromBlockedPatients(string username)
         {
+            string fileName = "../../../Data/BlockedPatients.json";
             List<BlockedPatients> blockedPatients = blockedPatientsDeserialization();
             string json = "";
             foreach (BlockedPatients blockedPatient in blockedPatients)

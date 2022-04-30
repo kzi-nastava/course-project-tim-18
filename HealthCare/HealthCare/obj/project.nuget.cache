@@ -1,10 +1,18 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "0oo7ZwwtrwQnYLWEeJndYGqiWH1f7uWv8rmJsfDOkaGXHIi6vgpdGMmKnOle96cZhi60/K79mm/a6STD4o4mGA==",
   "success": true,
   "projectFilePath": "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/HealthCare.csproj",
   "expectedPackageFiles": [
     "/Users/dusanpejanovic/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512"
+=======
+  "dgSpecHash": "3R+NkO7JJ4CNc1Ay7AxE/QyR/p85Om35DEvMnLWlr0ULuLz4koB+NXK2oi6Z8OnqMhxkQFDscIPwmmMeicvswQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Asus\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+>>>>>>> 4116fbb02f46e36a0dfa685ea2f8d29ed2efca5f
   ],
   "logs": []
 }

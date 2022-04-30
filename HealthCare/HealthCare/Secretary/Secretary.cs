@@ -16,6 +16,7 @@ namespace HealthCare.Secretary
         public string username { get; set; }
         public string password { get; set; }
 
+<<<<<<< HEAD
         string medicalRecordFile = "../../../Data/MedicalRecord.json";
         string blockedPatientsFile = "../../../Data/BlockedPatients.json";
         string patientFile = "../../../Data/Patient.json";
@@ -43,6 +44,9 @@ namespace HealthCare.Secretary
 
 
 
+=======
+        
+>>>>>>> 4116fbb02f46e36a0dfa685ea2f8d29ed2efca5f
         public string InputUsername()
         {
             Console.Write("\nUnesite korisnicko ime pacijenta: ");
@@ -55,8 +59,9 @@ namespace HealthCare.Secretary
         {
             MedicalRecord newMedicalRecord = new MedicalRecord();
             MedicalRecord medicalRecord = newMedicalRecord.CreateInput();
-            newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
-            newMedicalRecord.SerializePatient(medicalRecord, medicalRecordFile);
+
+            newMedicalRecord.PrintMedicalRecord(medicalRecord);
+            newMedicalRecord.SerializePatient(medicalRecord);
 
             Patient.Patient patient = new Patient.Patient(medicalRecord.Username, medicalRecord.Password,medicalRecord);
             patient.serializePatient();
@@ -68,15 +73,13 @@ namespace HealthCare.Secretary
 
             string account = "";
             MedicalRecord newMedicalRecord = new MedicalRecord();
-            List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
             List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
-            
                 foreach(Patient.Patient patient in patientList)
                     {
                         if (patient.Username == username)
                         {
-                            newMedicalRecord.PrintMedicalRecordHeader(patient.MedicalRecord);
+                            newMedicalRecord.PrintMedicalRecord(patient.MedicalRecord);
                             Console.Write("Da li zelite blokirati ovaj nalog? ");
                             string userResponse = Console.ReadLine();
                             if (userResponse == "da")
@@ -92,9 +95,8 @@ namespace HealthCare.Secretary
 
             string username = InputUsername();
 
-            Patient.Patient newPatient = new Patient.Patient();
+            
             MedicalRecord newMedicalRecord = new MedicalRecord();
-
             List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
             foreach (Patient.Patient patient in patientList)
@@ -114,29 +116,27 @@ namespace HealthCare.Secretary
         }
         //----------------------------------------------------------------------------
 
-
         //BLOCKING--------------------------------------------------------------------
         public void BlockingPatientAccount(Patient.Patient patient)
         {
             Patient.Patient newPatient = new Patient.Patient(patient.Username,patient.Password,patient.MedicalRecord);
             newPatient.DeleteFromPatients(patient.Username);
-            Patient.BlockedPatients blockedPatient = new Patient.BlockedPatients(Patient.BlockedType.Secretary,newPatient);
-            blockedPatient.serializeBlockedPatient();
+
+            Patient.BlockedPatients newBlockedPatient = new Patient.BlockedPatients(Patient.BlockedType.Secretary,newPatient);
+            newBlockedPatient.serializeBlockedPatient();
         }
 
         public void UnblockingPatientsAccount()
         {
             MedicalRecord newMedicalRecord = new MedicalRecord();
             Patient.BlockedPatients newBlockedPatient = new Patient.BlockedPatients();
-
             List<Patient.BlockedPatients> blockedPatientsList = Patient.BlockedPatients.blockedPatientsDeserialization();
-           // List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
-
+           
             foreach (Patient.BlockedPatients blockedPatient in blockedPatientsList)
-                
-                    {
-                        newMedicalRecord.ViewMedicalRecord(blockedPatient.Patient.MedicalRecord);
-                    }
+            {
+                newMedicalRecord.ViewMedicalRecord(blockedPatient.Patient.MedicalRecord);
+            }
+
             string unblock = InputUsername();
 
             foreach (Patient.BlockedPatients blockedPatient in blockedPatientsList)
@@ -144,7 +144,7 @@ namespace HealthCare.Secretary
                 if (blockedPatient.Patient.Username == unblock)
                 {
                     Patient.Patient patient = new Patient.Patient(blockedPatient.Patient.Username, blockedPatient.Patient.Password,blockedPatient.Patient.MedicalRecord);
-                    newBlockedPatient.DeleteFromBlockedPatients(blockedPatient.Patient.Username, blockedPatientsFile);
+                    newBlockedPatient.DeleteFromBlockedPatients(blockedPatient.Patient.Username);
                     patient.serializePatient();
                 }
             }
@@ -157,7 +157,6 @@ namespace HealthCare.Secretary
         public void ViewingPatientRequests()
         {
             Patient.AppointmentRequests newAppointmentRequest = new Patient.AppointmentRequests();
-
             List<Patient.AppointmentRequests> appointmentlist = newAppointmentRequest.appointmentsRequestDeserialization();
             foreach (Patient.AppointmentRequests appointment in appointmentlist)
                 { 
@@ -200,6 +199,98 @@ namespace HealthCare.Secretary
                 appointmentRequest.DeletingAppointmentRequest();
             }
             
+        }
+        //----------------------------------------------------------------------------
+
+        //MANU------------------------------------------------------------------------
+        public void PrintHeader(string title)
+        {
+            Console.WriteLine("\n-------------------------" + title + "-----------------------------");
+        }
+
+        public void PrintMainManu()
+        {
+            Console.WriteLine("-------------OPCIJE---------------");
+            Console.WriteLine("1. Manipulisanje nalogom");
+            Console.WriteLine("2. Blokiraj naloga");
+            Console.WriteLine("3. Odblokiraj naloga");
+            Console.WriteLine("4. Pregled zahtjeva");
+            Console.WriteLine("5. Exit");
+            Console.Write("\r\nUnesite broj opcije: ");
+
+        }
+
+        public void PrintCRUDManu()
+        {
+            Console.WriteLine("\n1. Keiraj nalog");
+            Console.WriteLine("2. Procitaj nalog");
+            Console.WriteLine("3. Izmijeni nalog");
+            Console.WriteLine("4. Obrisi nalog");
+            Console.WriteLine("5. Vratite se nazad");
+            Console.Write("\r\nUnesite broj opcije: ");
+
+        }
+
+        public void CheckInput()
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = WriteCRUDManu();
+            }
+        }
+
+        public bool WriteCRUDManu()
+        {
+            PrintCRUDManu();
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    PrintHeader("KREIRAJ NALOG");
+                    CreatePatientAccount();
+                    return true;
+                case "2":
+                    PrintHeader("PREGLEDAJ NALOG");
+                    ReadPatientAccount();
+                    return true;
+                case "3":
+                    PrintHeader("IZMIJENI NALOG");
+                    UpdatePatientAccount();
+                    return true;
+                case "4":
+                    PrintHeader("OBRISI NALOG");
+                    DeletePatientAccount();
+                    return true;
+                case "5":
+                    return false;
+                default:
+                    Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
+                    return true;
+            }
+        }
+
+        public bool WriteManu()
+        {
+            PrintMainManu();
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    CheckInput();
+                    return true;
+                case "2":
+                    ReadPatientAccount();
+                    return true;
+                case "3":
+                    UnblockingPatientsAccount();
+                    return true;
+                case "4":
+                    ViewingPatientRequests();
+                    return true;
+                default:
+                    Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
+                    return true;
+            }
+
         }
         //----------------------------------------------------------------------------
     }
