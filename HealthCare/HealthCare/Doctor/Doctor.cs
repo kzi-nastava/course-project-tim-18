@@ -1,5 +1,6 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -54,7 +55,8 @@ namespace HealthCare.Doctor
             }
             Console.Write("Unesite datum i vreme pregleda pregleda(format = dd/MM/yyyy HH:mm):  ");
             string period = Console.ReadLine();
-            if (period == "")
+            DateTime dt;
+            if (period == "" || !DateTime.TryParseExact(period, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
             {
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
@@ -104,6 +106,19 @@ namespace HealthCare.Doctor
             List<Doctor> doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonText);
             return doctors;
         }
+
+        public void Serialize()
+        {
+            List<Doctor> doctors = Deserialize();
+            for (int i = 0; i < doctors.Count; i++)
+            {
+                if (doctors[i].username == this.username)
+                {
+                    doctors[i] = this;
+                }
+            }
+            Serialize(doctors);
+        }
         public static void Serialize(List<Doctor> doctors)
         {
             File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
@@ -132,9 +147,23 @@ namespace HealthCare.Doctor
 
         private void checkScheduleMenu()
         {
+            Console.Write("Izaberite datum za prikaz( format dd/MM/yyyy HH:mm) ili 'danas' za danasnji dan: ");
+            string choice = Console.ReadLine();
+            DateTime dt;
+            if (choice == "danas")
+            {
+                checkSchedule(null);
+                return;
+            }
+            if (choice == "" || !DateTime.TryParseExact(choice, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
+            {
+                Console.WriteLine("Neodgovarajuc unos");
+                return;
+            }
+            checkSchedule(dt);
         }
 
-        public void CheckSchedule(DateTime? chosenDate)
+        private void checkSchedule(DateTime? chosenDate)
         {
             if (!chosenDate.HasValue)
             {
@@ -148,8 +177,10 @@ namespace HealthCare.Doctor
                     Console.WriteLine(i);
                     Console.Write("Datum pregleda/operacije: ");
                     Console.WriteLine(appointments[i].DateTime);
+                    Console.WriteLine("Pacijent: ");
+                    Console.WriteLine(appointments[i].Patient); 
                     Console.WriteLine("Zdravstveni karton pacijenta: ");
-                    Console.WriteLine(appointments[i].Patient); // TODO add patient info from class
+                    // TODO update with patient.MedicalRecord
                 }
             }
             
@@ -166,6 +197,7 @@ namespace HealthCare.Doctor
         
         private void MainMenuPrint()
         {
+            Console.WriteLine("===============================================================");
             Console.WriteLine("1. CRUD pregled/operaciju");
             Console.WriteLine("2. Prikaz rasporeda");
             Console.WriteLine("3. Izvodjenje pregleda/opracije");
