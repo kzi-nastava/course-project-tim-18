@@ -6,8 +6,8 @@ using HealthCare.Secretary;
 
 
 
-
 Manager manager = new Manager();
+
 manager.Load();
 
 List<Doctor> doctors = Doctor.Deserialize();

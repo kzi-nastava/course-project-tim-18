@@ -1,17 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "0oo7ZwwtrwQnYLWEeJndYGqiWH1f7uWv8rmJsfDOkaGXHIi6vgpdGMmKnOle96cZhi60/K79mm/a6STD4o4mGA==",
+  "dgSpecHash": "zcGckoQ877wwbppHPIY6179IMYbVgCImT+vlznx8cpL19IGwgpY8O6fHmZc7cPkwnoc5iZeRed45sEZvkBx43g==",
   "success": true,
-  "projectFilePath": "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/HealthCare.csproj",
+  "projectFilePath": "C:\\Users\\MyPC\\Documents\\GitHub\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
   "expectedPackageFiles": [
-    "/Users/dusanpejanovic/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\MyPC\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file /Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "logs": []
 }

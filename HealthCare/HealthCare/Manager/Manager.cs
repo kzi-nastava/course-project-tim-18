@@ -51,9 +51,10 @@ namespace HealthCare
         {
             Console.WriteLine("===============================================================");
             Console.WriteLine("1. CRUD operacije za bolnicu");
-            Console.WriteLine("2. Pregled opreme bolnice, pretraga i filtriranje");
-            Console.WriteLine("3. Raspoređivanje opreme po prostorijama");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("2. Pretraga i filtriranje");
+            Console.WriteLine("3. Pregled opreme bolnice");
+            Console.WriteLine("4. Raspoređivanje opreme po prostorijama");
+            Console.WriteLine("5. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -113,9 +114,12 @@ namespace HealthCare
                     Search();
                     return true;
                 case "3":
-                    MakeRequest();
+                    PrintEquipment();
                     return true;
                 case "4":
+                    MakeRequest();
+                    return true;
+                case "5":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
@@ -326,9 +330,6 @@ namespace HealthCare
 
         }
 
-
-
-
         public bool RoomExist(string name)
         {
             return hospital.RoomExist(name);        
@@ -382,6 +383,26 @@ namespace HealthCare
                 }
             }
         }
+
+
+        public void PrintEquipment()
+        {
+            foreach (Room room in hospital.Rooms)
+            {
+                foreach (Equipment equipment in room.EquipmentList)
+                {
+
+                    Console.WriteLine("------------------------------------");
+                    Console.WriteLine("Naziv prostorije: " + room.Name);
+                    Console.WriteLine("Naziv opreme: " + equipment.Name);
+                    Console.WriteLine("Količina opreme: " + equipment.Amount);
+                    Console.WriteLine("------------------------------------");
+
+                }
+            }
+        }
+
+
 
         public void Search()
         {
