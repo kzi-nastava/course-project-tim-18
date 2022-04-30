@@ -38,7 +38,7 @@
             newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
             newMedicalRecord.SerializePatient(medicalRecord, medicalRecordFile);
 
-            Patient.Patient patient = new Patient.Patient(medicalRecord.Username, medicalRecord.Password);
+            Patient.Patient patient = new Patient.Patient(medicalRecord.Username, medicalRecord.Password,medicalRecord);
             patient.serializePatient();
         }
 
@@ -51,17 +51,17 @@
             List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
             List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
-            foreach (MedicalRecord medicalRecord in medicalRecordList)
+            
                 foreach(Patient.Patient patient in patientList)
                     {
-                        if (medicalRecord.Username == username && patient.Username == username)
+                        if (patient.Username == username)
                         {
-                            newMedicalRecord.PrintMedicalRecordHeader(medicalRecord);
+                            newMedicalRecord.PrintMedicalRecordHeader(patient.MedicalRecord);
                             Console.Write("Da li zelite blokirati ovaj nalog? ");
                             string userResponse = Console.ReadLine();
                             if (userResponse == "da")
                             {
-                                BlockingPatientAccount(medicalRecord.Username,medicalRecord.Password);
+                                BlockingPatientAccount(patient);
                             }
                         } 
                     }
@@ -74,6 +74,7 @@
 
             Patient.Patient newPatient = new Patient.Patient();
             MedicalRecord newMedicalRecord = new MedicalRecord();
+
             List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
             foreach (Patient.Patient patient in patientList)
@@ -95,11 +96,11 @@
 
 
         //BLOCKING--------------------------------------------------------------------
-        public void BlockingPatientAccount(string username,string password)
+        public void BlockingPatientAccount(Patient.Patient patient)
         {
-            Patient.Patient patient = new Patient.Patient(username,password);
-            patient.DeleteFromPatients(username);
-            Patient.BlockedPatients blockedPatient = new Patient.BlockedPatients(Patient.BlockedType.Secretary,patient);
+            Patient.Patient newPatient = new Patient.Patient(patient.Username,patient.Password,patient.MedicalRecord);
+            newPatient.DeleteFromPatients(patient.Username);
+            Patient.BlockedPatients blockedPatient = new Patient.BlockedPatients(Patient.BlockedType.Secretary,newPatient);
             blockedPatient.serializeBlockedPatient();
         }
 
@@ -109,13 +110,12 @@
             Patient.BlockedPatients newBlockedPatient = new Patient.BlockedPatients();
 
             List<Patient.BlockedPatients> blockedPatientsList = Patient.BlockedPatients.blockedPatientsDeserialization();
-            List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
+           // List<MedicalRecord> medicalRecordList = newMedicalRecord.MedicalRecordDeserialization();
 
             foreach (Patient.BlockedPatients blockedPatient in blockedPatientsList)
-                foreach(MedicalRecord medicalRecord in medicalRecordList)
+                
                     {
-                       if(blockedPatient.Patient.Username == medicalRecord.Username)
-                        newMedicalRecord.ViewMedicalRecord(medicalRecord);
+                        newMedicalRecord.ViewMedicalRecord(blockedPatient.Patient.MedicalRecord);
                     }
             string unblock = InputUsername();
 
@@ -123,7 +123,7 @@
             {
                 if (blockedPatient.Patient.Username == unblock)
                 {
-                    Patient.Patient patient = new Patient.Patient(blockedPatient.Patient.Username, blockedPatient.Patient.Password);
+                    Patient.Patient patient = new Patient.Patient(blockedPatient.Patient.Username, blockedPatient.Patient.Password,blockedPatient.Patient.MedicalRecord);
                     newBlockedPatient.DeleteFromBlockedPatients(blockedPatient.Patient.Username, blockedPatientsFile);
                     patient.serializePatient();
                 }
@@ -144,21 +144,19 @@
                     Console.WriteLine(appointment);
                 }
 
-            DateTime date1 = new DateTime();
+            
             Console.Write("Unesite ime doktora: ");
             string doctor = Console.ReadLine();
             
             
             Console.Write("Unesite datum i vrijeme: ");
             string date = Console.ReadLine();
-            Console.WriteLine(date);
+            
             
             foreach (Patient.AppointmentRequests appointment in appointmentlist)
             {
                 if(appointment.NewAppointment.TimeOfAppointment == date && appointment.NewAppointment.Doctor == doctor)
                 {
-
-                    Console.WriteLine(appointment);
                     MenageRequestes(appointment);
                 } 
             }

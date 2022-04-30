@@ -4,8 +4,8 @@ using HealthCare.Secretary;
 
 
 
-Manager m = new Manager();
-m.Load();
+//Manager m = new Manager();
+//m.Load();
 
 
 

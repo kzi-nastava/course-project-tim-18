@@ -48,24 +48,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/dusanpejanovic/.nuget/packages/": {}
+    "C:\\Users\\Asus\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/HealthCare.csproj",
+      "projectUniqueName": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
       "projectName": "HealthCare",
-      "projectPath": "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/HealthCare.csproj",
-      "packagesPath": "/Users/dusanpejanovic/.nuget/packages/",
-      "outputPath": "/Users/dusanpejanovic/Documents/GitHub/course-project-tim-18/HealthCare/HealthCare/obj/",
+      "projectPath": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+      "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Asus\\Source\\Repos\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/dusanpejanovic/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -104,7 +106,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/6.0.202/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }

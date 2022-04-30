@@ -202,7 +202,7 @@ namespace HealthCare.Patient
 
         public void DeleteFromPatients(string username)
         {
-            string fileName = "../../../Data/Patient.json";
+            string fileName = "../../../Data/Patients.json";
             List<Patient> blockedPatients = patientDeserialization();
             string json = "";
             foreach (Patient blockedPatient in blockedPatients)

@@ -11,6 +11,7 @@ namespace HealthCare.Patient
     {
         private BlockedType blockedType;
         private Patient patient;
+        
 
         public BlockedType BlockedType
         {
@@ -28,6 +29,7 @@ namespace HealthCare.Patient
             this.blockedType = blockedType;
             this.patient = patient;
         }
+       
 
         public BlockedPatients()
         {
