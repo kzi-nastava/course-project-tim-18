@@ -219,7 +219,7 @@ namespace HealthCare.Patient
         {
             Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Izalazak iz menua");
             string option = Console.ReadLine();
-            while (option == "5")
+            while (option != "5")
             {
                 if (option == "1")
                     this.makingAppointment();
