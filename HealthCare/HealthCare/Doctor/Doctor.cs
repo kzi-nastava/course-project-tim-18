@@ -49,7 +49,7 @@ namespace HealthCare.Doctor
         {
             Console.Write("Unesite korisnicko ime pacijenta:  ");
             string patient = Console.ReadLine();
-            if (patient == "") // TODO or check if username exists
+            if (patient == "") 
             {
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
@@ -62,7 +62,7 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            if (checkIfAvailable(DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null))) // TODO regex for datetime
+            if (checkIfAvailable(DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null)))
             {
                 Console.WriteLine("Doktor nije dostupan za dat termin.");
                 return false;
@@ -79,50 +79,13 @@ namespace HealthCare.Doctor
             this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1));
             return true;
         }
-
-        private bool checkIfAvailable(DateTime appointmentDate)
-        {
-            foreach (var a in appointments)
-            {
-                DateTime dt = DateTime.ParseExact(a.TimeOfAppointment, "dd/MM/yyyy HH:mm", null);
-                if ((dt - appointmentDate).TotalMinutes < 15)
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
         public void readAppointments()
         {
             foreach (Patient.Appointment a in appointments)
             {
                 Console.WriteLine(a);
             }
-        }
-
-        public static List<Doctor> Deserialize()
-        {
-            string path = "../../../Data/DoctorsData.json";
-            string jsonText = File.ReadAllText(path);
-            List<Doctor> doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonText);
-            return doctors;
-        }
-
-        public void Serialize()
-        {
-            List<Doctor> doctors = Deserialize();
-            for (int i = 0; i < doctors.Count; i++)
-            {
-                if (doctors[i].username == this.username)
-                {
-                    doctors[i] = this;
-                }
-            }
-            Serialize(doctors);
-        }
-        public static void Serialize(List<Doctor> doctors)
-        {
-            File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
         }
         public static void deleteAppointment(string patient, string doctor, string date)
         {
@@ -144,26 +107,19 @@ namespace HealthCare.Doctor
             }
             
         }
-        private void deleteAppointmentMenu(){}
 
-        private void checkScheduleMenu()
+        private void updateAppointment(string change, string choice, int index)
         {
-            Console.Write("Izaberite datum za prikaz( format dd/MM/yyyy HH:mm) ili 'danas' za danasnji dan: ");
-            string choice = Console.ReadLine();
-            DateTime dt;
-            if (choice == "danas")
+            if (choice == "date")
             {
-                printSchedule(null);
-                return;
+                appointments[index].TimeOfAppointment = change;
             }
-            if (choice == "" || !DateTime.TryParseExact(choice, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
-            {
-                Console.WriteLine("Neodgovarajuc unos");
-                return;
-            }
-            printSchedule(dt);
-        }
 
+            if (choice == "patient")
+            {
+                appointments[index].Patient = change;
+            }
+        }
         private void printSchedule(DateTime? chosenDate)
         {
             if (!chosenDate.HasValue)
@@ -197,7 +153,170 @@ namespace HealthCare.Doctor
             }
             
         }
+        private bool checkIfAvailable(DateTime appointmentDate)
+        {
+            foreach (var a in appointments)
+            {
+                DateTime dt = DateTime.ParseExact(a.TimeOfAppointment, "dd/MM/yyyy HH:mm", null);
+                if ((dt - appointmentDate).TotalMinutes < 15)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        private void performAppointment(){}
+        public static List<Doctor> Deserialize()
+        {
+            string path = "../../../Data/DoctorsData.json";
+            string jsonText = File.ReadAllText(path);
+            List<Doctor> doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonText);
+            return doctors;
+        }
 
+        public void SerializeDoctor()
+        {
+            List<Doctor> doctors = Deserialize();
+            for (int i = 0; i < doctors.Count; i++)
+            {
+                if (doctors[i].username == this.username)
+                {
+                    doctors[i] = this;
+                }
+            }
+            Serialize(doctors);
+        }
+        public static void Serialize(List<Doctor> doctors)
+        {
+            File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
+        }
+
+        private int? chooseFromAppointments()
+        {
+            for (int i = 0; i< appointments.Count; i++)
+            {
+                Console.WriteLine(i+1 + ". " + appointments[i]);
+            }
+            Console.WriteLine("Izaberite termin: ");
+            string index = Console.ReadLine();
+            int x = 0;
+            
+            if (!Int32.TryParse(index, out x))
+            {
+                Console.WriteLine("Neispravan unos.");
+                return null;
+            }
+            if (x <= 0 || x > appointments.Count)
+            {
+                Console.WriteLine(x+ " nije ponudjena opcija. ");
+                return null;
+            }
+
+            return x;
+        }
+        private void updateAppointmentMenu()
+        {
+            int? x = chooseFromAppointments();
+            int index;
+            if (!x.HasValue)
+            {
+                return;
+            }
+            else
+            {
+                index = x.Value-1;
+            }
+            
+            Console.WriteLine("Izmena termina: ");
+            Console.WriteLine("1. izmena datuma i vremena");
+            Console.WriteLine("2. izmena pacijenta");
+            Console.Write("Izaberite opciju za menjanje: ");
+            string choice = Console.ReadLine();
+            if (choice == "1")
+            {
+                Console.WriteLine("Unesite novi datum i vreme termina( format dd/MM/yyyy HH:mm): ");
+                string newDate = Console.ReadLine();
+                DateTime dt;
+                if (!DateTime.TryParseExact(newDate, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
+                {
+                    Console.WriteLine("Datum"+newDate+" nije validan.");
+                    return;
+                }
+                if (!checkIfAvailable(dt))
+                {
+                    Console.WriteLine("Nemate slobodan termin za dato vreme.");
+                    return;
+                }
+                updateAppointment(newDate, "date", index);
+            }
+            else if (choice == "2")
+            {
+                Console.WriteLine("Unesite korisnicko ime novog pacijenta: ");
+                string newPatient = Console.ReadLine();
+                if (newPatient == "")
+                {
+                    Console.WriteLine("Neispravan unos.");
+                    return;
+                }
+                updateAppointment(newPatient, "patient", index);
+            }
+        }
+        private void deleteAppointmentMenu()
+        {
+            Console.Write("Unesite korisnicko ime pacijenta: ");
+            string patient = Console.ReadLine();
+            Console.Write("Unesite datum i vreme pregleda/operacije za brisanje( format Hdd/MM/yyyy HH:mm): ");
+            string date = Console.ReadLine();
+            deleteAppointment(patient, this.username, date);
+        }
+
+        private void performAppointmentMenu()
+        {
+            Console.WriteLine("=======================================");
+            Console.WriteLine("Izvodjenje poregleda: ");
+            int? x = chooseFromAppointments();
+            if (!x.HasValue)
+            {
+                return;
+            }
+            int index = x.Value-1;
+            Console.WriteLine(appointments[index]);
+            List<Patient.Patient> patients = Patient.Patient.patientDeserialization();
+            Patient.Patient patient = new Patient.Patient();
+            foreach (Patient.Patient p in patients)
+            {
+                if (appointments[index].Patient == p.Username)
+                {
+                    patient = p;
+                    break;
+                }
+            }
+            Console.WriteLine("Zdravstveni karton pacijenta: ");
+            patient.MedicalRecord.ViewMedicalRecord(patient.MedicalRecord);
+            Console.WriteLine("Da li zelite da izmenite nesto iz zdravstvenog kartona(y/n): ");
+            string s = Console.ReadLine();
+            if (s == "y")
+            {
+                patient.MedicalRecord.CreateInput();
+            }    
+        }
+        private void checkScheduleMenu()
+        {
+            Console.Write("Izaberite datum za prikaz( format dd/MM/yyyy HH:mm) ili 'danas' za danasnji dan: ");
+            string choice = Console.ReadLine();
+            DateTime dt;
+            if (choice == "danas")
+            {
+                printSchedule(null);
+                return;
+            }
+            if (choice == "" || !DateTime.TryParseExact(choice, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
+            {
+                Console.WriteLine("Neodgovarajuc unos");
+                return;
+            }
+            printSchedule(dt);
+        }
         public void DoctorMenu()
         {
             bool showMenu = true;
@@ -206,23 +325,22 @@ namespace HealthCare.Doctor
                 showMenu = MainMenuWrite();
             }
         }
-        
         private void MainMenuPrint()
         {
             Console.WriteLine("===============================================================");
             Console.WriteLine("1. CRUD pregled/operaciju");
             Console.WriteLine("2. Prikaz rasporeda");
-            Console.WriteLine("3. Izvodjenje pregleda/opracije");
+            Console.WriteLine("3. Izvodjenje pregleda/operacije");
             Console.WriteLine("4. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
         private void CRUDMenuPrint()
         {
-            Console.WriteLine("\n1. Kreiraj pregled/opraciju");
-            Console.WriteLine("2. Prikaz pregleda/opracija");
-            Console.WriteLine("3. Izmijena pregleda/opracije");
-            Console.WriteLine("4. Brisanje pregleda/opraciju");
+            Console.WriteLine("\n1. Kreiraj pregled/operaciju");
+            Console.WriteLine("2. Prikaz pregleda/operacija");
+            Console.WriteLine("3. Izmena pregleda/operacije");
+            Console.WriteLine("4. Brisanje pregleda/operaciju");
             Console.WriteLine("5. Vratite se nazad");
             Console.Write("Izaberite opciju: ");
         }
@@ -246,7 +364,7 @@ namespace HealthCare.Doctor
                     this.readAppointments();
                     return true;
                 case "3":
-                    // TODO update appointment
+                    updateAppointmentMenu();
                     return true;
                 case "4":
                     this.deleteAppointmentMenu();
@@ -270,7 +388,7 @@ namespace HealthCare.Doctor
                     checkScheduleMenu();
                     return true;
                 case "3":
-                    // TODO do an appointment
+                    performAppointmentMenu();
                     return true;
                 case "4":
                     return false;
