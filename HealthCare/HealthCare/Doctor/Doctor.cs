@@ -165,7 +165,6 @@ namespace HealthCare.Doctor
             }
             return true;
         }
-        private void performAppointment(){}
         public static List<Doctor> Deserialize()
         {
             string path = "../../../Data/DoctorsData.json";
@@ -273,7 +272,7 @@ namespace HealthCare.Doctor
         private void performAppointmentMenu()
         {
             Console.WriteLine("=======================================");
-            Console.WriteLine("Izvodjenje poregleda: ");
+            Console.WriteLine("Izvodjenje pregleda: ");
             int? x = chooseFromAppointments();
             if (!x.HasValue)
             {
@@ -298,7 +297,11 @@ namespace HealthCare.Doctor
             if (s == "y")
             {
                 patient.MedicalRecord.CreateInput();
-            }    
+            }
+            Console.WriteLine("Anamneza: ");
+            string anamneza = Console.ReadLine();
+            Report.addReport(new Report(appointments[index], anamneza, patient.MedicalRecord));
+            
         }
         private void checkScheduleMenu()
         {
