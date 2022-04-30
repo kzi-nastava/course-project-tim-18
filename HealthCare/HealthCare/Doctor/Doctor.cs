@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using HealthCare.Secretary;
 
 namespace HealthCare.Doctor
 {
@@ -11,23 +12,23 @@ namespace HealthCare.Doctor
     {
         private string name;
         private string surname;
-        private List<Appointment>? appointments;
+        private List<Patient.Appointment>? appointments;
 
         public Doctor() {
             username = "";
             password = "";
-            appointments = new List<Appointment>();
+            appointments = new List<Patient.Appointment>();
             name = "";
             surname  = "";
         }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
 
-        public List<Appointment> Appointments { get => appointments; set => appointments = value; }
+        public List<Patient.Appointment> Appointments { get => appointments; set => appointments = value; }
         
 
         [JsonConstructor]
-        public Doctor(string username, string password,string name, string surname,List<Appointment> appointments)
+        public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
         {
             this.username = username;
             this.password = password;
@@ -40,15 +41,15 @@ namespace HealthCare.Doctor
         {
             return String.Format("Doctor( Name: {0}, Surname: {1}, Username: {2}, Password: {3}, Appointments: [{4}])", name, surname, username, password, String.Join("; ",appointments));
         }
-        public void AddAppointment(Appointment appointment)
+        public void AddAppointment(Patient.Appointment appointment)
         {
             this.appointments.Add(appointment);
         }
         public bool CreateAppointment()
         {
-            Console.Write("Unesite  ime i prezime pacijenta:  ");
-            string patientFullName = Console.ReadLine();
-            if (patientFullName == "") // TODO or check if username exists
+            Console.Write("Unesite korisnicko ime pacijenta:  ");
+            string patient = Console.ReadLine();
+            if (patient == "") // TODO or check if username exists
             {
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
@@ -61,7 +62,7 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            if (checkIfAvailable(DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null))) // TODO regex for datetime and check if doctor is available
+            if (checkIfAvailable(DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null))) // TODO regex for datetime
             {
                 Console.WriteLine("Doktor nije dostupan za dat termin.");
                 return false;
@@ -75,16 +76,16 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            // TODO patient = new Patient(); 
-            this.appointments.Add(new Appointment(this.username, patientFullName, DateTime.ParseExact(period, "dd/MM/yyyy HH:mm", null), (AppointmentType)Int32.Parse(type)-1));
+            this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1));
             return true;
         }
 
-        private bool checkIfAvailable(DateTime date)
+        private bool checkIfAvailable(DateTime appointmentDate)
         {
             foreach (var a in appointments)
             {
-                if ((a.DateTime - date).Minutes > 0  && (a.DateTime - date).Minutes < 15)
+                DateTime dt = DateTime.ParseExact(a.TimeOfAppointment, "dd/MM/yyyy HH:mm", null);
+                if ((dt - appointmentDate).TotalMinutes < 15)
                 {
                     return false;
                 }
@@ -93,7 +94,7 @@ namespace HealthCare.Doctor
         }
         public void readAppointments()
         {
-            foreach (Appointment a in appointments)
+            foreach (Patient.Appointment a in appointments)
             {
                 Console.WriteLine(a);
             }
@@ -130,14 +131,14 @@ namespace HealthCare.Doctor
             {
                 if (d.username == doctor)
                 {
-                    foreach (Appointment a in d.appointments)
+                    foreach (Patient.Appointment a in d.appointments)
                     {
-                        if (a.Patient == patient)
+                        if (a.Patient == patient && a.TimeOfAppointment == date)
                         {
                             d.appointments.Remove(a);
                             Serialize(doctors);
                             return;
-                        } // and date
+                        }
                     }
                 }
             }
@@ -152,7 +153,7 @@ namespace HealthCare.Doctor
             DateTime dt;
             if (choice == "danas")
             {
-                checkSchedule(null);
+                printSchedule(null);
                 return;
             }
             if (choice == "" || !DateTime.TryParseExact(choice, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
@@ -160,10 +161,10 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return;
             }
-            checkSchedule(dt);
+            printSchedule(dt);
         }
 
-        private void checkSchedule(DateTime? chosenDate)
+        private void printSchedule(DateTime? chosenDate)
         {
             if (!chosenDate.HasValue)
             {
@@ -172,15 +173,26 @@ namespace HealthCare.Doctor
             
             for (int i = 0;i < appointments.Count;i++)
             {
-                if ((appointments[i].DateTime - chosenDate) < TimeSpan.FromDays(4) && appointments[i].DateTime > chosenDate)
+                DateTime dt = DateTime.ParseExact(appointments[i].TimeOfAppointment, "dd/MM/yyyy HH:mm", null);
+                if ((dt - chosenDate) < TimeSpan.FromDays(4) && dt > chosenDate)
                 {
-                    Console.WriteLine(i);
+                    List<Patient.Patient> patients = Patient.Patient.patientDeserialization();
+                    Patient.Patient patient = new Patient.Patient();
+                    foreach (Patient.Patient p in patients)
+                    {
+                        if (appointments[i].Patient == p.Username)
+                        {
+                            patient = p;
+                            break;
+                        }
+                    }
+                    Console.WriteLine("Pregled " + i+1 + ". ");
                     Console.Write("Datum pregleda/operacije: ");
-                    Console.WriteLine(appointments[i].DateTime);
-                    Console.WriteLine("Pacijent: ");
+                    Console.WriteLine(dt);
+                    Console.Write("Pacijent: ");
                     Console.WriteLine(appointments[i].Patient); 
                     Console.WriteLine("Zdravstveni karton pacijenta: ");
-                    // TODO update with patient.MedicalRecord
+                    patient.MedicalRecord.ViewMedicalRecord(patient.MedicalRecord);
                 }
             }
             

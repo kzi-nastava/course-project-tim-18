@@ -161,7 +161,20 @@ namespace HealthCare.Patient
             }
             File.WriteAllText(fileName, json);
         }
+        public override string ToString()
+        {
+            string s;
+            if (appointmentType == 0)
+            {
+                s = "Operacija";
+            }
+            else
+            {
+                s = "Pregled";
+            }
+            return String.Format("Termin( Doktor: {0}, Pacijent: {1}, Datum i Vreme: {2}, Tip: {3}", doctor, patient, timeOfAppointment, s);
 
+        }
         
         
     }
