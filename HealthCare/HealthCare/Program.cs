@@ -9,8 +9,7 @@ using HealthCare.Secretary;
 
 
 
-
-SecretaryMenu manu = new SecretaryMenu();
+Secretary manu = new Secretary();
 bool showMenu = true;
     while (showMenu)
     {
