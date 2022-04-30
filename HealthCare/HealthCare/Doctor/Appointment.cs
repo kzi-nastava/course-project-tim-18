@@ -9,8 +9,8 @@ namespace HealthCare.Doctor
     {
         private string? doctor;
         private string? patient { get; set; }
-        private DateTime dateTime { get; set; }
-        private AppointmentType type { get; set; }
+        private DateTime dateTime;
+        private AppointmentType type;
 
         public string Doctor
         {
@@ -33,7 +33,9 @@ namespace HealthCare.Doctor
             get => type;
             set => type = value;
         }
-        [JsonConstructor]
+
+
+        // [JsonConstructor]
         public Appointment(string doctor, string patient, DateTime dateTime, AppointmentType type)
         {
             this.doctor = doctor;
@@ -41,10 +43,22 @@ namespace HealthCare.Doctor
             this.dateTime = dateTime;
             this.type = type;
         }
+        public Appointment()
+        {
 
+        }
         public override string ToString()
         {
-            return String.Format("Appointment( Doctor: {0}, Patient: {1}, Date&Time: {2}, AppointmentType: {3})", doctor, patient, dateTime, type);
+            string s;
+            if (type == 0)
+            {
+                s = "Operacija";
+            }
+            else
+            {
+                s = "Pregled";
+            }
+            return String.Format("Termin( Doktor: {0}, Pacijent: {1}, Datum i Vreme: {2}, Tip: {3}", doctor, patient, dateTime, s);
 
         }
     }

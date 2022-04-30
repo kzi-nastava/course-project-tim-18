@@ -1,5 +1,7 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace HealthCare.Doctor
@@ -8,19 +10,15 @@ namespace HealthCare.Doctor
     {
         private string name;
         private string surname;
-        private string? id;
         private List<Appointment>? appointments;
 
         public Doctor() {
             username = "";
             password = "";
             appointments = new List<Appointment>();
-            id = "";
             name = "";
             surname  = "";
         }
-
-        public string Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
 
@@ -28,19 +26,18 @@ namespace HealthCare.Doctor
         
 
         [JsonConstructor]
-        public Doctor(string username, string password,string name, string surname, string id, List<Appointment> appointments)
+        public Doctor(string username, string password,string name, string surname,List<Appointment> appointments)
         {
             this.username = username;
             this.password = password;
             this.name = name;
             this.surname = surname;
-            this.id = id;
             this.appointments = appointments;
         }
     
         public override string ToString()
         {
-            return String.Format("Doctor( Name: {0}, Surname: {1}, ID: {2}, Username: {3}, Password: {4}, Appointments: [{5}])", name, surname, id, username, password, String.Join("; ",appointments));
+            return String.Format("Doctor( Name: {0}, Surname: {1}, Username: {2}, Password: {3}, Appointments: [{4}])", name, surname, username, password, String.Join("; ",appointments));
         }
         public void AddAppointment(Appointment appointment)
         {
@@ -100,13 +97,41 @@ namespace HealthCare.Doctor
             }
         }
 
-        public void Serialize()
+        public static List<Doctor> Deserialize()
         {
+            string path = "../../../Data/DoctorsData.json";
+            string jsonText = File.ReadAllText(path);
+            List<Doctor> doctors = JsonSerializer.Deserialize<List<Doctor>>(jsonText);
+            return doctors;
+        }
+        public static void Serialize(List<Doctor> doctors)
+        {
+            File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
+        }
+        public static void deleteAppointment(string patient, string doctor, string date)
+        {
+            List<Doctor> doctors = Deserialize();
+            foreach (Doctor d in doctors)
+            {
+                if (d.username == doctor)
+                {
+                    foreach (Appointment a in d.appointments)
+                    {
+                        if (a.Patient == patient)
+                        {
+                            d.appointments.Remove(a);
+                            Serialize(doctors);
+                            return;
+                        } // and date
+                    }
+                }
+            }
             
         }
-        public void deleteAppointment(int index)
+        private void deleteAppointmentMenu(){}
+
+        private void checkScheduleMenu()
         {
-            appointments.RemoveAt(index);
         }
 
         public void CheckSchedule(DateTime? chosenDate)
@@ -128,6 +153,89 @@ namespace HealthCare.Doctor
                 }
             }
             
+        }
+
+        public void DoctorMenu()
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = MainMenuWrite();
+            }
+        }
+        
+        private void MainMenuPrint()
+        {
+            Console.WriteLine("1. CRUD pregled/operaciju");
+            Console.WriteLine("2. Prikaz rasporeda");
+            Console.WriteLine("3. Izvodjenje pregleda/opracije");
+            Console.WriteLine("4. Exit");
+            Console.Write("Izaberite opciju: ");
+
+        }
+        private void CRUDMenuPrint()
+        {
+            Console.WriteLine("\n1. Kreiraj pregled/opraciju");
+            Console.WriteLine("2. Prikaz pregleda/opracija");
+            Console.WriteLine("3. Izmijena pregleda/opracije");
+            Console.WriteLine("4. Brisanje pregleda/opraciju");
+            Console.WriteLine("5. Vratite se nazad");
+            Console.Write("Izaberite opciju: ");
+        }
+        private void CRUDMenu()
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = CRUDMenuWrite();
+            }
+        }
+        private bool CRUDMenuWrite()
+        {
+            CRUDMenuPrint();
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    this.CreateAppointment();
+                    return true;
+                case "2":
+                    this.readAppointments();
+                    return true;
+                case "3":
+                    // TODO update appointment
+                    return true;
+                case "4":
+                    this.deleteAppointmentMenu();
+                    return true;
+                case "5":
+                    return false;
+                default:
+                    Console.WriteLine("\nPogresan unos.\n");
+                    return true;
+            }
+        }
+        private bool MainMenuWrite()
+        {
+            MainMenuPrint();
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    CRUDMenu();
+                    return true;
+                case "2":
+                    checkScheduleMenu();
+                    return true;
+                case "3":
+                    // TODO do an appointment
+                    return true;
+                case "4":
+                    return false;
+                default:
+                    Console.WriteLine("\nPogresan unos!\n");
+                    return true;
+                    
+            }
+
         }
     }
     
