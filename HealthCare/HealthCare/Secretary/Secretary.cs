@@ -1,4 +1,6 @@
-﻿namespace HealthCare.Secretary
+﻿using System.Text.Json;
+
+namespace HealthCare.Secretary
 {
     public class Secretary : User
     {
@@ -22,7 +24,25 @@
         MedicalRecord medRecord = new MedicalRecord();
         Patient.Patient patient = new Patient.Patient();
 
-        
+
+
+
+        public static List<Secretary> Deserialize()
+        {
+            string path = "../../../Data/SecretariesaData.json";
+            string jsonText = File.ReadAllText(path);
+            List<Secretary> secretaries = JsonSerializer.Deserialize<List<Secretary>>(jsonText);
+            return secretaries;
+        }
+
+
+        public static void Serialize(List<Secretary> secretaries)
+        {
+            File.WriteAllText("../../../Data/SecretariesData.json", JsonSerializer.Serialize(secretaries));
+        }
+
+
+
         public string InputUsername()
         {
             Console.Write("\nUnesite korisnicko ime pacijenta: ");

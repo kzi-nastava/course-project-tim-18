@@ -1,4 +1,4 @@
-
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -173,6 +173,13 @@ namespace HealthCare.Doctor
             return doctors;
         }
 
+
+        public static void Serialize(List<Doctor> doctors)
+        {
+            File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
+        }
+
+
         public void SerializeDoctor()
         {
             List<Doctor> deserializedDoctors = Deserialize();
@@ -184,10 +191,6 @@ namespace HealthCare.Doctor
                 }
             }
             Serialize(deserializedDoctors);
-        }
-        public static void Serialize(List<Doctor> doctors)
-        {
-            File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
         }
 
         private int? chooseAppointment()
