@@ -118,6 +118,10 @@ namespace HealthCare
         public void ExecuteTodayRequests()
         {
 
+            if (managerRequests == null)
+                return;
+
+
             for (int i = 0; i < managerRequests.Count; i++)
             {
                 ManagerRequest managerRequest = managerRequests[i];

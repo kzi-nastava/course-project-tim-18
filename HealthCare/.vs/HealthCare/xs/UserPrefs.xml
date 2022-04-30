@@ -1,11 +1,9 @@
-﻿<Properties>
+﻿<Properties StartupConfiguration="{8208ADFB-A20A-4097-85A4-7B7733925DB4}|Default">
+  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.HealthCare PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="HealthCare/obj/HealthCare.csproj.nuget.g.props">
     <Files>
       <File FileName="HealthCare/Doctor/Doctor.cs" Line="46" Column="9" />
@@ -37,7 +35,7 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="HealthCare" expanded="True" selected="True" />
+          <Node name="HealthCare" expanded="True" />
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
@@ -45,4 +43,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.HealthCare PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>

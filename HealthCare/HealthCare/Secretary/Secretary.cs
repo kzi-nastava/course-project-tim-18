@@ -1,22 +1,20 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace HealthCare.Secretary
 {
     public class Secretary : User
     {
-        public Secretary()
-        {
 
-        }
+
+
+        [JsonConstructor]
         public Secretary(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
-        public string username { get; set; }
-        public string password { get; set; }
 
-<<<<<<< HEAD
         string medicalRecordFile = "../../../Data/MedicalRecord.json";
         string blockedPatientsFile = "../../../Data/BlockedPatients.json";
         string patientFile = "../../../Data/Patient.json";
@@ -30,7 +28,7 @@ namespace HealthCare.Secretary
 
         public static List<Secretary> Deserialize()
         {
-            string path = "../../../Data/SecretariesaData.json";
+            string path = "../../../Data/SecretariesData.json";
             string jsonText = File.ReadAllText(path);
             List<Secretary> secretaries = JsonSerializer.Deserialize<List<Secretary>>(jsonText);
             return secretaries;
@@ -43,10 +41,6 @@ namespace HealthCare.Secretary
         }
 
 
-
-=======
-        
->>>>>>> 4116fbb02f46e36a0dfa685ea2f8d29ed2efca5f
         public string InputUsername()
         {
             Console.Write("\nUnesite korisnicko ime pacijenta: ");

@@ -11,6 +11,7 @@ Secretary s2 = new Secretary("alex", "acke123");
 Secretary s3 = new Secretary("nina", "nina123");
 Secretary s4 = new Secretary("lesnina", "lesnina123");
 
+
 List<Secretary> ls = new List<Secretary>() { s1,s2,s3,s4};
 
 
@@ -25,17 +26,53 @@ List<Patient> patients = Patient.patientDeserialization();
 
 List<Secretary> secretaries = Secretary.Deserialize();
 
+string userResponse;
 
+while (true)
+{
 
-/*
+    Console.WriteLine("1.Uloguj se");
+    Console.WriteLine("2.Isključi aplikaciju");
+    Console.WriteLine("Izaberi opciju: ");
 
-bool showMenu = true;
-    while (showMenu)
+    userResponse = Console.ReadLine();
+
+    if (userResponse == "2")
+        break;
+
+    Console.WriteLine("Unesi korisnčko ime:");
+    string username = Console.ReadLine();
+
+    Console.WriteLine("Unesi šifru:");
+    string password = Console.ReadLine();
+
+    foreach (Doctor doctor in doctors)
     {
-       showMenu = menu.WriteManu();
+        if (doctor.Username == username && doctor.Password == password)
+        {
+            doctor.DoctorMenu();
+            break;
+        }
+    }
+
+    foreach (Secretary secretary in secretaries)
+    {
+        if (secretary.Username == username && secretary.Password == password)
+        {
+            secretary.WriteManu();
+            break;
+        }
     }
 
 
+    foreach (Patient patinet in patients)
+    {
+        if (patinet.Username == username && patinet.Password == password)
+        {
+            patinet.patientMenu();
+            break;
+        }
+    }
+}
 
 
-Console.WriteLine("aasa");*/
