@@ -491,7 +491,7 @@ namespace HealthCare
             {
                 equipmentNameImportant = true;
 
-                Console.WriteLine("Unesi naziv opreme: ");
+                Console.WriteLine("Unesi naziv opreme (pazi na velika i mala slova): ");
 
                 equipmentName = Console.ReadLine();
 
