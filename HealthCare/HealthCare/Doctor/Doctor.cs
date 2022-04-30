@@ -89,8 +89,8 @@ namespace HealthCare.Doctor
         }
         public static void deleteAppointment(string patient, string doctor, string date)
         {
-            List<Doctor> doctors = Deserialize();
-            foreach (Doctor d in doctors)
+            List<Doctor> deserializedDoctors = Deserialize();
+            foreach (Doctor d in deserializedDoctors)
             {
                 if (d.username == doctor)
                 {
@@ -99,7 +99,7 @@ namespace HealthCare.Doctor
                         if (a.Patient == patient && a.TimeOfAppointment == date)
                         {
                             d.appointments.Remove(a);
-                            Serialize(doctors);
+                            Serialize(deserializedDoctors);
                             return;
                         }
                     }
@@ -175,22 +175,22 @@ namespace HealthCare.Doctor
 
         public void SerializeDoctor()
         {
-            List<Doctor> doctors = Deserialize();
-            for (int i = 0; i < doctors.Count; i++)
+            List<Doctor> deserializedDoctors = Deserialize();
+            for (int i = 0; i < deserializedDoctors.Count; i++)
             {
-                if (doctors[i].username == this.username)
+                if (deserializedDoctors[i].username == this.username)
                 {
-                    doctors[i] = this;
+                    deserializedDoctors[i] = this;
                 }
             }
-            Serialize(doctors);
+            Serialize(deserializedDoctors);
         }
         public static void Serialize(List<Doctor> doctors)
         {
             File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
         }
 
-        private int? chooseFromAppointments()
+        private int? chooseAppointment()
         {
             for (int i = 0; i< appointments.Count; i++)
             {
@@ -215,7 +215,7 @@ namespace HealthCare.Doctor
         }
         private void updateAppointmentMenu()
         {
-            int? x = chooseFromAppointments();
+            int? x = chooseAppointment();
             int index;
             if (!x.HasValue)
             {
@@ -263,26 +263,26 @@ namespace HealthCare.Doctor
         private void deleteAppointmentMenu()
         {
             Console.Write("Unesite korisnicko ime pacijenta: ");
-            string patient = Console.ReadLine();
+            string chosenPatient = Console.ReadLine();
             Console.Write("Unesite datum i vreme pregleda/operacije za brisanje( format Hdd/MM/yyyy HH:mm): ");
-            string date = Console.ReadLine();
-            deleteAppointment(patient, this.username, date);
+            string chosenDate = Console.ReadLine();
+            deleteAppointment(chosenPatient, this.username, chosenDate);
         }
 
         private void performAppointmentMenu()
         {
             Console.WriteLine("=======================================");
             Console.WriteLine("Izvodjenje pregleda: ");
-            int? x = chooseFromAppointments();
+            int? x = chooseAppointment();
             if (!x.HasValue)
             {
                 return;
             }
             int index = x.Value-1;
             Console.WriteLine(appointments[index]);
-            List<Patient.Patient> patients = Patient.Patient.patientDeserialization();
+            List<Patient.Patient> deserializedPatients = Patient.Patient.patientDeserialization();
             Patient.Patient patient = new Patient.Patient();
-            foreach (Patient.Patient p in patients)
+            foreach (Patient.Patient p in deserializedPatients)
             {
                 if (appointments[index].Patient == p.Username)
                 {
@@ -306,14 +306,14 @@ namespace HealthCare.Doctor
         private void checkScheduleMenu()
         {
             Console.Write("Izaberite datum za prikaz( format dd/MM/yyyy HH:mm) ili 'danas' za danasnji dan: ");
-            string choice = Console.ReadLine();
+            string chosenDate = Console.ReadLine();
             DateTime dt;
-            if (choice == "danas")
+            if (chosenDate == "danas")
             {
                 printSchedule(null);
                 return;
             }
-            if (choice == "" || !DateTime.TryParseExact(choice, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
+            if (chosenDate == "" || !DateTime.TryParseExact(chosenDate, "dd/MM/yyyy HH:mm", null, DateTimeStyles.None, out dt))
             {
                 Console.WriteLine("Neodgovarajuc unos");
                 return;

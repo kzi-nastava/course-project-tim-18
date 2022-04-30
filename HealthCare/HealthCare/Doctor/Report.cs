@@ -8,7 +8,7 @@ public class Report
 {
     private Appointment appointment;
     private string description;
-    private MedicalRecord medicalRecord;
+    private MedicalRecord patientMedicalRecord;
     public Appointment Appointment
     {
         get => appointment;
@@ -17,8 +17,8 @@ public class Report
 
     public MedicalRecord MedicalRecord
     {
-        get => medicalRecord;
-        set => medicalRecord = value;
+        get => patientMedicalRecord;
+        set => patientMedicalRecord = value;
     }
     public string Description
     {
@@ -41,16 +41,16 @@ public class Report
 
     private static List<Report> deserialize()
     {
-        string path = "../../../Data/Reports.json";
-        string jsonText = File.ReadAllText(path);
+        string filepath = "../../../Data/Reports.json";
+        string jsonText = File.ReadAllText(filepath);
         List<Report> reports = JsonSerializer.Deserialize<List<Report>>(jsonText);
         return reports;
     }
 
     public static void addReport(Report r)
     {
-        List<Report> reports = deserialize();
-        reports.Add(r);
-        serialize(reports);
+        List<Report> deserializeedReports = deserialize();
+        deserializeedReports.Add(r);
+        serialize(deserializeedReports);
     }
 }
