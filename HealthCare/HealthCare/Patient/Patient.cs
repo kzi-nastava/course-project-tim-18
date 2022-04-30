@@ -164,7 +164,7 @@ namespace HealthCare.Patient
                         }
                     }
                 }
-                DateTime timeChecked = DateTime.ParseExact(timeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if (validationOfNewAppointment == true)
                     if (timeDifference.TotalDays > 2)
@@ -195,7 +195,7 @@ namespace HealthCare.Patient
                 Console.WriteLine("Unesite vreme tretmana koji zelite da izbrisete:(u formatu DD/MM/YYYY hh:mm ");
                 string timeOfAppointment = Console.ReadLine();
                 Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username);
-                DateTime timeChecked = DateTime.ParseExact(timeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if(timeDifference.TotalDays > 2)
                     appointment.deletingAppointment();

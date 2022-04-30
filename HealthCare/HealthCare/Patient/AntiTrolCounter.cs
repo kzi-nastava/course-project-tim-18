@@ -100,7 +100,7 @@ namespace HealthCare.Patient
             int counter = 0;
             foreach(AntiTrolCounter antiTrol in antiTrolList)
             {
-                DateTime changeDate = DateTime.ParseExact(antiTrol.TimeOfChange, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                DateTime changeDate = Appointment.stringToDateTime(antiTrol.TimeOfChange);
                 TimeSpan timeDifference = now.Subtract(changeDate);
                 if (timeDifference.TotalDays < 31 && this.PatientUsername == antiTrol.PatientUsername && antiTrol.typeOfChange == typeOfChange.Delete)
                     counter++;
@@ -117,7 +117,7 @@ namespace HealthCare.Patient
             int counter = 0;
             foreach (AntiTrolCounter antiTrol in antiTrolList)
             {
-                DateTime changeDate = DateTime.ParseExact(antiTrol.TimeOfChange, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                DateTime changeDate = Appointment.stringToDateTime(antiTrol.TimeOfChange);
                 TimeSpan timeDifference = now.Subtract(changeDate);
                 if (timeDifference.TotalDays < 31 && this.PatientUsername == antiTrol.PatientUsername && antiTrol.typeOfChange == typeOfChange.Update)
                     counter++;
@@ -134,7 +134,7 @@ namespace HealthCare.Patient
             int counter = 0;
             foreach (AntiTrolCounter antiTrol in antiTrolList)
             {
-                DateTime changeDate = DateTime.ParseExact(antiTrol.TimeOfChange, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                DateTime changeDate = Appointment.stringToDateTime(antiTrol.TimeOfChange);
                 TimeSpan timeDifference = now.Subtract(changeDate);
                 if (timeDifference.TotalDays < 31 && this.PatientUsername == antiTrol.PatientUsername && antiTrol.typeOfChange == typeOfChange.Create)
                     counter++;

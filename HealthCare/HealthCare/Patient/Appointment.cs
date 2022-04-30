@@ -62,6 +62,23 @@ namespace HealthCare.Patient
             this.appointmentType = HealthCare.Doctor.AppointmentType.Examination;
         }
 
+        public static DateTime stringToDateTime(string date)
+        {
+            string[] splitToDateAndTime = date.Split(" ");
+            string[] dateAsArray = splitToDateAndTime[0].Split('/');
+            string[] timeAsArray = splitToDateAndTime[1].Split(':');
+            int day = int.Parse(dateAsArray[0]);
+            int month = int.Parse(dateAsArray[1]);
+            int year = int.Parse(dateAsArray[2]);
+            int hour = int.Parse(timeAsArray[0]);
+            int minute = int.Parse(timeAsArray[1]);
+            DateTime dateTime = new DateTime(year, month, day);
+            dateTime = dateTime.AddHours(hour);
+            dateTime = dateTime.AddMinutes(minute);
+            //Console.WriteLine(dateTime.ToString("dd/MM/yyyy HH:mm"));
+            return dateTime;
+        }
+
         public static List<Appointment> appointmentsDeserialization()
         {
             string fileName = "../../../Data/Appointments.json";
@@ -123,10 +140,10 @@ namespace HealthCare.Patient
         public static bool isAppointmentValid(string timeOfAppointment, string doctor)
         {
             List<Appointment> appointments = Appointment.appointmentsDeserialization();
-            DateTime timeWanted = DateTime.ParseExact(timeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            DateTime timeWanted = stringToDateTime(timeOfAppointment);
             foreach (Appointment appointment in appointments)
             {
-                DateTime timeChecked = DateTime.ParseExact(appointment.TimeOfAppointment, "yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+                DateTime timeChecked = stringToDateTime(appointment.timeOfAppointment);
                 TimeSpan timeDifference = timeWanted.Subtract(timeChecked);
                 if ((-16 < timeDifference.TotalMinutes && timeDifference.TotalMinutes < 16) && doctor == appointment.Doctor)
                     return false;
