@@ -119,6 +119,10 @@ namespace HealthCare.Patient
             {
                 if(appointment.Doctor != this.Doctor && appointment.TimeOfAppointment != this.TimeOfAppointment)
                     json += JsonSerializer.Serialize(appointment) + "\n";
+                else
+                {
+                    HealthCare.Doctor.Doctor.deleteAppointment(this.patient, this.doctor, this.TimeOfAppointment);
+                }
             }
             File.WriteAllText(fileName, json);
         }
@@ -158,6 +162,10 @@ namespace HealthCare.Patient
             {
                 if (appointment.Doctor != oldAppointment.Doctor && appointment.TimeOfAppointment != oldAppointment.TimeOfAppointment)
                     json += JsonSerializer.Serialize(appointment) + "\n";
+                else
+                {
+                    HealthCare.Doctor.Doctor.deleteAppointment(oldAppointment.patient, oldAppointment.doctor, oldAppointment.TimeOfAppointment);
+                }
             }
             File.WriteAllText(fileName, json);
         }
