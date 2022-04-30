@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 namespace HealthCare
 {
     public enum EquipmentType

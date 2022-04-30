@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Globalization;
@@ -11,13 +7,10 @@ namespace HealthCare.Patient
 {
     public class Appointment
     {
-        string timeOfAppointment;
-
-        string doctor;
-
-        string patient;
-
-        Doctor.AppointmentType appointmentType;
+        private string timeOfAppointment;
+        private string doctor;
+        private string patient;
+        private Doctor.AppointmentType appointmentType;
         
 
         public string TimeOfAppointment

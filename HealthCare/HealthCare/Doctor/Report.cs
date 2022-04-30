@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using HealthCare.Patient;
 using HealthCare.Secretary;
 
@@ -9,6 +9,7 @@ public class Report
     private Appointment appointment;
     private string description;
     private MedicalRecord patientMedicalRecord;
+
     public Appointment Appointment
     {
         get => appointment;

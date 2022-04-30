@@ -1,10 +1,6 @@
-﻿
-using System.ComponentModel.DataAnnotations;
-using System.Globalization;
-using System.Runtime.InteropServices;
+﻿using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using HealthCare.Secretary;
 
 namespace HealthCare.Doctor
 {

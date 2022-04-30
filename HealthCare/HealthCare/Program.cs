@@ -6,19 +6,9 @@ using HealthCare.Secretary;
 
 
 
-Secretary s1 = new Secretary("milica", "milica123");
-Secretary s2 = new Secretary("alex", "acke123");
-Secretary s3 = new Secretary("nina", "nina123");
-Secretary s4 = new Secretary("lesnina", "lesnina123");
 
-
-List<Secretary> ls = new List<Secretary>() { s1,s2,s3,s4};
-
-
-Secretary.Serialize(ls);
-
-Manager m = new Manager();
-m.Load();
+Manager manager = new Manager();
+manager.Load();
 
 List<Doctor> doctors = Doctor.Deserialize();
 
@@ -26,25 +16,42 @@ List<Patient> patients = Patient.patientDeserialization();
 
 List<Secretary> secretaries = Secretary.Deserialize();
 
+
 string userResponse;
 
 while (true)
 {
+    do
+    {
+        Console.WriteLine();
+        Console.WriteLine("1.Uloguj se");
+        Console.WriteLine("2.Isključi aplikaciju");
+        Console.WriteLine("Izaberi opciju: ");
+        userResponse = Console.ReadLine();
 
-    Console.WriteLine("1.Uloguj se");
-    Console.WriteLine("2.Isključi aplikaciju");
-    Console.WriteLine("Izaberi opciju: ");
-
-    userResponse = Console.ReadLine();
+    } while (userResponse != "1" && userResponse != "2");
+    
 
     if (userResponse == "2")
         break;
+
+
+
+    Console.WriteLine();
 
     Console.WriteLine("Unesi korisnčko ime:");
     string username = Console.ReadLine();
 
     Console.WriteLine("Unesi šifru:");
     string password = Console.ReadLine();
+
+
+    if(manager.Username == username && manager.Password == password)
+    {
+        manager.DoctorMenu();
+    }
+
+
 
     foreach (Doctor doctor in doctors)
     {
@@ -75,4 +82,15 @@ while (true)
     }
 }
 
+
+
+manager.Save();
+
+Doctor.Serialize(doctors);
+
+Patient.Serialize(patients);
+
+Secretary.Serialize(secretaries);
+
+Console.WriteLine("Aplikacija ugašena.");
 

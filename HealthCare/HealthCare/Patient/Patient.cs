@@ -7,7 +7,7 @@ namespace HealthCare.Patient
 {
     public class Patient : User
     {
-        MedicalRecord medicalRecord;
+        private MedicalRecord medicalRecord;
 
         public MedicalRecord MedicalRecord
         {
@@ -76,6 +76,19 @@ namespace HealthCare.Patient
                 json += JsonSerializer.Serialize(Patient) + "\n";
             }
             json += JsonSerializer.Serialize(this) + "\n"; ;
+            File.WriteAllText(fileName, json);
+        }
+
+
+
+        static public void Serialize(List<Patient> Patients)
+        {
+            string fileName = "../../../Data/Patients.json";
+            string json = "";
+            foreach (Patient Patient in Patients)
+            {
+                json += JsonSerializer.Serialize(Patient) + "\n";
+            }
             File.WriteAllText(fileName, json);
         }
 
@@ -217,20 +230,24 @@ namespace HealthCare.Patient
 
         public void patientMenu()
         {
-            Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Izalazak iz menua");
-            string option = Console.ReadLine();
-            while (option == "5")
+            string option;
+            while (true)
             {
-                if (option == "1")
-                    this.makingAppointment();
-                if (option == "2")
-                    this.changingAppointment();
-                if (option == "3")
-                    this.deletingAppointment();
-                if (option == "4")
-                    Appointment.printingAppointment();
+
                 Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Izalazak iz menua");
                 option = Console.ReadLine();
+
+                if (option == "5")
+                    break;
+
+                if (option == "1")
+                    this.makingAppointment();
+                else if (option == "2")
+                    this.changingAppointment();
+                else if (option == "3")
+                    this.deletingAppointment();
+                else if (option == "4")
+                    Appointment.printingAppointment();
             }
         }
     }

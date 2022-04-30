@@ -6,8 +6,6 @@ namespace HealthCare.Secretary
     public class Secretary : User
     {
 
-
-
         [JsonConstructor]
         public Secretary(string username, string password)
         {

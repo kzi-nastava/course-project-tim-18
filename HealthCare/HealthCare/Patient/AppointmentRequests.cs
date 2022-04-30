@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace HealthCare.Patient
 {
     class AppointmentRequests
     {
-        Appointment newAppointment;
-        Appointment oldAppointment;
-        typeOfChange typeOfChange;
+        private Appointment newAppointment;
+        private Appointment oldAppointment;
+        private typeOfChange typeOfChange;
 
         public Appointment NewAppointment
         {

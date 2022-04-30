@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace HealthCare
@@ -38,6 +37,232 @@ namespace HealthCare
         public List<ManagerRequest>? ManagerRequests { get => managerRequests; set => managerRequests = value; }
 
 
+
+
+        public void DoctorMenu()
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = MainMenuWrite();
+            }
+        }
+        private void MainMenuPrint()
+        {
+            Console.WriteLine("===============================================================");
+            Console.WriteLine("1. CRUD operacije za bolnicu");
+            Console.WriteLine("2. Pregled opreme bolnice, pretraga i filtriranje");
+            Console.WriteLine("3. Raspoređivanje opreme po prostorijama");
+            Console.WriteLine("4. Exit");
+            Console.Write("Izaberite opciju: ");
+
+        }
+        private void CRUDMenuPrint()
+        {
+            Console.WriteLine("\n1. Kreiraj prostoriju");
+            Console.WriteLine("2. Prikaz prostorija");
+            Console.WriteLine("3. Izmena prostorije");
+            Console.WriteLine("4. Brisanje prostorije");
+            Console.WriteLine("5. Vratite se nazad");
+            Console.Write("Izaberite opciju: ");
+        }
+        private void CRUDMenu()
+        {
+            bool showMenu = true;
+            while (showMenu)
+            {
+                showMenu = CRUDMenuWrite();
+            }
+        }
+        private bool CRUDMenuWrite()
+        {
+            CRUDMenuPrint();
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    this.CreateRoom();
+                    return true;
+                case "2":
+                    this.ReadRooms();
+                    return true;
+                case "3":
+                    UpdateRoom();
+                    return true;
+                case "4":
+                    this.DeleteRoom();
+                    return true;
+                case "5":
+                    return false;
+                default:
+                    Console.WriteLine("\nPogresan unos.\n");
+                    return true;
+            }
+        }
+
+    
+
+        private bool MainMenuWrite()
+        {
+            MainMenuPrint();
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    CRUDMenu();
+                    return true;
+                case "2":
+                    Search();
+                    return true;
+                case "3":
+                    MakeRequest();
+                    return true;
+                case "4":
+                    return false;
+                default:
+                    Console.WriteLine("\nPogresan unos!\n");
+                    return true;
+
+            }
+
+        }
+
+        public void CreateRoom()
+        {
+
+            Console.WriteLine("Dodavanje prostorije");
+            Console.WriteLine("======================");
+            Console.WriteLine();
+
+            string userResponse;
+
+            RoomType roomType;
+
+            Console.WriteLine("1.Operacione sala");
+            Console.WriteLine("2.Sala za pregled");
+            Console.WriteLine("3.Soba za odmor");
+            Console.WriteLine("4.Ostalo");
+            Console.WriteLine("Unesi redni broj:");
+
+
+            userResponse = Console.ReadLine();
+
+            if (userResponse == "1")
+                roomType = RoomType.OperationRoom;
+            else if (userResponse == "2")
+                roomType = RoomType.MedicalExaminationRoom;
+            else if (userResponse == "3")
+                roomType = RoomType.RestingRoom;
+            else
+                roomType = RoomType.Undefined;
+
+            Console.WriteLine("Unesi naziv sobe: ");
+
+            userResponse = Console.ReadLine();
+
+            if (RoomExist(userResponse) == true)
+            {
+                Console.WriteLine("Ime sobe zauzeto.");
+                return;
+            }
+
+            string roomName = userResponse;
+
+
+            hospital.Rooms.Add(new Room(roomType, roomName));
+
+
+        }
+
+
+        public void ReadRooms()
+        {
+
+            foreach (Room room in hospital.Rooms)
+            {
+                Console.WriteLine("-----------------------------");
+                Console.WriteLine("Naziv prostorije: " + room.Name);
+                Console.WriteLine("Tip prostorije: " + room.Name);
+                Console.WriteLine("-----------------------------");
+
+            }
+
+        }
+        public void DeleteRoom()
+        {
+            string userResponse;
+
+            Console.WriteLine("Unesi naziv sobe: ");
+
+            userResponse = Console.ReadLine();
+
+            if (RoomExist(userResponse) == false)
+            {
+                Console.WriteLine("Soba sa tim nazivom ne postoji.");
+                return;
+            }
+
+
+            foreach (Room room in hospital.Rooms)
+            {
+                if (room.Name == userResponse)
+                {
+                    hospital.Rooms.Remove(room);
+                    return;
+                }    
+            }
+        }
+
+
+        public void UpdateRoom()
+        {
+            string userResponse;
+
+            Console.WriteLine("Unesi naziv sobe: ");
+
+            string roomName = Console.ReadLine();
+
+            if (RoomExist(roomName) == false)
+            {
+                Console.WriteLine("Soba sa tim nazivom ne postoji.");
+                return;
+            }
+
+
+            Console.WriteLine("Unesi novi  naziv sobe: ");
+
+            userResponse = Console.ReadLine();
+
+            string newRoomName = userResponse;
+
+            RoomType roomType;
+
+            Console.WriteLine("1.Operacione sala");
+            Console.WriteLine("2.Sala za pregled");
+            Console.WriteLine("3.Soba za odmor");
+            Console.WriteLine("4.Ostalo");
+            Console.WriteLine("Unesi novi tip prostorije: ");
+
+            userResponse = Console.ReadLine();
+
+            if (userResponse == "1")
+                roomType = RoomType.OperationRoom;
+            else if (userResponse == "2")
+                roomType = RoomType.MedicalExaminationRoom;
+            else if (userResponse == "3")
+                roomType = RoomType.RestingRoom;
+            else
+                roomType = RoomType.Undefined;
+
+
+            foreach (Room room in hospital.Rooms)
+            {
+                if (room.Name == roomName)
+                {
+                    room.Name = newRoomName;
+                    room.RoomType = roomType;
+                    return;
+                }
+            }
+        }
 
         public void MakeRequest()
         {

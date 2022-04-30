@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace HealthCare.Patient
 {
     class AntiTrolCounter
     {
-        string patientUsername;
-        string timeOfChange;
-        typeOfChange typeOfChange;
+        private string patientUsername;
+        private string timeOfChange;
+        private typeOfChange typeOfChange;
 
         public string PatientUsername
         {
