@@ -14,7 +14,8 @@ namespace HealthCare.Patient
             get => medicalRecord;
             set => medicalRecord = value ?? throw new ArgumentNullException(nameof(value));
         }
-
+        
+        
         public Patient(string username, string password)
         {
             this.username = username;
@@ -79,7 +80,11 @@ namespace HealthCare.Patient
             File.WriteAllText(fileName, json);
         }
 
-
+        public List<Appointment> ListOfPatientAppointments()
+        {
+            List<Appointment> lista = new List<Appointment>();
+            return lista;
+        }
 
         static public void Serialize(List<Patient> Patients)
         {

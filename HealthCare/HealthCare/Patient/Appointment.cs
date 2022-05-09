@@ -11,6 +11,7 @@ namespace HealthCare.Patient
         private string doctor;
         private string patient;
         private Doctor.AppointmentType appointmentType;
+        private string roomId;
         
 
         public string TimeOfAppointment
@@ -36,6 +37,12 @@ namespace HealthCare.Patient
             get => appointmentType;
             set => appointmentType = value;
         }
+        
+        public string RoomId
+        {
+            get => roomId;
+            set => roomId = value ?? throw new ArgumentNullException(nameof(value));
+        }
 
         public Appointment()
         {
@@ -52,6 +59,7 @@ namespace HealthCare.Patient
             this.doctor = doctor;
             this.patient = patient;
             this.appointmentType = appointmentType;
+            this.roomId = HealthCare.Doctor.Doctor.DoctorsRoom(doctor);
         }
 
         public Appointment(string timeOfAppointment, string doctor, string patient)
@@ -60,6 +68,7 @@ namespace HealthCare.Patient
             this.doctor = doctor;
             this.patient = patient;
             this.appointmentType = HealthCare.Doctor.AppointmentType.Examination;
+            this.roomId = HealthCare.Doctor.Doctor.DoctorsRoom(doctor);
         }
 
         public static DateTime stringToDateTime(string date)
