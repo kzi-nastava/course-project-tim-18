@@ -39,10 +39,10 @@ while (true)
 
     Console.WriteLine();
 
-    Console.WriteLine("Unesi korisnčko ime:");
+    Console.Write("Unesi korisnčko ime:");
     string username = Console.ReadLine();
 
-    Console.WriteLine("Unesi šifru:");
+    Console.Write("Unesi šifru:");
     string password = Console.ReadLine();
 
 

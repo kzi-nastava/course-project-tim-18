@@ -13,6 +13,7 @@ namespace HealthCare.Secretary
         private string height;
         private string weight;
         private string bloodType;
+        private string doktor;
 
 
         public MedicalRecord(string name, string lastname, string address, string username, string password, string email, string height, string weight, string bloodType)
@@ -26,6 +27,20 @@ namespace HealthCare.Secretary
             this.height = height;
             this.weight = weight;
             this.bloodType = bloodType;
+
+        }
+        public MedicalRecord(string name, string lastname, string address, string username, string password, string email, string height, string weight, string bloodType,string doktor)
+        {
+            this.name = name;
+            this.lastname = lastname;
+            this.address = address;
+            this.username = username;
+            this.password = password;
+            this.email = email;
+            this.height = height;
+            this.weight = weight;
+            this.bloodType = bloodType;
+            this.doktor = doktor;
 
         }
         public MedicalRecord()
@@ -83,7 +98,13 @@ namespace HealthCare.Secretary
             get { return bloodType; }
             set { bloodType = value; }
         }
-        
+
+        public string Doktor
+        {
+            get { return doktor; }
+            set { doktor = value; }
+        }
+
         public override string ToString()
         {
             return "Ime: " + Name + "\nPrezime: " + Lastname + "\nAdresa: " + Address + "\nKorisnicko ime:" + Username + "\nLozinka: " + Password + "\nEmail: " + Email + "\nVisina: " + Height + "\nTezina: " + Weight+ "\nKrvna grupa: "+ BloodType +"\n";
@@ -101,7 +122,7 @@ namespace HealthCare.Secretary
             sb.Append("---------------------------------");
             Console.WriteLine(sb);
         }
-
+   
         public void PrintMedicalRecord(MedicalRecord account)
         {
             Console.WriteLine("\n-------------------------------------------------------------");

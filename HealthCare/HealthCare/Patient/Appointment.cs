@@ -44,6 +44,7 @@ namespace HealthCare.Patient
             patient = "";
             appointmentType = HealthCare.Doctor.AppointmentType.Examination;
         }
+        
 
         [JsonConstructor]
         public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.AppointmentType appointmentType)
@@ -61,6 +62,7 @@ namespace HealthCare.Patient
             this.patient = patient;
             this.appointmentType = HealthCare.Doctor.AppointmentType.Examination;
         }
+       
 
         public static DateTime stringToDateTime(string date)
         {
