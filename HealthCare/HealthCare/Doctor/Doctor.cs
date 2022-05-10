@@ -36,7 +36,7 @@ namespace HealthCare.Doctor
             this.appointments = appointments;
         }
 
-        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string oomId)
+        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId)
         {
             this.username = username;
             this.password = password;

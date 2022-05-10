@@ -20,6 +20,7 @@ namespace HealthCare.Patient
             this.username = username;
             this.password = password;
         }
+
         public Patient()
         {
         }
@@ -48,6 +49,7 @@ namespace HealthCare.Patient
 
                 }
             }
+
             return PatientsList;
         }
 
@@ -61,6 +63,7 @@ namespace HealthCare.Patient
                 if (patient.username != this.username && patient.password != this.password)
                     json += JsonSerializer.Serialize(patient) + "\n";
             }
+
             File.WriteAllText(fileName, json);
             BlockedPatients blocked = new BlockedPatients(BlockedType.Patient, this);
             blocked.serializeBlockedPatient();
@@ -75,7 +78,9 @@ namespace HealthCare.Patient
             {
                 json += JsonSerializer.Serialize(Patient) + "\n";
             }
-            json += JsonSerializer.Serialize(this) + "\n"; ;
+
+            json += JsonSerializer.Serialize(this) + "\n";
+            ;
             File.WriteAllText(fileName, json);
         }
 
@@ -89,34 +94,198 @@ namespace HealthCare.Patient
             {
                 json += JsonSerializer.Serialize(Patient) + "\n";
             }
+
             File.WriteAllText(fileName, json);
         }
 
-        public List<Appointment> DoctorAppointmentsRecommendation(string doctor, string timeOfStartString, string timeOfFinishString,string dateOfFinishString)
+        public List<Appointment> DoctorAppointmentsRecommendation(string doctor, string timeOfStartString,
+            string timeOfFinishString, string dateOfFinishString)
         {
             List<Appointment> recommendedAppointments = new List<Appointment>();
-            //TimeSpan timeOfStart = ;
-            //Appointment.isAppointmentValid();
+            string[] dateAsArray = dateOfFinishString.Split("/");
+            int day = int.Parse(dateAsArray[0]) + 1;
+            int month = int.Parse(dateAsArray[1]);
+            int year = int.Parse(dateAsArray[2]);
+            string[] timeAsArray = timeOfStartString.Split(":");
+            int hourStart = int.Parse(timeAsArray[0]);
+            int minuteStart = int.Parse(timeAsArray[1]);
+            string[] timeAsArrayEnd = timeOfFinishString.Split(":");
+            //DateTime dateForRecommendation = new DateTime(year, month, day, hourStart, minuteStart, 0);
+            DateTime dateForRecommendation = DateTime.Today;
+            int hourFinish = int.Parse(timeAsArrayEnd[0]);
+            int minuteFinish = int.Parse(timeAsArrayEnd[1]);
+            DateTime dateForChecking = new DateTime(year, month, day, hourFinish, minuteFinish, 0);
+            TimeSpan changeStart = new TimeSpan(hourStart, minuteStart, 0);
+            TimeSpan ChangeEnd = new TimeSpan(hourFinish, minuteFinish, 0);
+            TimeSpan timeNeededForExamption = new TimeSpan(0, 15, 0);
+            int i = 1;
+            TimeSpan difference = dateForRecommendation.Subtract(dateForChecking);
+            while (difference.Days != 0)
+            {
+                DateTime timeBeingChecked = dateForRecommendation.AddDays(i);
+                timeBeingChecked = timeBeingChecked + changeStart;
+                TimeSpan minutes = new TimeSpan(0, 0, 0);
+                while (changeStart + minutes < ChangeEnd)
+                {
+                    timeBeingChecked = timeBeingChecked + timeNeededForExamption;
+                    minutes = minutes + timeNeededForExamption;
+                    string stringTimeBeingChecked = timeBeingChecked.ToString("dd/MM/yyyy HH:mm");
+                    if (Appointment.isAppointmentValid(stringTimeBeingChecked, doctor) == true)
+                    {
+                        Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
+                            HealthCare.Doctor.AppointmentType.Examination);
+                        appointment.serializeAppointment();
+                        Console.WriteLine(appointment);
+                        recommendedAppointments.Add(appointment);
+                        return recommendedAppointments;
+                    }
+                }
+
+                i += 1;
+                difference = timeBeingChecked.Subtract(dateForChecking);
+            }
+
+            List<Doctor.Doctor> doctors = Doctor.Doctor.Deserialize();
+            foreach (Doctor.Doctor d in doctors)
+            {
+                while (difference.Days != 0)
+                {
+                    DateTime timeBeingChecked = dateForRecommendation.AddDays(i);
+                    timeBeingChecked = timeBeingChecked + changeStart;
+                    TimeSpan minutes = new TimeSpan(0, 0, 0);
+                    while (changeStart + minutes < ChangeEnd)
+                    {
+                        timeBeingChecked = timeBeingChecked + timeNeededForExamption;
+                        minutes = minutes + timeNeededForExamption;
+                        string stringTimeBeingChecked = timeBeingChecked.ToString("dd/MM/yyyy HH:mm");
+                        if (Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username) == true)
+                        {
+                            Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username, this.username,
+                                HealthCare.Doctor.AppointmentType.Examination);
+                            recommendedAppointments.Add(appointment);
+                            if (recommendedAppointments.Count == 3)
+                            {
+                                Console.WriteLine("Pronadjeni termini su najpriblizniji unetim kriterijumima:");
+                                foreach (Appointment a in recommendedAppointments)
+                                {
+                                    Console.WriteLine(a);
+                                }
+
+                                return recommendedAppointments;
+                            }
+                        }
+                    }
+
+                    i += 1;
+                    difference = timeBeingChecked.Subtract(dateForChecking);
+                }
+            }
+
+            Console.WriteLine("Pronadjeni termini su najpriblizniji unetim kriterijumima:");
+            foreach (Appointment a in recommendedAppointments)
+            {
+                Console.WriteLine(a);
+            }
+
             return recommendedAppointments;
         }
+
+        public List<Appointment> DateTimeAppointmentsRecommendation(string doctor, string timeOfStartString,
+            string timeOfFinishString, string dateOfFinishString)
+        {
+            List<Appointment> recommendedAppointments = new List<Appointment>();
+            string[] dateAsArray = dateOfFinishString.Split("/");
+            int day = int.Parse(dateAsArray[0]) + 1;
+            int month = int.Parse(dateAsArray[1]);
+            int year = int.Parse(dateAsArray[2]);
+            string[] timeAsArray = timeOfStartString.Split(":");
+            int hourStart = int.Parse(timeAsArray[0]);
+            int minuteStart = int.Parse(timeAsArray[1]);
+            string[] timeAsArrayEnd = timeOfFinishString.Split(":");
+            //DateTime dateForRecommendation = new DateTime(year, month, day, hourStart, minuteStart, 0);
+            DateTime dateForRecommendation = DateTime.Today;
+            int hourFinish = int.Parse(timeAsArrayEnd[0]);
+            int minuteFinish = int.Parse(timeAsArrayEnd[1]);
+            DateTime dateForChecking = new DateTime(year, month, day, hourFinish, minuteFinish, 0);
+            TimeSpan changeStart = new TimeSpan(hourStart, minuteStart, 0);
+            TimeSpan ChangeEnd = new TimeSpan(hourFinish, minuteFinish, 0);
+            TimeSpan timeNeededForExamption = new TimeSpan(0, 15, 0);
+            int i = 1;
+            List<Doctor.Doctor> doctors = Doctor.Doctor.Deserialize(); 
+            TimeSpan difference = dateForRecommendation.Subtract(dateForChecking);
+            while (difference.Days != 0)
+            {
+                DateTime timeBeingChecked = dateForRecommendation.AddDays(i);
+                timeBeingChecked = timeBeingChecked + changeStart;
+                TimeSpan minutes = new TimeSpan(0, 0, 0);
+                while (changeStart + minutes < ChangeEnd)
+                {
+                    timeBeingChecked = timeBeingChecked + timeNeededForExamption;
+                    minutes = minutes + timeNeededForExamption;
+                    string stringTimeBeingChecked = timeBeingChecked.ToString("dd/MM/yyyy HH:mm");
+                    if (Appointment.isAppointmentValid(stringTimeBeingChecked, doctor))
+                    {
+                        Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
+                            HealthCare.Doctor.AppointmentType.Examination);
+                        appointment.serializeAppointment();
+                        recommendedAppointments.Add(appointment);
+                        return recommendedAppointments;
+                    }
+                    else
+                    {
+                        foreach (Doctor.Doctor d in doctors)
+                        {
+                            if (Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username))
+                            {
+                                Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username, this.username,
+                                    HealthCare.Doctor.AppointmentType.Examination);
+                                recommendedAppointments.Add(appointment);
+
+                            }
+                        }
+                        return recommendedAppointments;
+                    }
+                }
+
+                i += 1;
+                difference = timeBeingChecked.Subtract(dateForChecking);
+            }
+
+            return recommendedAppointments;
+        }
+
 
         public void AppointmentRecommendation()
         {
             Console.WriteLine("Unesite ime doktora kod koga zelite da zakazete tretman:");
             string doctor = Console.ReadLine();
-            Console.WriteLine("Unesite vreme od kada mozete da idete na tretman:");
+            Console.WriteLine("Unesite vreme od kada mozete da idete na tretman:(U formatu HH:MM)");
             string timeOfStart = Console.ReadLine();
-            Console.WriteLine("Unesite vreme do kada mozete da idete na tretman:");
+            Console.WriteLine("Unesite vreme do kada mozete da idete na tretman:(U formatu HH:MM)");
             string timeOfFinish = Console.ReadLine();
-            Console.WriteLine("Unesite datum do kada najkasnije mozete da idete na tretman");
-            string dateOfFinish = Console.ReadLine();
+            Console.WriteLine("Unesite datum do kada najkasnije mozete da idete na tretman:(U formatu dd/mm/yyyy)");
+            string dateOfFinish = Console.ReadLine(); 
             Console.WriteLine("Unesite broj ispred opcije po kojoj zelite preporuku:\n1Doktor\n2Vreme");
             string option = Console.ReadLine();
             if (option == "1")
             {
-                
+                List<Appointment> recommendedAppointments = DoctorAppointmentsRecommendation(doctor,timeOfStart,timeOfFinish,dateOfFinish);
+                Console.WriteLine("Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
+                string appointmentOptionS = Console.ReadLine();
+                int appointmentOption = int.Parse(appointmentOptionS);
+                int i = 0;
+                foreach (Appointment appointment in recommendedAppointments)
+                {
+                    i += 1;
+                    if(i == appointmentOption)
+                        appointment.serializeAppointment();
+                }
             }
 
+            if (option == "2")
+            {
+                //Uradjeno samo dodati kako se izvrsava
+            }
 
         }
         

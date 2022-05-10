@@ -5,34 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4df1c6e0-0aa0-48a5-ad7d-e293d17f3452" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.vs/HealthCare/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/HealthCare/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/HealthCare/v17/.futdcache.v1" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/HealthCare/v17/.futdcache.v1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.vs/HealthCare/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/HealthCare/v17/.suo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Appointments.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Appointments.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/DoctorsData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DoctorsData.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Patient/Appointment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/Appointment.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Patient/Patient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/Patient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/refint/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/refint/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +70,10 @@
       <workItem from="1652181673377" duration="10000" />
       <workItem from="1652181714410" duration="7000" />
       <workItem from="1652182012973" duration="360000" />
+      <workItem from="1652182584111" duration="15083000" />
+      <workItem from="1652204969778" duration="160000" />
+      <workItem from="1652205291150" duration="56000" />
+      <workItem from="1652207402558" duration="8029000" />
     </task>
     <servers />
   </component>
