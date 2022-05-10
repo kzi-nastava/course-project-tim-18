@@ -93,4 +93,3 @@ Patient.Serialize(patients);
 Secretary.Serialize(secretaries);
 
 Console.WriteLine("Aplikacija ugašena.");
-

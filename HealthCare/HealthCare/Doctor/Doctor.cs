@@ -9,6 +9,7 @@ namespace HealthCare.Doctor
         private string name;
         private string surname;
         private List<Patient.Appointment>? appointments;
+        private string roomId;
 
         public Doctor() {
             username = "";
@@ -19,6 +20,8 @@ namespace HealthCare.Doctor
         }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
+
+        public string RoomId { get => roomId; set => roomId = value; }
 
         public List<Patient.Appointment> Appointments { get => appointments; set => appointments = value; }
         
@@ -32,14 +35,34 @@ namespace HealthCare.Doctor
             this.surname = surname;
             this.appointments = appointments;
         }
-    
+
+        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string oomId)
+        {
+            this.username = username;
+            this.password = password;
+            this.name = name;
+            this.surname = surname;
+            this.appointments = appointments;
+            this.roomId = roomId;
+        }
+
         public override string ToString()
         {
             return String.Format("Doctor( Name: {0}, Surname: {1}, Username: {2}, Password: {3}, Appointments: [{4}])", name, surname, username, password, String.Join("; ",appointments));
         }
 
 
-        
+        public static string DoctorsRoom(string username)
+        {
+            string roomName = "";
+            List<Doctor> doctors = Deserialize();
+            foreach (Doctor doctor in doctors)
+            {
+                if (doctor.Username == username)
+                    roomName = doctor.RoomId;
+            }
+            return roomName;
+        }
 
         public void AddAppointment(Patient.Appointment appointment)
         {

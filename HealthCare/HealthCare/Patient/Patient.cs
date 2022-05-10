@@ -92,6 +92,34 @@ namespace HealthCare.Patient
             File.WriteAllText(fileName, json);
         }
 
+        public List<Appointment> DoctorAppointmentsRecommendation(string doctor, string timeOfStartString, string timeOfFinishString,string dateOfFinishString)
+        {
+            List<Appointment> recommendedAppointments = new List<Appointment>();
+            //TimeSpan timeOfStart = ;
+            //Appointment.isAppointmentValid();
+            return recommendedAppointments;
+        }
+
+        public void AppointmentRecommendation()
+        {
+            Console.WriteLine("Unesite ime doktora kod koga zelite da zakazete tretman:");
+            string doctor = Console.ReadLine();
+            Console.WriteLine("Unesite vreme od kada mozete da idete na tretman:");
+            string timeOfStart = Console.ReadLine();
+            Console.WriteLine("Unesite vreme do kada mozete da idete na tretman:");
+            string timeOfFinish = Console.ReadLine();
+            Console.WriteLine("Unesite datum do kada najkasnije mozete da idete na tretman");
+            string dateOfFinish = Console.ReadLine();
+            Console.WriteLine("Unesite broj ispred opcije po kojoj zelite preporuku:\n1Doktor\n2Vreme");
+            string option = Console.ReadLine();
+            if (option == "1")
+            {
+                
+            }
+
+
+        }
+        
         public void makingAppointment()
         {
             DateTime now = DateTime.Now;
