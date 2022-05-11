@@ -10,6 +10,7 @@ namespace HealthCare.Doctor
         private string surname;
         private List<Patient.Appointment>? appointments;
         private string roomId;
+        private DoctorSpecialization specialization;
 
         public Doctor() {
             username = "";
@@ -17,6 +18,8 @@ namespace HealthCare.Doctor
             appointments = new List<Patient.Appointment>();
             name = "";
             surname  = "";
+            roomId = "";
+            specialization = DoctorSpecialization.Pediatrician;
         }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
@@ -25,18 +28,24 @@ namespace HealthCare.Doctor
 
         public List<Patient.Appointment> Appointments { get => appointments; set => appointments = value; }
         
-
-        [JsonConstructor]
-        public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
+        public DoctorSpecialization Specialization
         {
-            this.username = username;
-            this.password = password;
-            this.name = name;
-            this.surname = surname;
-            this.appointments = appointments;
+            get => specialization;
+            set => specialization = value;
         }
 
-        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId)
+        // [JsonConstructor]
+        // public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
+        // {
+        //     this.username = username;
+        //     this.password = password;
+        //     this.name = name;
+        //     this.surname = surname;
+        //     this.appointments = appointments;
+        // }
+
+        [JsonConstructor]
+        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId, DoctorSpecialization specialization)
         {
             this.username = username;
             this.password = password;
@@ -44,6 +53,7 @@ namespace HealthCare.Doctor
             this.surname = surname;
             this.appointments = appointments;
             this.roomId = roomId;
+            this.specialization = specialization;
         }
 
         public override string ToString()
