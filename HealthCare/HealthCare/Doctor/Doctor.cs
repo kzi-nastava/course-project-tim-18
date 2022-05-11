@@ -10,6 +10,7 @@ namespace HealthCare.Doctor
         private string surname;
         private List<Patient.Appointment>? appointments;
         private string roomId;
+        private DoctorSpecialization specialization;
 
         public Doctor() {
             username = "";
@@ -17,6 +18,8 @@ namespace HealthCare.Doctor
             appointments = new List<Patient.Appointment>();
             name = "";
             surname  = "";
+            roomId = "";
+            specialization = DoctorSpecialization.Pediatrician;
         }
         public string Name { get => name; set => name = value; }
         public string Surname { get => surname; set => surname = value; }
@@ -25,18 +28,24 @@ namespace HealthCare.Doctor
 
         public List<Patient.Appointment> Appointments { get => appointments; set => appointments = value; }
         
-
-        [JsonConstructor]
-        public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
+        public DoctorSpecialization Specialization
         {
-            this.username = username;
-            this.password = password;
-            this.name = name;
-            this.surname = surname;
-            this.appointments = appointments;
+            get => specialization;
+            set => specialization = value;
         }
 
-        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId)
+        // [JsonConstructor]
+        // public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
+        // {
+        //     this.username = username;
+        //     this.password = password;
+        //     this.name = name;
+        //     this.surname = surname;
+        //     this.appointments = appointments;
+        // }
+
+        [JsonConstructor]
+        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId, DoctorSpecialization specialization)
         {
             this.username = username;
             this.password = password;
@@ -44,6 +53,7 @@ namespace HealthCare.Doctor
             this.surname = surname;
             this.appointments = appointments;
             this.roomId = roomId;
+            this.specialization = specialization;
         }
 
         public override string ToString()
@@ -203,18 +213,18 @@ namespace HealthCare.Doctor
         }
 
 
-        public void SerializeDoctor()
-        {
-            List<Doctor> deserializedDoctors = Deserialize();
-            for (int i = 0; i < deserializedDoctors.Count; i++)
-            {
-                if (deserializedDoctors[i].username == this.username)
-                {
-                    deserializedDoctors[i] = this;
-                }
-            }
-            Serialize(deserializedDoctors);
-        }
+        // public void SerializeDoctor()
+        // {
+        //     List<Doctor> deserializedDoctors = Deserialize();
+        //     for (int i = 0; i < deserializedDoctors.Count; i++)
+        //     {
+        //         if (deserializedDoctors[i].username == this.username)
+        //         {
+        //             deserializedDoctors[i] = this;
+        //         }
+        //     }
+        //     Serialize(deserializedDoctors);
+        // }
 
         private int? chooseAppointment()
         {
@@ -295,6 +305,97 @@ namespace HealthCare.Doctor
             deleteAppointment(chosenPatient, this.username, chosenDate);
         }
 
+        private Referral createRefferal(string? doctor, string pacient, DoctorSpecialization? specialization)
+        {
+            if (doctor != null)
+            {
+                return new Referral(doctor, pacient);
+            }
+            else
+            {
+                string referredDoctor = findDoctorInField(specialization.GetValueOrDefault()).Username;
+                return new Referral(referredDoctor, pacient);
+            }
+        }
+
+        private static Doctor findDoctorInField(DoctorSpecialization specialization)
+        {
+            List<Doctor> allDoctors = Doctor.Deserialize();
+            List<Doctor> doctorsInField = new List<Doctor>();
+            foreach (var d in allDoctors)
+            {
+                if (d.specialization == specialization)
+                {
+                    doctorsInField.Add(d);
+                }
+            }
+
+            Random random = new Random();
+            int index = random.Next(doctorsInField.Count);
+            return doctorsInField[index];
+        }
+        private void referralMenu(Patient.Patient pacient)
+        {
+            Console.WriteLine("Izaberite opciju: ");
+            Console.WriteLine("1. Uput ka doktoru opste prakse");
+            Console.WriteLine("2. Uput ka doktoru specijaliste");
+            string s = Console.ReadLine();
+            if (s == "1")
+            {
+                Console.WriteLine("Unesite korisnicko ime zeljenog doktora: ");
+                string referredDoctor = Console.ReadLine();
+                if (referredDoctor != "")
+                {
+                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x)
+                    //createRefferal(referredDoctor, pacient.Username, null);
+                }
+                else
+                {
+                    Console.WriteLine("Greska pri unosu!");
+                    Console.WriteLine("Izlazak..");
+                    return;
+                }
+            }
+            else if (s == "2")
+            {
+                
+                Console.WriteLine("Izaberite specijalistu za uput: ");
+                Console.WriteLine("1. Ginekolog");
+                Console.WriteLine("2. Dermatolog");
+                Console.WriteLine("3. Kardiolog");
+                Console.WriteLine("4. Endokrinolog ");
+                Console.WriteLine("5. Gastroenterolog");
+                Console.WriteLine("6. Neurolog");
+                Console.WriteLine("7. Onkolog");
+                Console.WriteLine("8. Radiolog");
+                Console.WriteLine("9. Urolog");
+                s = Console.ReadLine();
+                int x = 0;
+            
+                if (!Int32.TryParse(s, out x))
+                {
+                    Console.WriteLine("Neispravan unos.");
+                    return;
+                }
+
+                if (x < 1 || x > Enum.GetNames(typeof(DoctorSpecialization)).Length - 1)
+                {
+                    Console.WriteLine(s + " nije ponudjena opcija!");
+                    return;
+                }
+                else
+                {
+                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x)
+                    //createRefferal(null, pacient.Username, (DoctorSpecialization)x);
+                }
+            }
+            else
+            {
+                Console.WriteLine(s + " nije ponunjena opcija");
+                Console.WriteLine("Izlazak..");
+                return;
+            }
+        }
         private void performAppointmentMenu()
         {
             Console.WriteLine("=======================================");
@@ -327,6 +428,16 @@ namespace HealthCare.Doctor
             Console.WriteLine("Anamneza: ");
             string anamneza = Console.ReadLine();
             Report.addReport(new Report(appointments[index], anamneza, patient.MedicalRecord));
+            if (this.Specialization == DoctorSpecialization.Pediatrician)
+            {
+                Console.WriteLine("Da li zelite da uputite pacijenta nekome? (y/n)");
+                s = Console.ReadLine();
+                if (s == "y")
+                {
+                    referralMenu(patient);
+                    //TODO patient.serializePatient();
+                }
+            }
             
         }
         private void checkScheduleMenu()

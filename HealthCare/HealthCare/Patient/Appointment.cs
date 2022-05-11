@@ -62,6 +62,16 @@ namespace HealthCare.Patient
             this.appointmentType = appointmentType;
             
         }
+        
+        public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.AppointmentType appointmentType, string roomId)
+        {
+            this.timeOfAppointment = timeOfAppointment;
+            this.doctor = doctor;
+            this.patient = patient;
+            this.appointmentType = appointmentType;
+            this.roomId = roomId;
+
+        }
 
         public Appointment(string timeOfAppointment, string doctor, string patient)
         {
