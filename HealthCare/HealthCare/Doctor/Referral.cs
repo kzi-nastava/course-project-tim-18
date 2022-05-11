@@ -25,12 +25,12 @@ public class Referral
     }
     private static void serialize(List<Referral> referrals)
     {
-        File.WriteAllText("../../../Data/Reports.json", JsonSerializer.Serialize(referrals));
+        File.WriteAllText("../../../Data/Referrals.json", JsonSerializer.Serialize(referrals));
     }
 
     private static List<Referral> deserialize()
     {
-        string filepath = "../../../Data/Reports.json";
+        string filepath = "../../../Data/Referrals.json";
         string jsonText = File.ReadAllText(filepath);
         List<Referral> referrals = JsonSerializer.Deserialize<List<Referral>>(jsonText);
         return referrals;
