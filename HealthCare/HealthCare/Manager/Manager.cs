@@ -1,31 +1,35 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using HealthCare.Patient;
 
 namespace HealthCare
 {
     public class Manager : User
     {
         private Hospital? hospital;
-        private List<ManagerRequest> managerRequests;
+        private List<ManagerRequest> managerRequests = new List<ManagerRequest>();
+        private List<RenovationRequest> renovationRequest = new List<RenovationRequest>();
 
+ 
 
         public Manager()
         {
             username = "";
             password = "";
-            hospital = null;
-            managerRequests = null;
+            hospital = null;        
         }
 
 
 
         [JsonConstructor]
-        public Manager(string username, string password, Hospital hospital, List<ManagerRequest> managerRequests)
+        public Manager(string username, string password, Hospital hospital, List<ManagerRequest> managerRequests, List<RenovationRequest> renovationRequest)
         {
             this.username = username;
             this.password = password;
             this.hospital = hospital;
             this.managerRequests = managerRequests;
+            this.renovationRequest = renovationRequest;
+
         }
 
 
@@ -34,10 +38,9 @@ namespace HealthCare
             get => hospital;
             set => hospital = value ?? throw new ArgumentNullException(nameof(value));
         }
+
         public List<ManagerRequest>? ManagerRequests { get => managerRequests; set => managerRequests = value; }
-
-
-
+        public List<RenovationRequest> RenovationRequest { get => renovationRequest; set => renovationRequest = value; }
 
         public void DoctorMenu()
         {
@@ -54,7 +57,8 @@ namespace HealthCare
             Console.WriteLine("2. Pretraga i filtriranje");
             Console.WriteLine("3. Pregled opreme bolnice");
             Console.WriteLine("4. Raspoređivanje opreme po prostorijama");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("5. Zakazivanje renoviranja sobe");
+            Console.WriteLine("6. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -81,16 +85,16 @@ namespace HealthCare
             switch (Console.ReadLine())
             {
                 case "1":
-                    this.CreateRoom();
+                    CreateRoom();
                     return true;
                 case "2":
-                    this.ReadRooms();
+                    ReadRooms();
                     return true;
                 case "3":
                     UpdateRoom();
                     return true;
                 case "4":
-                    this.DeleteRoom();
+                    DeleteRoom();
                     return true;
                 case "5":
                     return false;
@@ -120,6 +124,9 @@ namespace HealthCare
                     MakeRequest();
                     return true;
                 case "5":
+                    MakeRenovationRequest();
+                    return true;
+                case "6":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
@@ -566,14 +573,64 @@ namespace HealthCare
 
             }
 
+        }
+
+
+        public void MakeRenovationRequest()
+        {
+
+            List<Appointment> appointments =  Appointment.appointmentsDeserialization();
 
 
 
 
-                    
+            Console.Write("Unesi naziv prostorije koje se renovira - ");
+            string roomName = Console.ReadLine();
+            if (RoomExist(roomName) == false)
+            {
+                Console.WriteLine("Ne postoji prostorija sa tim nazivom.");
+                return;
+            }
+
+
+            Console.WriteLine("Unesi datum početka renoviranja u formatu godina/mesec/dan - ");
+            DateTime renovationStart;
+            if (DateTime.TryParse(Console.ReadLine(), out renovationStart) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            Console.WriteLine("Unesi datum završetka renoviranja u formatu godina/mesec/dan - ");
+            DateTime renovationEnd;
+            if (DateTime.TryParse(Console.ReadLine(), out renovationEnd) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            foreach (Appointment appointment in appointments)
+            {
+                DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+
+                if (appointment.RoomId != roomName)
+                    continue; 
+
+                if (appointmentDate >= renovationStart && appointmentDate <= renovationEnd)
+                {
+                    Console.WriteLine("Postoje pregledi u tom periodu, nemoguće renoviranje.");
+                    return;
+                }
+
+
+            }
+
+
+            renovationRequest.Add(new RenovationRequest(roomName, renovationStart, renovationEnd));
 
 
         }
+
 
 
         public void Load()

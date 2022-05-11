@@ -48,19 +48,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ilija\\.nuget\\packages\\": {}
+    "C:\\Users\\MyPC\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+      "projectUniqueName": "C:\\Users\\MyPC\\Documents\\GitHub\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
       "projectName": "HealthCare",
-      "projectPath": "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
-      "packagesPath": "C:\\Users\\Ilija\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
+      "projectPath": "C:\\Users\\MyPC\\Documents\\GitHub\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+      "packagesPath": "C:\\Users\\MyPC\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MyPC\\Documents\\GitHub\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ilija\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MyPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -106,7 +111,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
