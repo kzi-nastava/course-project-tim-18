@@ -1,4 +1,6 @@
-﻿namespace HealthCare.Doctor;
+﻿using System.Text.Json;
+
+namespace HealthCare.Doctor;
 
 public class Referral
 {
@@ -15,11 +17,30 @@ public class Referral
         get => pacient;
         set => pacient = value;
     }
-
+    public Referral(){}
     public Referral(string doctor, string pacient)
     {
         this.doctor = doctor;
         this.pacient = pacient;
+    }
+    private static void serialize(List<Referral> referrals)
+    {
+        File.WriteAllText("../../../Data/Reports.json", JsonSerializer.Serialize(referrals));
+    }
+
+    private static List<Referral> deserialize()
+    {
+        string filepath = "../../../Data/Reports.json";
+        string jsonText = File.ReadAllText(filepath);
+        List<Referral> referrals = JsonSerializer.Deserialize<List<Referral>>(jsonText);
+        return referrals;
+    }
+
+    public static void addReferral(Referral r)
+    {
+        List<Referral> deserializeedReferrals = deserialize();
+        deserializeedReferrals.Add(r);
+        serialize(deserializeedReferrals);
     }
 
 }
