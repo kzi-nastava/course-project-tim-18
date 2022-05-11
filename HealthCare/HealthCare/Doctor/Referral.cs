@@ -23,24 +23,5 @@ public class Referral
         this.doctor = doctor;
         this.pacient = pacient;
     }
-    private static void serialize(List<Referral> referrals)
-    {
-        File.WriteAllText("../../../Data/Referrals.json", JsonSerializer.Serialize(referrals));
-    }
-
-    private static List<Referral> deserialize()
-    {
-        string filepath = "../../../Data/Referrals.json";
-        string jsonText = File.ReadAllText(filepath);
-        List<Referral> referrals = JsonSerializer.Deserialize<List<Referral>>(jsonText);
-        return referrals;
-    }
-
-    public static void addReferral(Referral r)
-    {
-        List<Referral> deserializeedReferrals = deserialize();
-        deserializeedReferrals.Add(r);
-        serialize(deserializeedReferrals);
-    }
 
 }
