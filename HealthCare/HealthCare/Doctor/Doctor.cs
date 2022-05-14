@@ -479,6 +479,7 @@ namespace HealthCare.Doctor
             if (!prescription.CheckPatientAllergies(patient))
             {
                 Console.WriteLine("Pacijent je alergican na neki od datih lekova!");
+                return;
             }
             Console.WriteLine("Recept za: " + patient.Username);
             prescription.PrintPrescription();
