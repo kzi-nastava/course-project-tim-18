@@ -16,7 +16,7 @@ public class Prescription
     {
         this.medications = medications;
         this.allAllergyTriggers = new List<Allergy>();
-        loadAllergies(this.medications);
+        LoadAllergies();
     }
 
     public bool CheckPatientAllergies(Patient.Patient patient)
@@ -37,7 +37,7 @@ public class Prescription
         return true;
     }
 
-    private void loadAllergies(List<Medication> medications)
+    public void LoadAllergies()
     {
         foreach (var medication in medications)
         {
