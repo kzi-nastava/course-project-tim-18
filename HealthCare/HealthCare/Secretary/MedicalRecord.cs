@@ -1,5 +1,7 @@
 ﻿
 
+using HealthCare.Doctor;
+
 namespace HealthCare.Secretary
 {
     public class MedicalRecord
@@ -14,6 +16,7 @@ namespace HealthCare.Secretary
         private string weight;
         private string bloodType;
         private string doktor;
+        private List<Allergy> allergies;
 
 
         public MedicalRecord(string name, string lastname, string address, string username, string password, string email, string height, string weight, string bloodType)
@@ -43,6 +46,7 @@ namespace HealthCare.Secretary
             this.doktor = doktor;
 
         }
+        
         public MedicalRecord()
         {
 
@@ -103,6 +107,12 @@ namespace HealthCare.Secretary
         {
             get { return doktor; }
             set { doktor = value; }
+        }
+
+        public List<Allergy> Allergies
+        {
+            get { return allergies; }
+            set { allergies = value; }
         }
 
         public override string ToString()

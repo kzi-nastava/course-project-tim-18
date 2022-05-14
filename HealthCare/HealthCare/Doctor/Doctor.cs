@@ -109,7 +109,19 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1));
+
+            if (type == "2")
+            {
+                this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, roomId));
+            }
+            else
+            {
+                Console.WriteLine("Unesite sobu za odrzavanje operacije: ");
+                string operationRoom = Console.ReadLine();
+                this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, operationRoom));
+                
+            }
+            
             return true;
         }
         
@@ -212,20 +224,7 @@ namespace HealthCare.Doctor
             File.WriteAllText("../../../Data/DoctorsData.json", JsonSerializer.Serialize(doctors));
         }
 
-
-        // public void SerializeDoctor()
-        // {
-        //     List<Doctor> deserializedDoctors = Deserialize();
-        //     for (int i = 0; i < deserializedDoctors.Count; i++)
-        //     {
-        //         if (deserializedDoctors[i].username == this.username)
-        //         {
-        //             deserializedDoctors[i] = this;
-        //         }
-        //     }
-        //     Serialize(deserializedDoctors);
-        // }
-
+        
         private int? chooseAppointment()
         {
             for (int i = 0; i< appointments.Count; i++)
@@ -346,8 +345,7 @@ namespace HealthCare.Doctor
                 string referredDoctor = Console.ReadLine();
                 if (referredDoctor != "")
                 {
-                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x)
-                    //createRefferal(referredDoctor, pacient.Username, null);
+                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x) when referral is added to medicalrecord
                 }
                 else
                 {
@@ -385,8 +383,7 @@ namespace HealthCare.Doctor
                 }
                 else
                 {
-                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x)
-                    //createRefferal(null, pacient.Username, (DoctorSpecialization)x);
+                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x) when referral is added to medicalrecord
                 }
             }
             else
@@ -435,11 +432,58 @@ namespace HealthCare.Doctor
                 if (s == "y")
                 {
                     referralMenu(patient);
-                    //TODO patient.serializePatient();
+                    //TODO patient.serializePatient() when referral is added to medicalrecord
                 }
             }
-            
+            Console.WriteLine("Da li zelite da izdate recept?(y/n)");
+            s = Console.ReadLine();
+            if (s == "y")
+            {
+                prescribeMedicineMenu(patient);
+            }
+
         }
+
+        public void prescribeMedicineMenu(Patient.Patient patient)
+        {
+            Prescription prescription = new Prescription();
+            List<Medication> availableMedications = Medication.Deserialize();
+            while (availableMedications.Count > 0)
+            {
+                for (int i = 0; i < availableMedications.Count; i++)
+                {
+                    Medication medication = availableMedications[i];
+                    Console.Write(i + 1 + ". ");
+                    Console.WriteLine(medication.Name);
+                }
+
+                Console.WriteLine("Izaberite lek za dodavanje receptu: ");
+                string chosenMedicine = Console.ReadLine();
+                int medicineIndex = Int32.Parse(chosenMedicine);
+                if (medicineIndex < 1 || medicineIndex > availableMedications.Count)
+                {
+                    Console.WriteLine(chosenMedicine + " nije ponudjena opcija!");
+                    return;
+                }
+
+                prescription.medications.Add(availableMedications[medicineIndex - 1]);
+                availableMedications.RemoveAt(medicineIndex-1);
+                Console.WriteLine("Dodavanje jos lekova?(y/n)");
+                string moreMedicine = Console.ReadLine();
+                if (moreMedicine == "n")
+                {
+                    break;
+                }
+            }
+            prescription.LoadAllergies();
+            if (!prescription.CheckPatientAllergies(patient))
+            {
+                Console.WriteLine("Pacijent je alergican na neki od datih lekova!");
+            }
+            Console.WriteLine("Recept za: " + patient.Username);
+            prescription.PrintPrescription();
+        }
+
         private void checkScheduleMenu()
         {
             Console.Write("Izaberite datum za prikaz( format dd/MM/yyyy HH:mm) ili 'danas' za danasnji dan: ");
