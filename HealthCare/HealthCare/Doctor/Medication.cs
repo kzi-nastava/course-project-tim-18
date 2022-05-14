@@ -40,9 +40,9 @@ public class Medication
         this.whenToConsume = whenToConsume;
         this.allergyTriggers = allergyTriggers;
     }
-    private static void serialize(List<Medication> reports)
+    private static void serialize(List<Medication> medications)
     {
-        File.WriteAllText("../../../Data/Medication.json", JsonSerializer.Serialize(reports));
+        File.WriteAllText("../../../Data/Medication.json", JsonSerializer.Serialize(medications));
     }
 
     private static List<Medication> deserialize()
@@ -53,7 +53,7 @@ public class Medication
         return medications;
     }
 
-    public static void addReport(Medication r)
+    public static void addMedication(Medication r)
     {
         List<Medication> deserializedMedications = deserialize();
         deserializedMedications.Add(r);
