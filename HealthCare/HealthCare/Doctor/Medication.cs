@@ -49,8 +49,8 @@ public class Medication
     {
         string filepath = "../../../Data/Medication.json";
         string jsonText = File.ReadAllText(filepath);
-        List<Medication> medications = JsonSerializer.Deserialize<List<Medication>>(jsonText);
-        return medications;
+        List<Medication> deserializedNedications = JsonSerializer.Deserialize<List<Medication>>(jsonText);
+        return deserializedNedications;
     }
 
     public static void addMedication(Medication r)
