@@ -94,18 +94,3 @@ using HealthCare.Secretary;
 
  Console.WriteLine("Aplikacija ugašena.");
 
-/*
-List<Appointment> appointments = Appointment.appointmentsDeserialization();
-List<Appointment> apps = new List<Appointment>();
-apps.Add(new Appointment("29/04/2022 15:43", "1", "markop39", AppointmentType.Operation, "105"));
-apps.Add(new Appointment("11/05/2022 16:30", "1", "markop39", AppointmentType.Examination, "A1"));
-Doctor doc = new Doctor("1", "1", "1", "1", apps, "A1", DoctorSpecialization.Cardiologist);
-List<Doctor> doctors = new List<Doctor>();
-
-
-doctors.Add(doc);
-Doctor.Serialize(doctors);
-
-Console.Write(":D");
-    
-*/
