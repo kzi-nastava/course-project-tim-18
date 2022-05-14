@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Globalization;
+using HealthCare.Doctor;
 
 namespace HealthCare.Patient
 {
@@ -215,7 +216,74 @@ namespace HealthCare.Patient
 
         }
         
+        public static void merge(ref List<Appointment> appointments , int l, int m, int r)
+        {
+            int n1 = m - l + 1;
+            int n2 = r - m;
+    
+            List<Appointment> L = new List<Appointment>( new Appointment[n1]);
+            List<Appointment> R = new List<Appointment>( new Appointment[n2]);
+            int i, j;
+  
+            for (i = 0; i < n1; ++i)
+                L[i] = appointments[l + i];
+            for (j = 0; j < n2; ++j)
+                R[j] = appointments[m + 1 + j];
+  
+            i = 0;
+            j = 0;
+  
+            int k = l;
+            while (i < n1 && j < n2) {
+                if (DateTime.Compare(stringToDateTime(L[i].TimeOfAppointment),stringToDateTime(R[j].TimeOfAppointment)) >= 0) 
+                {
+                    appointments[k] = L[i];
+                    i++;
+                }
+                else {
+                    appointments[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+  
+            while (i < n1) {
+                appointments[k] = L[i];
+                i++;
+                k++;
+            }
+      
+            while (j < n2) {
+                appointments[k] = R[j];
+                j++;
+                k++;
+            }
+        }
+        public static void sort(ref List<Appointment> appointments, int l, int r)
+        {
+            if (l < r) {
+                int m = l+ (r-l)/2;
+    
+                sort(ref(appointments), l, m);
+                sort(ref(appointments), m + 1, r);
+            
+                merge(ref(appointments), l, m, r);
+            }
+        }
         
+    /*
+    public static void Main(String[] args)
+    {
+        int[] arr = { 12, 11, 13, 5, 6, 7 };
+        Console.WriteLine("Given Array");
+        printArray(arr);
+        MergeSort ob = new MergeSort();
+        ob.sort(arr, 0, arr.Length - 1);
+        Console.WriteLine("\nSorted array");
+        printArray(arr);
+        
+    }
+    */
     }
 }
 
