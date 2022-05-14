@@ -61,17 +61,6 @@ namespace HealthCare.Doctor
             return String.Format("Doctor( Name: {0}, Surname: {1}, Username: {2}, Password: {3}, Appointments: [{4}])", name, surname, username, password, String.Join("; ",appointments));
         }
 
-        public static DoctorSpecialization DoctorsSpecialization(string username)
-        {
-            DoctorSpecialization doctorSpecialization = 0;
-            List<Doctor> doctors = Deserialize();
-            foreach (Doctor doctor in doctors)
-            {
-                if (doctor.Username == username)
-                    doctorSpecialization = doctor.Specialization;
-            }
-            return doctorSpecialization;
-        }
 
         public static string DoctorsRoom(string username)
         {
