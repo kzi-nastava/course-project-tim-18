@@ -1,6 +1,7 @@
 ﻿
 using System.Globalization;
 using System.Text.Json;
+using HealthCare.Doctor;
 using HealthCare.Secretary;
 
 namespace HealthCare.Patient
@@ -83,8 +84,6 @@ namespace HealthCare.Patient
             ;
             File.WriteAllText(fileName, json);
         }
-
-
 
         static public void Serialize(List<Patient> Patients)
         {
@@ -284,7 +283,17 @@ namespace HealthCare.Patient
 
             if (option == "2")
             {
-                //Uradjeno samo dodati kako se izvrsava
+                List<Appointment> recommendedAppointments = DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
+                Console.WriteLine("Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
+                string appointmentOptionS = Console.ReadLine();
+                int appointmentOption = int.Parse(appointmentOptionS);
+                int i = 0;
+                foreach (Appointment appointment in recommendedAppointments)
+                {
+                    i += 1;
+                    if (i == appointmentOption)
+                        appointment.serializeAppointment();
+                }
             }
 
         }
@@ -425,16 +434,62 @@ namespace HealthCare.Patient
             File.WriteAllText(fileName, json);
         }
 
+        public void ReportsOverview()
+        {
+            List<Report> reports = Report.deserializeForPatient(this.Username);
+            Console.WriteLine("Unesite po kojem kriterijumu zelite pregled:\n1 Sortirani po datumu\n2 Pregledi odredjenog doktora\n3 Pregledi po specijalnosti doktora");
+            string option = Console.ReadLine();
+            if (option == "1")
+            {
+                Console.WriteLine("Tretmani su sortirani po datumu pregleda: ");
+                Report.SortReport(ref reports,0, reports.Count - 1);
+                foreach (Report report in reports)
+                { 
+                    Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment + "\n opis: " + report.Description);
+                }
+            }
+
+            if (option == "2")
+            {
+                Console.WriteLine("Unesite ime doktora za koga zelite da vidite tretmane:");
+                string doctor = Console.ReadLine();
+                foreach (Report report in reports)
+                {
+                    if (report.Appointment.Doctor == doctor)
+                    {
+                        Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment + "\n opis: " + report.Description);
+                    }
+                }
+            }
+
+            if (option == "3")
+            {
+                Console.WriteLine("Unesite redni broj specijalnosti za koju zelite da vidite tretmane:\n" +
+                                  "Pedijatan, ginekolog, dermatolog, kardiolog, endokrinolog, gastroentrolog, neurolog, onkolog, radiolog, urinolog");
+                string specialization = Console.ReadLine();
+                int valueSpecialization = int.Parse(specialization) + 1;
+                foreach (Report report in reports)
+                {
+                    DoctorSpecialization doctorsSpecialization = Doctor.Doctor.DoctorsSpecialization(report.Appointment.Doctor);
+                    if (doctorsSpecialization.Equals(valueSpecialization))
+                    {
+                        Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment + "\n opis: " + report.Description);
+                    }
+                }
+            }
+        }
+        
+
         public void patientMenu()
         {
             string option;
             while (true)
             {
 
-                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Izalazak iz menua");
+                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6Pregled izvestaja\n7 Izalazak iz menua");
                 option = Console.ReadLine();
 
-                if (option == "5")
+                if (option == "7")
                     break;
 
                 if (option == "1")
@@ -445,6 +500,11 @@ namespace HealthCare.Patient
                     this.deletingAppointment();
                 else if (option == "4")
                     Appointment.printingAppointment();
+                else if (option == "5")
+                    this.AppointmentRecommendation();
+                else if (option == "6")
+                    this.ReportsOverview();
+
             }
         }
     }
