@@ -6,6 +6,12 @@ public class Prescription
 {
     public List<Medication> medications;
     private List<Allergy> allAllergyTriggers;
+
+    public Prescription()
+    {
+        this.medications = new List<Medication>();
+        this.allAllergyTriggers = new List<Allergy>();
+    }
     public Prescription(List<Medication> medications)
     {
         this.medications = medications;
