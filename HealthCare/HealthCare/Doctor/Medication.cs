@@ -45,7 +45,7 @@ public class Medication
         File.WriteAllText("../../../Data/Medication.json", JsonSerializer.Serialize(medications));
     }
 
-    private static List<Medication> deserialize()
+    public static List<Medication> Deserialize()
     {
         string filepath = "../../../Data/Medication.json";
         string jsonText = File.ReadAllText(filepath);
@@ -55,7 +55,7 @@ public class Medication
 
     public static void addMedication(Medication r)
     {
-        List<Medication> deserializedMedications = deserialize();
+        List<Medication> deserializedMedications = Deserialize();
         deserializedMedications.Add(r);
         serialize(deserializedMedications);
     }
