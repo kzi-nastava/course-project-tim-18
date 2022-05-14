@@ -109,7 +109,19 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Neodgovarajuc unos");
                 return false;
             }
-            this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1));
+
+            if (type == "2")
+            {
+                this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, roomId));
+            }
+            else
+            {
+                Console.WriteLine("Unesite sobu za odrzavanje operacije: ");
+                string operationRoom = Console.ReadLine();
+                this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, operationRoom));
+                
+            }
+            
             return true;
         }
         
