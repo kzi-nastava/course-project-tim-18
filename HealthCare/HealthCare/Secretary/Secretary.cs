@@ -331,5 +331,51 @@ namespace HealthCare.Secretary
         }
 
         //----------------------------------------------------------------------------
+
+        public void MakingAnEmergencyAppointment()
+        {
+            string username = InputUsername();
+            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
+
+            foreach (Patient.Patient patient in patientList)
+            {
+                if (patient.Username == username)
+                {
+                    Console.WriteLine("Unesite specijalnost doktora: ");
+                    string specialization = Console.ReadLine();
+                    FindValidDoctor(specialization);
+                }
+            }
+
+        }
+
+        private void FindValidDoctor(string specialization)
+        {
+            List<Doctor.Doctor> doctorList = Doctor.Doctor.Deserialize();
+            Doctor.DoctorSpecialization docSpecialization = (Doctor.DoctorSpecialization)Enum.Parse(typeof(Doctor.DoctorSpecialization), specialization);
+            foreach (Doctor.Doctor doctor in doctorList)
+            {
+                if (doctor.Specialization == docSpecialization)
+                {
+                    Console.WriteLine(doctor.Name);
+                    FindAvailableAppointment(doctor);
+                }
+            }
+        }
+
+        private void FindAvailableAppointment(Doctor.Doctor doctor)
+        {
+            List<Patient.Appointment> patientList = Patient.Appointment.appointmentsDeserialization();
+            foreach (Patient.Appointment appointment in patientList)
+            {
+                if (appointment.Doctor == doctor.Name)
+                {
+                   
+
+                }
+
+            }
+        }
+
     }
 }
