@@ -58,7 +58,9 @@ namespace HealthCare
             Console.WriteLine("3. Pregled opreme bolnice");
             Console.WriteLine("4. Raspoređivanje opreme po prostorijama");
             Console.WriteLine("5. Zakazivanje renoviranja sobe");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. Zakazivanje slozenog renoviranja sobe (spajanje)");
+            Console.WriteLine("7. Zakazivanje slozenog renoviranja sobe (razdvajanje)");
+            Console.WriteLine("8. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -127,6 +129,12 @@ namespace HealthCare
                     MakeRenovationRequest();
                     return true;
                 case "6":
+                    MakeComplexRenovationJoinRequest();
+                    return true;
+                case "7":
+                    MakeComplexRenovationSplitRequest();
+                    return true;
+                case "8":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
@@ -631,6 +639,192 @@ namespace HealthCare
 
         }
 
+
+
+
+        public void MakeComplexRenovationSplitRequest()
+        {
+
+            List<Appointment> appointments = Appointment.appointmentsDeserialization();
+
+            Console.Write("Unesi naziv prostorije koje se renovira - ");
+            string roomName = Console.ReadLine();
+            if (RoomExist(roomName) == false)
+            {
+                Console.WriteLine("Ne postoji prostorija sa tim nazivom.");
+                return;
+            }
+
+            Console.WriteLine("Unesi datum početka renoviranja u formatu godina/mesec/dan - ");
+            DateTime renovationStart;
+            if (DateTime.TryParse(Console.ReadLine(), out renovationStart) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            Console.WriteLine("Unesi datum završetka renoviranja u formatu godina/mesec/dan - ");
+            DateTime renovationEnd;
+            if (DateTime.TryParse(Console.ReadLine(), out renovationEnd) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            foreach (Appointment appointment in appointments)
+            {
+                DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+
+                if (appointment.RoomId != roomName)
+                    continue;
+
+                if (appointmentDate >= renovationStart && appointmentDate <= renovationEnd)
+                {
+                    Console.WriteLine("Postoje pregledi u tom periodu, nemoguće renoviranje.");
+                    return;
+                }
+
+
+            }
+
+            Console.Write("Unesi naziv nove prostorije prve - ");
+            string roomNameFirst = Console.ReadLine();
+
+
+            Console.Write("Unesi naziv nove prostorije druge - ");
+            string roomNameSecond = Console.ReadLine();
+
+
+
+            Room room = GetRoom(roomName);
+
+            List<Equipment> roomFirstEquipment = new List<Equipment>();
+            List<Equipment> roomSecondEquipment = new List<Equipment>();
+
+
+            foreach (Equipment equipment in room.EquipmentList)
+            {
+                roomFirstEquipment.Add(new Equipment(equipment.EquipmentType, equipment.Name, equipment.Amount / 2));
+                roomSecondEquipment.Add(new Equipment(equipment.EquipmentType, equipment.Name, equipment.Amount - equipment.Amount / 2));
+            }
+
+            Room roomFirst = new Room(room.RoomType, roomNameFirst, roomFirstEquipment);
+            Room roomSecond = new Room(room.RoomType, roomNameSecond, roomSecondEquipment);
+
+            hospital.Rooms.Remove(room);
+
+            hospital.Rooms.Add(roomFirst);
+            hospital.Rooms.Add(roomSecond);
+
+            renovationRequest.Add(new RenovationRequest(roomName, renovationStart, renovationEnd));
+            renovationRequest.Add(new RenovationRequest(roomNameFirst, renovationStart, renovationEnd));
+            renovationRequest.Add(new RenovationRequest(roomNameSecond, renovationStart, renovationEnd));
+
+
+        }
+
+
+        public void MakeComplexRenovationJoinRequest()
+        {
+
+            List<Appointment> appointments = Appointment.appointmentsDeserialization();
+
+            Console.Write("Unesi naziv prve prostorije koje se renovira - ");
+            string roomNameFirst = Console.ReadLine();
+            if (RoomExist(roomNameFirst) == false)
+            {
+                Console.WriteLine("Ne postoji prostorija sa tim nazivom.");
+                return;
+            }
+
+            Console.Write("Unesi naziv druge prostorije koje se renovira - ");
+            string roomNameSecond = Console.ReadLine();
+            if (RoomExist(roomNameSecond) == false)
+            {
+                Console.WriteLine("Ne postoji prostorija sa tim nazivom.");
+                return;
+            }
+
+
+            Console.WriteLine("Unesi datum početka renoviranja u formatu godina/mesec/dan - ");
+            DateTime renovationStart;
+            if (DateTime.TryParse(Console.ReadLine(), out renovationStart) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            Console.WriteLine("Unesi datum završetka renoviranja u formatu godina/mesec/dan - ");
+            DateTime renovationEnd;
+            if (DateTime.TryParse(Console.ReadLine(), out renovationEnd) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            foreach (Appointment appointment in appointments)
+            {
+                DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+
+                if (appointment.RoomId != roomNameFirst  && appointment.RoomId != roomNameSecond)
+                    continue;
+
+                if (appointmentDate >= renovationStart && appointmentDate <= renovationEnd)
+                {
+                    Console.WriteLine("Postoje pregledi u tom periodu, nemoguće renoviranje.");
+                    return;
+                }
+
+
+            }
+
+            Console.Write("Unesi naziv nove prostorije - ");
+            string newRoomName = Console.ReadLine();
+
+
+
+            Room roomFirst = GetRoom(roomNameFirst);
+            Room roomSecond = GetRoom(roomNameSecond);
+
+
+
+            Dictionary<string, Equipment> equipmentCounter = new Dictionary<string, Equipment>();
+
+            foreach (Equipment equipment in roomFirst.EquipmentList)
+            {
+                equipmentCounter[equipment.Name] = equipment;
+            }
+
+
+            foreach (Equipment equipment in roomSecond.EquipmentList)
+            {
+                if (equipmentCounter.ContainsKey(equipment.Name))
+                {
+                    equipmentCounter[equipment.Name].Amount += equipment.Amount;
+                }
+                else
+                {
+                    equipmentCounter[equipment.Name] = equipment;
+
+                }
+            }
+
+
+
+            Room newRoom = new Room(roomFirst.RoomType, newRoomName, equipmentCounter.Values.ToList());
+
+
+            hospital.Rooms.Remove(roomFirst);
+            hospital.Rooms.Remove(roomSecond);
+
+
+            hospital.Rooms.Add(newRoom);
+
+
+            renovationRequest.Add(new RenovationRequest(newRoomName, renovationStart, renovationEnd));
+
+
+        }
 
 
         public void Load()
