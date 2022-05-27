@@ -56,7 +56,7 @@ namespace HealthCare.Patient
 
         public void blockingPatient()
         {
-            string fileName = "../../../Data/Appointments.json";
+            string fileName = "../../../Data/Patients.json";
             List<Patient> patients = patientDeserialization();
             string json = "";
             foreach (Patient patient in patients)
@@ -133,7 +133,6 @@ namespace HealthCare.Patient
                     {
                         Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
                             HealthCare.Doctor.AppointmentType.Examination);
-                        appointment.serializeAppointment();
                         Console.WriteLine(appointment);
                         recommendedAppointments.Add(appointment);
                         return recommendedAppointments;
@@ -226,7 +225,6 @@ namespace HealthCare.Patient
                     {
                         Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
                             HealthCare.Doctor.AppointmentType.Examination);
-                        appointment.serializeAppointment();
                         recommendedAppointments.Add(appointment);
                         return recommendedAppointments;
                     }
@@ -277,10 +275,12 @@ namespace HealthCare.Patient
                 {
                     i += 1;
                     if(i == appointmentOption)
+                    {
+                        appointment.RoomId = Doctor.Doctor.DoctorsRoom(appointment.Doctor);
                         appointment.serializeAppointment();
+                    }
                 }
             }
-
             if (option == "2")
             {
                 List<Appointment> recommendedAppointments = DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
@@ -291,8 +291,11 @@ namespace HealthCare.Patient
                 foreach (Appointment appointment in recommendedAppointments)
                 {
                     i += 1;
-                    if (i == appointmentOption)
+                    if(i == appointmentOption)
+                    {
+                        appointment.RoomId = Doctor.Doctor.DoctorsRoom(appointment.Doctor);
                         appointment.serializeAppointment();
+                    }
                 }
             }
 
@@ -312,7 +315,7 @@ namespace HealthCare.Patient
                 string timeOfAppointment = Console.ReadLine();
                 if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
                 {
-                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username, HealthCare.Doctor.AppointmentType.Examination);
+                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username, HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
                     appointment.serializeAppointment();
                 }
             }
@@ -329,7 +332,7 @@ namespace HealthCare.Patient
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
             AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
             bool validationOfAntiTrol = counter.validation();
-            if (validationOfAntiTrol == true)
+            if (validationOfAntiTrol)
             {
                 Appointment.printingAppointment();
                 Console.WriteLine("Unesite vreme tretmana koji zelite da izmenite:(u formatu DD/MM/YYYY hh:mm ");
@@ -353,6 +356,7 @@ namespace HealthCare.Patient
                             string newDoctor = Console.ReadLine();
                             oldAppointment = appointments[i];
                             appointments[i].Doctor = newDoctor;
+                            appointments[i].RoomId = Doctor.Doctor.DoctorsRoom(newDoctor);
                             if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment, appointments[i].Doctor))
                                 validationOfNewAppointment = true;
                         }
@@ -372,7 +376,7 @@ namespace HealthCare.Patient
                 }
                 DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
-                if (validationOfNewAppointment == true)
+                if (validationOfNewAppointment)
                     if (timeDifference.TotalDays > 2)
                         Appointment.serializingListOfAppointments(appointments);
                     else
@@ -415,6 +419,7 @@ namespace HealthCare.Patient
             else
             {
                 this.blockingPatient();
+                this.DeleteFromPatients(this.Username);
                 Console.WriteLine("Prevelik broj brisanja vas nalog je sada blokiran: ");
             }
         }
@@ -486,7 +491,7 @@ namespace HealthCare.Patient
             while (true)
             {
 
-                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6Pregled izvestaja\n7 Izalazak iz menua");
+                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6 Pregled izvestaja\n7 Izalazak iz menua");
                 option = Console.ReadLine();
 
                 if (option == "7")
@@ -499,7 +504,7 @@ namespace HealthCare.Patient
                 else if (option == "3")
                     this.deletingAppointment();
                 else if (option == "4")
-                    Appointment.printingAppointment();
+                    Appointment.printingAppointmentForUser(this.Username);
                 else if (option == "5")
                     this.AppointmentRecommendation();
                 else if (option == "6")

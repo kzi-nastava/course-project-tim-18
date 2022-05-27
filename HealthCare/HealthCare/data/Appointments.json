@@ -1,5 +1,10 @@
 {"TimeOfAppointment":"28/04/2022 12:15","Doctor":"ilija1","Patient":"markop38","AppointmentType":0,"RoomId":"A2"}
 {"TimeOfAppointment":"27/04/2022 11:25","Doctor":"nesto","Patient":"markop37","AppointmentType":0,"RoomId":"A1"}
 {"TimeOfAppointment":"30/04/2022 13:25","Doctor":"usernameneki","Patient":"markop39","AppointmentType":0,"RoomId":"A1"}
-{"TimeOfAppointment":"29/04/2022 15:43","Doctor":"1","Patient":"markop39","AppointmentType":0,"RoomId":"A1"}
-{"TimeOfAppointment":"11/05/2022 16:30","Doctor":"1","Patient":"markop39","AppointmentType":1,"RoomId":"A2"}
+{"TimeOfAppointment":"22/05/2022 15:30","Doctor":"2","Patient":"d","AppointmentType":1,"RoomId":"A2"}
+{"TimeOfAppointment":"02/06/2022 15:25","Doctor":"2","Patient":"d","AppointmentType":1,"RoomId":"A2"}
+{"TimeOfAppointment":"03/06/2022 12:20","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}
+{"TimeOfAppointment":"27/05/2022 13:33","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}
+{"TimeOfAppointment":"30/05/2022 14:30","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}
+{"TimeOfAppointment":"28/05/2022 15:45","Doctor":"2","Patient":"a","AppointmentType":1,"RoomId":"A2"}
+{"TimeOfAppointment":"28/05/2022 13:45","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}

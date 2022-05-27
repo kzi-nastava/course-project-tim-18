@@ -107,6 +107,7 @@ namespace HealthCare.Patient
             }
             if(counter > 5)
                 return false;
+            serializeAntiTrol();
             return true;
         }
 
@@ -124,6 +125,7 @@ namespace HealthCare.Patient
             }
             if (counter > 5)
                 return false;
+            serializeAntiTrol();
             return true;
         }
 
@@ -141,6 +143,7 @@ namespace HealthCare.Patient
             }
             if (counter > 7)
                 return false;
+            serializeAntiTrol();
             return true;
         }
     }

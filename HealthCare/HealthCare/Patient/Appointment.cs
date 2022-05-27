@@ -42,7 +42,7 @@ namespace HealthCare.Patient
         public string RoomId
         {
             get => roomId;
-            set => roomId = value ?? throw new ArgumentNullException(nameof(value));
+            set => roomId = value;
         }
         
         public Appointment()
@@ -142,6 +142,33 @@ namespace HealthCare.Patient
             Console.WriteLine(appointmentFileData);
         }
 
+        public static void printingAppointmentForUser(string username)
+        {
+            string fileName = "../../../Data/Appointments.json";
+            string appointmentFileData = "";
+            appointmentFileData = File.ReadAllText(fileName);
+            string[] appointments = appointmentFileData.Split('\n');
+            List<Appointment> appointmentsList = new List<Appointment>();
+            foreach (String s in appointments)
+            {
+                if (s != "")
+                {
+                    Appointment? appointment = JsonSerializer.Deserialize<Appointment>(s);
+                    if (appointment != null)
+                        appointmentsList.Add(appointment);
+
+                }
+            }
+
+            foreach (Appointment appointment in appointmentsList)
+            {
+                if (appointment.patient == username)
+                {
+                    Console.WriteLine(appointment);
+                }
+        }
+        }
+        
         public void deletingAppointment()
         {
             string fileName = "../../../Data/Appointments.json";
