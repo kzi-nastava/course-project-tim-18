@@ -8,6 +8,7 @@ public class DoctorsGrade
     private string comment;
     private int wouldYouSuggest;
     private int howGoodDoctorWas;
+    private string doctor;
     
     public int HowGoodDoctorWas
     {
@@ -27,11 +28,18 @@ public class DoctorsGrade
         set => comment = value ?? throw new ArgumentNullException(nameof(value));
     }
     
-    public DoctorsGrade(string comment, int wouldYouSuggest, int howGoodDoctorWas)
+    public string Doctor
+    {
+        get => doctor;
+        set => doctor = value ?? throw new ArgumentNullException(nameof(value));
+    }
+    
+    public DoctorsGrade(string comment, int wouldYouSuggest, int howGoodDoctorWas, string doctor)
     {
         this.howGoodDoctorWas = howGoodDoctorWas;
         this.wouldYouSuggest = wouldYouSuggest;
         this.comment = comment;
+        this.doctor = doctor;
     }
     
     public static List<DoctorsGrade> DeserializeDoctorsGrade()
@@ -66,4 +74,5 @@ public class DoctorsGrade
         json += JsonSerializer.Serialize(this) + "\n"; ;
         File.WriteAllText(fileName, json);
     }
+    
 }

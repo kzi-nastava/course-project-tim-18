@@ -308,7 +308,7 @@ namespace HealthCare.Patient
 
         }
 
-        public void makingAppointment()
+        public void WritingAppointment(string doctor)
         {
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
@@ -316,8 +316,8 @@ namespace HealthCare.Patient
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol == true)
             {
-                Console.WriteLine("Unesite ime doktora kod koga zelite tretman: ");
-                string doctor = Console.ReadLine();
+                //Console.WriteLine("Unesite ime doktora kod koga zelite tretman: ");
+                //string doctor = Console.ReadLine();
                 Console.WriteLine("Unesite vreme tretmana koji zelite da zakazete:(u formatu DD/MM/YYYY hh:mm ");
                 string timeOfAppointment = Console.ReadLine();
                 if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
@@ -331,6 +331,13 @@ namespace HealthCare.Patient
             {
                 Console.WriteLine("Prevelik broj zakazivanja novih tretmana vas nalog ce sada biti blokiran: ");
             }
+        }
+
+        public void MakingAppointment()
+        {
+            string doctor = Console.ReadLine();
+            Console.WriteLine("Unesite vreme tretmana koji zelite da zakazete:(u formatu DD/MM/YYYY hh:mm ");
+            WritingAppointment(doctor);
         }
 
         public void changingAppointment()
@@ -517,18 +524,32 @@ namespace HealthCare.Patient
             string sort = Console.ReadLine();
             if (sort == "1")
             {
+                Doctor.Doctor.SortDoctor(ref doctorsMatchingCriteria,0,doctorsMatchingCriteria.Count - 1);
                 //sortiranje doktora po oceni    
             }
 
+            int i = 1;
             foreach (Doctor.Doctor doctor in doctorsMatchingCriteria)
             {
-                Console.WriteLine(doctor);
+                Console.WriteLine(i + " : " +doctor);
+                i++;
             }
-            
+            Console.WriteLine("Ukoliko zelite da zakazete termin kod nekog doktora unesite redni broj ispred njegovog imena u suprotnom unesite ne: ");
+            string doctorsIndexString = Console.ReadLine();
+            if (doctorsIndexString != "ne")
+            {
+                int doctorsIndex = Int32.Parse(doctorsIndexString) - 1;
+                WritingAppointment(doctorsMatchingCriteria[doctorsIndex].Username);
+            }
             
         }
 
-    public void patientMenu()
+        public void Notification_system()
+        {
+            
+        }
+        
+        public void patientMenu()
         {
             string option;
             while (true)
@@ -541,7 +562,7 @@ namespace HealthCare.Patient
                     break;
 
                 if (option == "1")
-                    this.makingAppointment();
+                    this.MakingAppointment();
                 else if (option == "2")
                     this.changingAppointment();
                 else if (option == "3")

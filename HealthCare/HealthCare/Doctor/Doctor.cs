@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using HealthCare.Patient;
 
 namespace HealthCare.Doctor
 {
@@ -639,6 +640,81 @@ namespace HealthCare.Doctor
                     
             }
 
+        }
+
+        public float DoctorsAvgGrade()
+        {
+            List<DoctorsGrade> grades = DoctorsGrade.DeserializeDoctorsGrade();
+            int counter = 0;
+            int sum = 0;
+            foreach (DoctorsGrade grade in grades)
+            {
+                if (grade.Doctor == this.Username)
+                {
+                    counter++;
+                    sum += grade.HowGoodDoctorWas;
+                }
+                    
+            }
+            return sum/counter;
+        }
+        
+        public static void MergeDoctor(ref List<Doctor> doctors , int l, int m, int r)
+                {
+                    int n1 = m - l + 1;
+                    int n2 = r - m;
+            
+                    List<Doctor> L = new List<Doctor>( new Doctor[n1]);
+                    List<Doctor> R = new List<Doctor>( new Doctor[n2]);
+                    int i, j;
+          
+                    for (i = 0; i < n1; ++i)
+                        L[i] = doctors[l + i];
+                    for (j = 0; j < n2; ++j)
+                        R[j] = doctors[m + 1 + j];
+          
+                    i = 0;
+                    j = 0;
+          
+                    int k = l;
+                    while (i < n1 && j < n2) {
+                        if (L[i].DoctorsAvgGrade() <= R[i].DoctorsAvgGrade()) 
+                        {
+                            doctors[k] = L[i];
+                            i++;
+                        }
+                        else {
+                            doctors[k] = R[j];
+                            j++;
+                        }
+                        k++;
+                    }
+          
+                    while (i < n1) {
+                        doctors[k] = L[i];
+                        i++;
+                        k++;
+                    }
+              
+                    while (j < n2) {
+                        doctors[k] = R[j];
+                        j++;
+                        k++;
+                    }
+                }
+                
+                        
+        
+        public static void SortDoctor(ref List<Doctor> doctors, int l, int r)
+        {
+            if (l < r) {
+                int m = l+ (r-l)/2;
+            
+                SortDoctor(ref(doctors), l, m);
+                SortDoctor(ref(doctors), m + 1, r);
+                    
+                MergeDoctor(ref(doctors), l, m, r);
+            }
         }
     }
     
