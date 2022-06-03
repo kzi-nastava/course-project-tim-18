@@ -7,4 +7,6 @@
 {"TimeOfAppointment":"27/05/2022 13:33","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}
 {"TimeOfAppointment":"30/05/2022 14:30","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}
 {"TimeOfAppointment":"28/05/2022 15:45","Doctor":"2","Patient":"a","AppointmentType":1,"RoomId":"A2"}
-{"TimeOfAppointment":"28/05/2022 13:45","Doctor":"1","Patient":"d","AppointmentType":1,"RoomId":"A1"}
+{"TimeOfAppointment":"01/06/2022 12:30","Doctor":"2","Patient":"d","AppointmentType":1,"RoomId":"A2"}
+{"TimeOfAppointment":"28/05/2022 16:15","Doctor":"2","Patient":"a","AppointmentType":1,"RoomId":"A2"}
+{"TimeOfAppointment":"29/05/2022 16:30","Doctor":"2","Patient":"a","AppointmentType":1,"RoomId":"A2"}

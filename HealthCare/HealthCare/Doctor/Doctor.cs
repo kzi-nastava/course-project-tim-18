@@ -85,6 +85,51 @@ namespace HealthCare.Doctor
             return roomName;
         }
 
+        public static List<Doctor> DoctorMatchingCriteria(string criteria)
+        {
+            List<Doctor> doctors = Doctor.Deserialize();
+            List<Doctor> doctorsMatching = new List<Doctor>();
+            if (criteria == "1")
+            {
+                Console.WriteLine("Unesite ime doktora koje zelite da pretrazite:");
+                string doctorsName = Console.ReadLine();
+                foreach (Doctor doctor in doctors)
+                {
+                    if (doctor.Name == doctorsName)
+                        doctorsMatching.Add(doctor);
+                }
+            }
+
+            if (criteria == "2")
+            {
+                Console.WriteLine("Unesite prezime doktora koje zelite da pretrazite:");
+                string doctorsLastname = Console.ReadLine();
+                foreach (Doctor doctor in doctors)
+                {
+                    if (doctor.Surname == doctorsLastname)
+                        doctorsMatching.Add(doctor);
+                }
+            }
+
+            if (criteria == "3")
+            {
+                Console.WriteLine("Unesite specijalizaciju doktora koje zelite da pretrazite:");
+                string doctorsSpecializationString = Console.ReadLine();
+                int doctorsSpecialization = Int32.Parse(doctorsSpecializationString);
+                foreach (Doctor doctor in doctors)
+                {
+                    if (doctor.Specialization.Equals(doctorsSpecialization))
+                        doctorsMatching.Add(doctor);
+                }
+            }
+
+            if (criteria == "4")
+            {
+                doctorsMatching = doctors;
+            }
+            return doctorsMatching;
+        }
+        
         public void AddAppointment(Patient.Appointment appointment)
         {
             this.appointments.Add(appointment);

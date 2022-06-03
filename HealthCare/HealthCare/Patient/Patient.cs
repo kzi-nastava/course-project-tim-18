@@ -209,7 +209,7 @@ namespace HealthCare.Patient
             TimeSpan ChangeEnd = new TimeSpan(hourFinish, minuteFinish, 0);
             TimeSpan timeNeededForExamption = new TimeSpan(0, 15, 0);
             int i = 1;
-            List<Doctor.Doctor> doctors = Doctor.Doctor.Deserialize(); 
+            List<Doctor.Doctor> doctors = Doctor.Doctor.Deserialize();
             TimeSpan difference = dateForRecommendation.Subtract(dateForChecking);
             while (difference.Days != 0)
             {
@@ -234,12 +234,14 @@ namespace HealthCare.Patient
                         {
                             if (Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username))
                             {
-                                Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username, this.username,
+                                Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username,
+                                    this.username,
                                     HealthCare.Doctor.AppointmentType.Examination);
                                 recommendedAppointments.Add(appointment);
 
                             }
                         }
+
                         return recommendedAppointments;
                     }
                 }
@@ -261,37 +263,42 @@ namespace HealthCare.Patient
             Console.WriteLine("Unesite vreme do kada mozete da idete na tretman:(U formatu HH:MM)");
             string timeOfFinish = Console.ReadLine();
             Console.WriteLine("Unesite datum do kada najkasnije mozete da idete na tretman:(U formatu dd/mm/yyyy)");
-            string dateOfFinish = Console.ReadLine(); 
+            string dateOfFinish = Console.ReadLine();
             Console.WriteLine("Unesite broj ispred opcije po kojoj zelite preporuku:\n1Doktor\n2Vreme");
             string option = Console.ReadLine();
             if (option == "1")
             {
-                List<Appointment> recommendedAppointments = DoctorAppointmentsRecommendation(doctor,timeOfStart,timeOfFinish,dateOfFinish);
-                Console.WriteLine("Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
+                List<Appointment> recommendedAppointments =
+                    DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
+                Console.WriteLine(
+                    "Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
                 string appointmentOptionS = Console.ReadLine();
                 int appointmentOption = int.Parse(appointmentOptionS);
                 int i = 0;
                 foreach (Appointment appointment in recommendedAppointments)
                 {
                     i += 1;
-                    if(i == appointmentOption)
+                    if (i == appointmentOption)
                     {
                         appointment.RoomId = Doctor.Doctor.DoctorsRoom(appointment.Doctor);
                         appointment.serializeAppointment();
                     }
                 }
             }
+
             if (option == "2")
             {
-                List<Appointment> recommendedAppointments = DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
-                Console.WriteLine("Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
+                List<Appointment> recommendedAppointments =
+                    DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
+                Console.WriteLine(
+                    "Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
                 string appointmentOptionS = Console.ReadLine();
                 int appointmentOption = int.Parse(appointmentOptionS);
                 int i = 0;
                 foreach (Appointment appointment in recommendedAppointments)
                 {
                     i += 1;
-                    if(i == appointmentOption)
+                    if (i == appointmentOption)
                     {
                         appointment.RoomId = Doctor.Doctor.DoctorsRoom(appointment.Doctor);
                         appointment.serializeAppointment();
@@ -300,7 +307,7 @@ namespace HealthCare.Patient
             }
 
         }
-        
+
         public void makingAppointment()
         {
             DateTime now = DateTime.Now;
@@ -315,7 +322,8 @@ namespace HealthCare.Patient
                 string timeOfAppointment = Console.ReadLine();
                 if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
                 {
-                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username, HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
+                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username,
+                        HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
                     appointment.serializeAppointment();
                 }
             }
@@ -348,7 +356,8 @@ namespace HealthCare.Patient
                     if (appointments[i].TimeOfAppointment == timeOfAppointment && appointments[i].Doctor == doctor)
                     {
                         indexOfRequest = i;
-                        Console.WriteLine("Unesite broj ispred opcije:\n1 Promena doktora\n2 Promena vremena termina:\nSve drugo za kraj");
+                        Console.WriteLine(
+                            "Unesite broj ispred opcije:\n1 Promena doktora\n2 Promena vremena termina:\nSve drugo za kraj");
                         string option = Console.ReadLine();
                         if (option == "1")
                         {
@@ -357,16 +366,19 @@ namespace HealthCare.Patient
                             oldAppointment = appointments[i];
                             appointments[i].Doctor = newDoctor;
                             appointments[i].RoomId = Doctor.Doctor.DoctorsRoom(newDoctor);
-                            if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment, appointments[i].Doctor))
+                            if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment,
+                                    appointments[i].Doctor))
                                 validationOfNewAppointment = true;
                         }
+
                         if (option == "2")
                         {
                             Console.WriteLine("Unesite vreme novog termina: ");
                             string newTimeOfAppointment = Console.ReadLine();
                             oldAppointment = appointments[i];
                             appointments[i].TimeOfAppointment = newTimeOfAppointment;
-                            if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment, appointments[i].Doctor))
+                            if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment,
+                                    appointments[i].Doctor))
                             {
                                 validationOfNewAppointment = true;
                                 timeOfAppointment = newTimeOfAppointment;
@@ -374,6 +386,7 @@ namespace HealthCare.Patient
                         }
                     }
                 }
+
                 DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if (validationOfNewAppointment)
@@ -381,7 +394,8 @@ namespace HealthCare.Patient
                         Appointment.serializingListOfAppointments(appointments);
                     else
                     {
-                        AppointmentRequests appointmentRequest = new AppointmentRequests(oldAppointment, appointments[indexOfRequest], typeOfChange.Update);
+                        AppointmentRequests appointmentRequest = new AppointmentRequests(oldAppointment,
+                            appointments[indexOfRequest], typeOfChange.Update);
                         appointmentRequest.serializeAppointmentRequest();
                     }
             }
@@ -407,11 +421,12 @@ namespace HealthCare.Patient
                 Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username);
                 DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
-                if(timeDifference.TotalDays > 2)
+                if (timeDifference.TotalDays > 2)
                     appointment.deletingAppointment();
                 else
                 {
-                    AppointmentRequests appointmentRequest = new AppointmentRequests(appointment, appointment, typeOfChange.Delete);
+                    AppointmentRequests appointmentRequest =
+                        new AppointmentRequests(appointment, appointment, typeOfChange.Delete);
                     appointmentRequest.serializeAppointmentRequest();
                 }
 
@@ -436,21 +451,24 @@ namespace HealthCare.Patient
                     json += System.Text.Json.JsonSerializer.Serialize(blockedPatient) + "\n";
                 }
             }
+
             File.WriteAllText(fileName, json);
         }
 
         public void ReportsOverview()
         {
             List<Report> reports = Report.deserializeForPatient(this.Username);
-            Console.WriteLine("Unesite po kojem kriterijumu zelite pregled:\n1 Sortirani po datumu\n2 Pregledi odredjenog doktora\n3 Pregledi po specijalnosti doktora");
+            Console.WriteLine(
+                "Unesite po kojem kriterijumu zelite pregled:\n1 Sortirani po datumu\n2 Pregledi odredjenog doktora\n3 Pregledi po specijalnosti doktora");
             string option = Console.ReadLine();
             if (option == "1")
             {
                 Console.WriteLine("Tretmani su sortirani po datumu pregleda: ");
-                Report.SortReport(ref reports,0, reports.Count - 1);
+                Report.SortReport(ref reports, 0, reports.Count - 1);
                 foreach (Report report in reports)
-                { 
-                    Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment + "\n opis: " + report.Description);
+                {
+                    Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment +
+                                      "\n opis: " + report.Description);
                 }
             }
 
@@ -462,7 +480,8 @@ namespace HealthCare.Patient
                 {
                     if (report.Appointment.Doctor == doctor)
                     {
-                        Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment + "\n opis: " + report.Description);
+                        Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment +
+                                          "\n opis: " + report.Description);
                     }
                 }
             }
@@ -475,17 +494,41 @@ namespace HealthCare.Patient
                 int valueSpecialization = int.Parse(specialization) + 1;
                 foreach (Report report in reports)
                 {
-                    DoctorSpecialization doctorsSpecialization = Doctor.Doctor.DoctorsSpecialization(report.Appointment.Doctor);
+                    DoctorSpecialization doctorsSpecialization =
+                        Doctor.Doctor.DoctorsSpecialization(report.Appointment.Doctor);
                     if (doctorsSpecialization.Equals(valueSpecialization))
                     {
-                        Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment + "\n opis: " + report.Description);
+                        Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment +
+                                          "\n opis: " + report.Description);
                     }
                 }
             }
         }
         
 
-        public void patientMenu()
+        public void DoctorOverview()
+        {
+            List<DoctorsGrade> doctorsGrades = DoctorsGrade.DeserializeDoctorsGrade();
+            Console.WriteLine(
+                "Unesite kriterijum po kome zelite pretragu doktora:\n1 Po imenu\n2 Po prezimenu\n3 Po specijalnosti\n 4 Svi doktori");
+            string criteria = Console.ReadLine();
+            List<Doctor.Doctor> doctorsMatchingCriteria = Doctor.Doctor.DoctorMatchingCriteria(criteria);
+            Console.WriteLine("Ukoliko zelite da sortirate doktore po prosecnoj oceni unesite 1:");
+            string sort = Console.ReadLine();
+            if (sort == "1")
+            {
+                //sortiranje doktora po oceni    
+            }
+
+            foreach (Doctor.Doctor doctor in doctorsMatchingCriteria)
+            {
+                Console.WriteLine(doctor);
+            }
+            
+            
+        }
+
+    public void patientMenu()
         {
             string option;
             while (true)
