@@ -9,7 +9,13 @@ namespace HealthCare.Patient
     public class Patient : User
     {
         private MedicalRecord medicalRecord;
+        private int hoursForNotification;
 
+        public int HoursForNotification
+        {
+            get => hoursForNotification;
+            set => hoursForNotification = value;
+        }
         public MedicalRecord MedicalRecord
         {
             get => medicalRecord;
@@ -544,11 +550,18 @@ namespace HealthCare.Patient
             
         }
 
+        public void ChangeOfNotificationTime()
+        {
+            Console.WriteLine("Unesite koliko sati pre pijenja leka treba da vam stigne notifikacija:");
+            string hoursForNotificationString = Console.ReadLine();
+            this.hoursForNotification = Int32.Parse(numberOfHoursString); 
+        }
+        
         public void Notification_system()
         {
             
         }
-        
+
         public void patientMenu()
         {
             string option;

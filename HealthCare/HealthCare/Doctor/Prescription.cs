@@ -1,14 +1,27 @@
 ﻿using System.Data.SqlTypes;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Globalization;
 namespace HealthCare.Doctor;
 
 public class Prescription
 {
     public List<Medication> medications;
     private List<Allergy> allAllergyTriggers;
+    private string patient;
+
+    public List<Medication> Medications { get => medications; set => medications = value; }
+    public List<Allergy> AllAllergyTriggers { get => allAllergyTriggers; set => allAllergyTriggers = value; }
+
+    public string Patient
+    {
+        get => patient;
+        set => patient = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     public Prescription()
     {
+        this.patient = "";
         this.medications = new List<Medication>();
         this.allAllergyTriggers = new List<Allergy>();
     }
@@ -17,8 +30,18 @@ public class Prescription
         this.medications = medications;
         this.allAllergyTriggers = new List<Allergy>();
         LoadAllergies();
+        this.patient = "";
     }
 
+    [JsonConstructor]
+    public Prescription(List<Medication> medications, string patient)
+    {
+        this.medications = medications;
+        this.allAllergyTriggers = new List<Allergy>();
+        LoadAllergies();
+        this.patient = patient;
+    }
+    
     public bool CheckPatientAllergies(Patient.Patient patient)
     {
         /*
@@ -80,4 +103,39 @@ public class Prescription
             Console.WriteLine("==============================");
         }
     }
+    
+    public static List<Prescription> DeserializeDoctorsGrade()
+    {
+        string fileName = "../../../Data/Prescription.json";
+        string PrescriptionFileData = "";
+        PrescriptionFileData = File.ReadAllText(fileName);
+        string[] Prescriptions = PrescriptionFileData.Split('\n');
+        List<Prescription> DoctorsGradeList = new List<Prescription>();
+        foreach (String s in Prescriptions)
+        {
+            if (s != "")
+            {
+                Prescription? prescription = JsonSerializer.Deserialize<Prescription>(s);
+                if (prescription != null)
+                    DoctorsGradeList.Add(prescription);
+
+            }
+        }
+        return DoctorsGradeList;
+    }
+
+    public void SerializePrescription()
+    {
+        string fileName = "../../../Data/Prescription.json";
+        List<Prescription> prescriptions = DeserializeDoctorsGrade();
+        //List<Prescription> prescriptions = new List<Prescription>();
+        string json = "";
+        foreach (Prescription prescription in prescriptions)
+        {
+            json += JsonSerializer.Serialize(prescription) + "\n";
+        }
+        json += JsonSerializer.Serialize(this) + "\n"; ;
+        File.WriteAllText(fileName, json);
+    }
+    
 }
