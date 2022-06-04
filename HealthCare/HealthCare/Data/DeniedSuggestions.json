@@ -3,25 +3,32 @@
     "Name": "Nesot",
     "TimesADay": 2,
     "WhenToConsume": 3,
-    "AllergyTriggers": [
-      0
-    ],
+    "AllergyTriggers": [ 0 ],
     "DoctorNote": "Nije dobar",
-    "Ingredients": [
-      "ASFASJGIASHNGIOASGNAIOHG"
-    ]
+    "Ingredients": [ "ASFASJGIASHNGIOASGNAIOHG" ]
   },
   {
+    "AllergyTriggers": [ 0 ],
+    "DoctorNote": "ne valja lek uopste",
+    "Ingredients": [ "Loas", "Eksen" ],
     "Name": "Lexington",
     "TimesADay": 0,
-    "WhenToConsume": 3,
-    "AllergyTriggers": [
-      0
-    ],
-    "DoctorNote": "ne valja lek uopste",
-    "Ingredients": [
-      "Loas",
-      "Eksen"
-    ]
+    "WhenToConsume": 3
+  },
+  {
+    "Name": "Miligram",
+    "TimesADay": 3,
+    "WhenToConsume": 0,
+    "AllergyTriggers": [ 1 ],
+    "DoctorNote": "nije mi dan",
+    "Ingredients": [ "Ekser", "Lekse" ]
+  },
+  {
+    "Name": "Eteren",
+    "TimesADay": 2,
+    "WhenToConsume": 0,
+    "AllergyTriggers": [ 3 ],
+    "DoctorNote": "bas mi nije dan",
+    "Ingredients": [ "Asteriks" ]
   }
 ]
