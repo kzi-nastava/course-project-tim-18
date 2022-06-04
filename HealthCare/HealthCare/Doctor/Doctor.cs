@@ -501,6 +501,7 @@ namespace HealthCare.Doctor
 
             string roomId = this.appointments[index].RoomId;
             this.manageEquipment(manager, roomId);
+            this.appointments.RemoveAt(index);
         }
 
         private void manageEquipment(Manager manager, string roomId)
@@ -614,7 +615,7 @@ namespace HealthCare.Doctor
             }
         }
 
-        private void manageMedicatiob()
+        private void manageMedication()
         {
             
         }
