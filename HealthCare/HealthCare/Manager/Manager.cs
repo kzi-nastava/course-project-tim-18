@@ -10,7 +10,7 @@ namespace HealthCare
         private Hospital? hospital;
         private List<ManagerRequest> managerRequests = new List<ManagerRequest>();
         private List<RenovationRequest> renovationRequest = new List<RenovationRequest>();
-
+        Room room;
  
 
         public Manager()
@@ -940,5 +940,261 @@ namespace HealthCare
             string json = JsonSerializer.Serialize(this);
             File.WriteAllText(file, json);
         }
+
+        //EQUIPMENT REQUESTS----------------------------------------------------------
+        public void DynamicEquipmentRequests()
+        {
+            List<Equipment> equipmentList = new List<Equipment>();
+            List<Equipment> oldEquipmentList = new List<Equipment>();
+            foreach (Room room in hospital.Rooms)
+            {
+                foreach (Equipment equipment in room.EquipmentList)
+                {
+                    if (room.Name == "Magacin" && equipment.Amount == 0)
+                    {
+                        PrintEquipmentView(equipment);
+                        equipmentList.Add(equipment);
+
+                    }
+                    oldEquipmentList.Add(equipment);
+                }
+            }
+
+            Console.Write("\nUnesite opremu: ");
+            string newEqupment = Console.ReadLine();
+
+            Console.Write("Unesite kolicinu: ");
+            string inputQuantity = Console.ReadLine();
+
+            CheckSentRequest(newEqupment, inputQuantity, equipmentList);
+
+
+        }
+
+        private void CheckSentRequest(string newEqupment, string inputQuantity, List<Equipment> equipmentList)
+        {
+            EquipmentRequest equipmentRequests = new EquipmentRequest();
+            List<EquipmentRequest> equipmentRequestList = equipmentRequests.EquipmentRequestDeserialization();
+
+            bool isTrue = false;
+            foreach (EquipmentRequest equipmentRequest in equipmentRequestList)
+            {
+
+                if (equipmentRequest.Equipment.Name == newEqupment)
+                {
+                    isTrue = true;
+                }
+
+            }
+            if (isTrue == true)
+            {
+                Console.WriteLine("\nZahtjev je vec poslat!");
+                CheckHours(equipmentList);
+
+            }
+            if (isTrue == false)
+            {
+                SendRequest(equipmentList, room, newEqupment, inputQuantity);
+                CheckHours(equipmentList);
+            }
+        }
+
+        private void PrintEquipmentView(Equipment equipment)
+        {
+            Console.WriteLine("------------------------------------");
+            Console.WriteLine("Naziv opreme: " + equipment.Name);
+            Console.WriteLine("Količina opreme: " + equipment.Amount);
+            Console.WriteLine("------------------------------------");
+        }
+
+        public void SendRequest(List<Equipment> equipment, Room room, string newEquipment, string inputQuantity)
+        {
+
+            int newQuantity = Int32.Parse(inputQuantity);
+
+            foreach (Equipment equipmentt in equipment)
+            {
+                if (equipmentt.Name == newEquipment)
+                {
+                    Equipment equipment1 = new Equipment(equipmentt.EquipmentType, equipmentt.Name, newQuantity);
+                    EquipmentRequest equipmentRequest = new EquipmentRequest(equipment1, DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                    equipmentRequest.EquipmentRequestSerialization();
+                }
+            }
+        }
+
+        public void CheckHours(List<Equipment> equipment)
+        {
+            EquipmentRequest equipmentRequests = new EquipmentRequest();
+            List<EquipmentRequest> equipmentRequestList = equipmentRequests.EquipmentRequestDeserialization();
+
+            foreach (EquipmentRequest equipmentRequest in equipmentRequestList)
+            {
+                var parsedDate = DateTime.Parse(equipmentRequest.ExecutionDate);
+                var parsedDateNow = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+
+                DateTime parsedDateAfterOneDay = parsedDate.AddMonths(1);
+                PrintDateTimeOfRequest(equipmentRequest, parsedDateNow, parsedDateAfterOneDay);
+
+                int res = DateTime.Compare(parsedDateNow, parsedDateAfterOneDay);
+                if (res == -1)
+                {
+                    Console.WriteLine("Nije proslo 24h od podnesenog zahtjeva");
+                    Console.WriteLine("=========================================");
+                }
+                if (res == 1)
+                {
+                    Console.WriteLine("Proslo je 24h od podnesenog zahtjeva");
+                    Console.WriteLine("=========================================");
+                    foreach (Equipment equipment1 in equipment)
+                    {
+                        if (equipment1.Name == equipmentRequest.Equipment.Name)
+                        {
+                            ReplaceEquipmentAmountValues(equipment1, equipmentRequest);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ReplaceEquipmentAmountValues(Equipment equipment1, EquipmentRequest equipmentRequest)
+        {
+            equipment1.Amount = equipmentRequest.Equipment.Amount;
+            Room magacin = GetRoom("Magacin");
+            Room newMagacin = new Room(magacin.RoomType, magacin.Name);
+            Equipment eq = magacin.GetEquipment(equipment1.Name);
+            int i = 0;
+            i += equipmentRequest.Equipment.Amount;
+
+            DeleteEquipmentRequest(equipmentRequest.Equipment.Name);
+        }
+
+        private void PrintDateTimeOfRequest(EquipmentRequest equipmentRequest, DateTime parsedDateNow, DateTime parsedDateAfterOneDay)
+        {
+            Console.WriteLine("\n=========================================");
+            Console.WriteLine("Zahtjev: " + equipmentRequest.Equipment.Name);
+            Console.WriteLine("TRENUTNO VRIJEME: " + parsedDateNow.ToString());
+            Console.WriteLine("DATUM ZAHTJEVA: " + parsedDateAfterOneDay);
+            Console.WriteLine("=========================================");
+
+        }
+
+        public void DeleteEquipmentRequest(string name)
+        {
+            EquipmentRequest equipmentRequests = new EquipmentRequest();
+            equipmentRequests.DeleteFromEquipmentRequest(name);
+
+        }
+        //----------------------------------------------------------------------------
+
+        //EQUIPMENT DISTRIBUTION------------------------------------------------------
+        public void DynamicEquipmentDistribution()
+        {
+            string[] dynamicEquipment = { "Kopce", "Zavoj", "Inekcije", "Papir", "Gaze", "Olovke", "Hanzaplast" };
+            List<string> dynamicEquipmentList = new List<string>(dynamicEquipment);
+
+
+            List<Equipment> equipmentList = new List<Equipment>();
+            foreach (Room room in hospital.Rooms)
+            {
+                List<string> emptyList = new List<string>();
+                Console.WriteLine("============================");
+                Console.WriteLine(room.Name);
+                Console.WriteLine("============================\n");
+                CheckUnavailableEquipment(dynamicEquipmentList, room);
+
+
+            }
+
+            MakeDistribution();
+
+        }
+
+        private void CheckUnavailableEquipment(List<string> dynamicEquipmentList, Room room)
+        {
+            foreach (String dm in dynamicEquipmentList)
+            {
+                bool isFound = false;
+                foreach (Equipment equipment in room.EquipmentList)
+                {
+                    if (equipment.Name == dm)
+                    {
+                        if (equipment.Amount < 5 && equipment.Amount != 0)
+                        {
+                            Console.WriteLine(equipment.Name + ": " + equipment.Amount);
+                        }
+                        if (equipment.Amount == 0)
+                        {
+                            isFound = true;
+                        }
+                    }
+                }
+                if (isFound == true)
+                {
+                    Console.WriteLine(dm + ": Nema na stanju");
+                }
+            }
+        }
+
+        private void MakeDistribution()
+        {
+
+            Console.Write("Unesi naziv prostorije iz koje se uzima oprema: ");
+            string oldRoomName = Console.ReadLine();
+            if (RoomExist(oldRoomName) == false)
+            {
+                Console.WriteLine("Unijeta neispravna vrijednost.");
+                return;
+            }
+
+            Room oldRoom = GetRoom(oldRoomName);
+            Console.Write("Unesi naziv opreme: ");
+            string equipmentName = Console.ReadLine();
+            if (oldRoom.EquipmentExist(equipmentName) == false)
+            {
+                Console.WriteLine("Unijeta neispravna vrijednost.");
+                return;
+            }
+            Equipment oldEquipment = oldRoom.GetEquipment(equipmentName);
+
+
+
+            Console.Write("Unesi kolicinu: ");
+            int amountInt;
+            string amountString = Console.ReadLine();
+            if (Int32.TryParse(amountString, out amountInt) == false)
+            {
+                Console.WriteLine("Unijeta neispravna vrijednost.");
+                return;
+            }
+            if (amountInt > oldEquipment.Amount)
+            {
+                Console.WriteLine("Unijeta prevelika velicina.");
+                return;
+            }
+
+            Console.Write("Unesi naziv prostorije u koju se oprema premijesta: ");
+            string newRoomName = Console.ReadLine();
+            if (RoomExist(newRoomName) == false)
+            {
+                Console.WriteLine("Unijeta neispravna vrijednost.");
+                return;
+            }
+
+            ReplaceAmountBetweenTwoRooms(newRoomName, amountInt, oldEquipment, equipmentName);
+
+
+        }
+
+        private void ReplaceAmountBetweenTwoRooms(string newRoomName, int amountInt, Equipment oldEquipment, string equipmentName)
+        {
+            Room newRoom = GetRoom(newRoomName);
+            Equipment newEquipment = newRoom.GetEquipment(equipmentName);
+            newEquipment.Amount += amountInt;
+            oldEquipment.Amount -= amountInt;
+        }
+
+        //----------------------------------------------------------------------------
+
     }
 }
