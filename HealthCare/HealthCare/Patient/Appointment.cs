@@ -239,7 +239,7 @@ namespace HealthCare.Patient
             {
                 s = "Pregled";
             }
-            return String.Format("Termin( Doktor: {0}, Pacijent: {1}, Datum i Vreme: {2}, Tip: {3}, Soba: {4})", doctor, patient, timeOfAppointment, s, roomId);
+            return String.Format("Termin( Doktor: {0}, Pacijent: {1}, Datum i Vreme: {2}, Tip: {3}", doctor, patient, timeOfAppointment, s);
 
         }
         

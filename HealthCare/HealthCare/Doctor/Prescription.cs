@@ -104,7 +104,7 @@ public class Prescription
         }
     }
     
-    public static List<Prescription> DeserializeDoctorsGrade()
+    public static List<Prescription> DeserializePrescription()
     {
         string fileName = "../../../Data/Prescription.json";
         string PrescriptionFileData = "";
@@ -127,7 +127,7 @@ public class Prescription
     public void SerializePrescription()
     {
         string fileName = "../../../Data/Prescription.json";
-        List<Prescription> prescriptions = DeserializeDoctorsGrade();
+        List<Prescription> prescriptions = DeserializePrescription();
         //List<Prescription> prescriptions = new List<Prescription>();
         string json = "";
         foreach (Prescription prescription in prescriptions)

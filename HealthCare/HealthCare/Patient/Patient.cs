@@ -330,10 +330,7 @@ namespace HealthCare.Patient
                 {
                     Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username,
                         HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
-                    
                     appointment.serializeAppointment();
-                    Doctor.Doctor.AddAppointment(new Appointment(timeOfAppointment, doctor, this.username,
-                        HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor)));
                 }
             }
             else
@@ -521,7 +518,6 @@ namespace HealthCare.Patient
             }
         }
         
-
         public void DoctorOverview()
         {
             List<DoctorsGrade> doctorsGrades = DoctorsGrade.DeserializeDoctorsGrade();
@@ -562,19 +558,62 @@ namespace HealthCare.Patient
         
         public void Notification_system()
         {
-            
+            List<Prescription> prescriptions = Doctor.Prescription.DeserializePrescription();
+            foreach(Prescription prescription in prescriptions)
+            {
+                if (this.Username == prescription.Patient)
+                {
+                    foreach(Medication medication in prescription.Medications)
+                    {
+                        if(medication.WhenToConsume == Doctor.TimeForMedicine.AfterTheMeal)
+                        {
+                            DateTime time = DateTime.Now;
+                            TimeSpan hoursBeforeTaking = new TimeSpan( this.hoursForNotification , 0 , 0 );
+                            if ((time.Add(hoursBeforeTaking).Hour > 8 && 8 > time.Subtract(hoursBeforeTaking).Hour) || (time.Add(hoursBeforeTaking).Hour > 13 && 13 > time.Subtract(hoursBeforeTaking).Hour) || (time.Add(hoursBeforeTaking).Hour > 18 &&  18> time.Subtract(hoursBeforeTaking).Hour))
+                            {
+                                Console.WriteLine("Ne zaboravite da uzmete lek nakon obroka!");
+                            }
+                        }
+                        if (medication.WhenToConsume == Doctor.TimeForMedicine.DuringTheMeal)
+                        {
+                            DateTime time = DateTime.Now;
+                            TimeSpan hoursBeforeTaking = new TimeSpan(this.hoursForNotification, 0, 0);
+                            if ((time.Add(hoursBeforeTaking).Hour > 8 && 8 > time.Subtract(hoursBeforeTaking).Hour) || (time.Add(hoursBeforeTaking).Hour > 13 && 13 > time.Subtract(hoursBeforeTaking).Hour) || (time.Add(hoursBeforeTaking).Hour > 18 && 18 > time.Subtract(hoursBeforeTaking).Hour))
+                            {
+                                Console.WriteLine("Ne zaboravite da uzmete lek u toku obroka!");
+                            }
+                        }
+                        if (medication.WhenToConsume == Doctor.TimeForMedicine.BeforeTheMeal)
+                        {
+                            DateTime time = DateTime.Now;
+                            TimeSpan hoursBeforeTaking = new TimeSpan(this.hoursForNotification, 0, 0);
+                            if ((time.Add(hoursBeforeTaking).Hour > 8 && 8 > time.Subtract(hoursBeforeTaking).Hour) || (time.Add(hoursBeforeTaking).Hour > 13 && 13 > time.Subtract(hoursBeforeTaking).Hour) || (time.Add(hoursBeforeTaking).Hour > 18 && 18 > time.Subtract(hoursBeforeTaking).Hour))
+                            {
+                                Console.WriteLine("Ne zaboravite da uzmete lek pre obroka!");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("");
+                        }
+                    }
+                }
+
+            }
+
         }
 
         public void patientMenu()
         {
             string option;
+            this.Notification_system();
             while (true)
             {
 
-                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6 Pregled izvestaja\n7 Izalazak iz menua");
+                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6 Pregled izvestaja\n7 Pregled doktora\n8 Birajte broj sati koliko pre jela zelite da dobijete notifikaciju o uzimanju leka\n9 Izalazak iz menua");
                 option = Console.ReadLine();
 
-                if (option == "7")
+                if (option == "9")
                     break;
 
                 if (option == "1")
@@ -589,6 +628,10 @@ namespace HealthCare.Patient
                     this.AppointmentRecommendation();
                 else if (option == "6")
                     this.ReportsOverview();
+                else if (option == "7")
+                    this.DoctorOverview();
+                else if (option == "8")
+                    this.ChangeOfNotificationTime();
 
             }
         }
