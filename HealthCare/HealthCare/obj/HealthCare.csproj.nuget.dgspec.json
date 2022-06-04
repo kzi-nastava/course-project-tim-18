@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj": {}
+    "C:\\Users\\Asus\\source\\repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj": {
+    "C:\\Users\\Asus\\source\\repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+        "projectUniqueName": "C:\\Users\\Asus\\source\\repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
         "projectName": "HealthCare",
-        "projectPath": "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
-        "packagesPath": "C:\\Users\\Ilija\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ilija\\Desktop\\xyz\\USI\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
+        "projectPath": "C:\\Users\\Asus\\source\\repos\\course-project-tim-18\\HealthCare\\HealthCare\\HealthCare.csproj",
+        "packagesPath": "C:\\Users\\Asus\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Asus\\source\\repos\\course-project-tim-18\\HealthCare\\HealthCare\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ilija\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Asus\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -60,7 +60,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.105\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
