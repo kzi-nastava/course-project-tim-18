@@ -450,7 +450,7 @@ namespace HealthCare.Doctor
                 return;
             }
         }
-        private void performAppointmentMenu()
+        private void performAppointmentMenu(Manager manager)
         {
             Console.WriteLine("=======================================");
             Console.WriteLine("Izvodjenje pregleda: ");
@@ -499,8 +499,54 @@ namespace HealthCare.Doctor
                 prescribeMedicineMenu(patient);
             }
 
+            string roomId = this.appointments[index].RoomId;
+            this.manageEquipment(manager, roomId);
         }
 
+        private void manageEquipment(Manager manager, string roomId)
+        {
+            Room appointmentRoom = manager.GetRoom(roomId);
+            List<Equipment> equipments = appointmentRoom.EquipmentList;
+            Console.WriteLine("==============================");
+            Console.WriteLine("Azuriranje opreme: ");
+            while (equipments.Count > 0)
+            {
+                for (int i = 0; i < equipments.Count; i ++)
+                {
+                    var equipment = equipments[i];
+                    Console.WriteLine("");
+                    Console.WriteLine(i + 1 + ".");
+                    Console.WriteLine("Oprema: " + equipment.Name);
+                    Console.WriteLine("Tip opreme: " + equipment.EquipmentType);
+                    Console.WriteLine("Kolicina: " + equipment.Amount);
+                    Console.WriteLine("");
+                }
+                Console.WriteLine("Izaberite opremu za azuriranje: ");
+                string s = Console.ReadLine();
+                int index = Int32.Parse(s)-1;
+                if (s == "" || index > equipments.Count || index <= 0)
+                {
+                    Console.WriteLine("Pogresan unos!");
+                    return;
+                }
+                Console.WriteLine("Izabrana oprema: ");
+                var chosenEquipment = equipments[index];
+                Console.WriteLine("Oprema: " + chosenEquipment.Name);
+                Console.WriteLine("Tip opreme: " + chosenEquipment.EquipmentType);
+                Console.WriteLine("Kolicina: " + chosenEquipment.Amount);
+                Console.WriteLine("Unesite kolicinu opreme koja je potrosena: ");
+                s = Console.ReadLine();
+                int amountUsed = Int32.Parse(s);
+                appointmentRoom.EquipmentList[index].Amount -= amountUsed;
+                Console.WriteLine("Nastaviti azuriranje opreme? (y/n)");
+                s = Console.ReadLine();
+                if (s == "n")
+                {
+                    return;
+                }
+            }
+
+        }
         public void prescribeMedicineMenu(Patient.Patient patient)
         {
             Prescription prescription = new Prescription();
@@ -559,13 +605,18 @@ namespace HealthCare.Doctor
             }
             printSchedule(dt);
         }
-        public void DoctorMenu()
+        public void DoctorMenu(Manager manager)
         {
             bool showMenu = true;
             while (showMenu)
             {
-                showMenu = MainMenuWrite();
+                showMenu = MainMenuWrite(manager);
             }
+        }
+
+        private void manageMedicatiob()
+        {
+            
         }
         private void MainMenuPrint()
         {
@@ -573,7 +624,8 @@ namespace HealthCare.Doctor
             Console.WriteLine("1. CRUD pregled/operaciju");
             Console.WriteLine("2. Prikaz rasporeda");
             Console.WriteLine("3. Izvodjenje pregleda/operacije");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("4. Upravljanje lekovima");
+            Console.WriteLine("5. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -618,7 +670,7 @@ namespace HealthCare.Doctor
                     return true;
             }
         }
-        private bool MainMenuWrite()
+        private bool MainMenuWrite(Manager manager)
         {
             MainMenuPrint();
             switch (Console.ReadLine())
@@ -630,9 +682,12 @@ namespace HealthCare.Doctor
                     checkScheduleMenu();
                     return true;
                 case "3":
-                    performAppointmentMenu();
+                    performAppointmentMenu(manager);
                     return true;
                 case "4":
+                    //manageMedicationMenu();
+                    return true;
+                case "5":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
