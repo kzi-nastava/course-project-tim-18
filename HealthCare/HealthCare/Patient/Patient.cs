@@ -330,7 +330,10 @@ namespace HealthCare.Patient
                 {
                     Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username,
                         HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
+                    
                     appointment.serializeAppointment();
+                    Doctor.Doctor.AddAppointment(new Appointment(timeOfAppointment, doctor, this.username,
+                        HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor)));
                 }
             }
             else

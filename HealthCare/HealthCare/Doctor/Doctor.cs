@@ -74,6 +74,18 @@ namespace HealthCare.Doctor
             return doctorSpecialization;
         }
 
+        public static void AddAppointment(Appointment appointment)
+        {
+            List<Doctor> doctors = Doctor.Deserialize();
+            foreach (var doctor in doctors)
+            {
+                if (doctor.Username == appointment.Doctor)
+                {
+                    doctor.appointments.Add(appointment);
+                }
+            }
+        }
+
         public static string DoctorsRoom(string username)
         {
             string roomName = "";
@@ -131,10 +143,6 @@ namespace HealthCare.Doctor
             return doctorsMatching;
         }
         
-        public void AddAppointment(Patient.Appointment appointment)
-        {
-            this.appointments.Add(appointment);
-        }
         public bool CreateAppointment()
         {
             Console.Write("Unesite korisnicko ime pacijenta:  ");
@@ -525,7 +533,7 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Izaberite opremu za azuriranje: ");
                 string s = Console.ReadLine();
                 int index = Int32.Parse(s)-1;
-                if (s == "" || index > equipments.Count || index <= 0)
+                if (s == "" || index >= equipments.Count || index < 0)
                 {
                     Console.WriteLine("Pogresan unos!");
                     return;
@@ -538,6 +546,11 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Unesite kolicinu opreme koja je potrosena: ");
                 s = Console.ReadLine();
                 int amountUsed = Int32.Parse(s);
+                if (amountUsed > chosenEquipment.Amount)
+                {
+                    Console.WriteLine("Greska uneta kolicina je veca od ukupne kolicine dostupne opreme!");
+                    return;
+                }
                 appointmentRoom.EquipmentList[index].Amount -= amountUsed;
                 Console.WriteLine("Nastaviti azuriranje opreme? (y/n)");
                 s = Console.ReadLine();
@@ -619,6 +632,71 @@ namespace HealthCare.Doctor
         {
             
         }
+
+        private void manageMedicationMenu()
+        {
+            List<Medication> suggestions = Medication.DeserializeSuggestions();
+            if (suggestions.Count == 0)
+            {
+                Console.WriteLine("Trenutno nema sugestija lekova za pregled");
+                return;
+            }
+            while (suggestions.Count > 0)
+            {
+                for (int i = 0; i < suggestions.Count; i++)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(i+1 +".");
+                    Console.WriteLine("Sugestija za " + suggestions[i]);
+                }
+                Console.WriteLine("Izaberite sugestiju leka: ");
+                string s = Console.ReadLine();
+                var index = Int32.Parse(s)-1;
+                if (index < 0 || index >= suggestions.Count)
+                {
+                    Console.WriteLine("Pogresan unos!");
+                    return;
+                }
+                Console.WriteLine("Izabran " + suggestions[index]);
+                Console.WriteLine("Da li prihvatate lek?(y/n)");
+                Console.WriteLine("Izaberite opciju: ");
+                s = Console.ReadLine();
+                if (s == "y")
+                {
+                    Medication.addMedication(suggestions[index]);
+                    suggestions.RemoveAt(index);
+                }else if (s == "n")
+                {
+                    Console.Write("Unesite razlog za odbijanje: ");
+                    string reasonForDenial = Console.ReadLine();
+                    suggestions[index].DoctorNote = reasonForDenial;
+                    Medication.AddDeniedSuggestion(suggestions[index]);
+                    suggestions.RemoveAt(index);
+                }
+                else
+                {
+                    Console.WriteLine("Greska pri unosu");
+                }
+                Console.WriteLine("Nastaviti pregled sugestija?(y/n)");
+                s = Console.ReadLine();
+                if (s == "y")
+                {
+                    continue;
+                }else if (s == "n")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Greska pri unosu");
+                    return;
+                }
+            }
+            Medication.SerializeSuggestions(suggestions);
+                
+
+            
+        }
         private void MainMenuPrint()
         {
             Console.WriteLine("===============================================================");
@@ -686,7 +764,7 @@ namespace HealthCare.Doctor
                     performAppointmentMenu(manager);
                     return true;
                 case "4":
-                    //manageMedicationMenu();
+                    manageMedicationMenu();
                     return true;
                 case "5":
                     return false;
