@@ -89,4 +89,8 @@ public class Medication
         SerializeSuggestions(deserializedMedications);
     }
 
+    public override string ToString()
+    {
+        return String.Format("Lek( Ime: {0}, Koliko puta dnevno se pije: {1}, Kad se pije: {2}, Alergije: {3}, Sastojci: {4})", name, timesADay, whenToConsume, allergyTriggers, ingredients);
+    }
 }
