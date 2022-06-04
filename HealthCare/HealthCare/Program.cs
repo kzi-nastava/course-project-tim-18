@@ -57,7 +57,7 @@ using HealthCare.Secretary;
      {
          if (doctor.Username == username && doctor.Password == password)
          {
-             doctor.DoctorMenu();
+             doctor.DoctorMenu(manager);
              break;
          }
      }
@@ -93,4 +93,4 @@ using HealthCare.Secretary;
  Secretary.Serialize(secretaries);
 
  Console.WriteLine("Aplikacija ugašena.");
-
+ 

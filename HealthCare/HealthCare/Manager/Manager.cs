@@ -914,7 +914,7 @@ namespace HealthCare
 
             }
 
-           Medication.addMedicationSuggestion(new Medication(medicationName, timesADay, timeForMedicine, new List<Allergy>() { allergy}, ingredients));
+           Medication.addMedicationSuggestion(new Medication(medicationName, timesADay, timeForMedicine, new List<Allergy>() { allergy}, ingredients, ""));
 
         }
 

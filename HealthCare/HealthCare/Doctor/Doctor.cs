@@ -652,7 +652,42 @@ namespace HealthCare.Doctor
                     Console.WriteLine("Pogresan unos!");
                     return;
                 }
+                Console.WriteLine("Izabran " + suggestions[index]);
+                Console.WriteLine("Da li prihvatate lek?(y/n)");
+                Console.WriteLine("Izaberite opciju: ");
+                s = Console.ReadLine();
+                if (s == "y")
+                {
+                    Medication.addMedication(suggestions[index]);
+                    suggestions.RemoveAt(index);
+                }else if (s == "n")
+                {
+                    Console.Write("Unesite razlog za odbijanje: ");
+                    string reasonForDenial = Console.ReadLine();
+                    suggestions[index].DoctorNote = reasonForDenial;
+                    Medication.AddDeniedSuggestion(suggestions[index]);
+                    suggestions.RemoveAt(index);
+                }
+                else
+                {
+                    Console.WriteLine("Greska pri unosu");
+                }
+                Console.WriteLine("Nastaviti pregled sugestija?(y/n)");
+                s = Console.ReadLine();
+                if (s == "y")
+                {
+                    continue;
+                }else if (s == "n")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Greska pri unosu");
+                    return;
+                }
             }
+            Medication.SerializeSuggestions(suggestions);
                 
 
             

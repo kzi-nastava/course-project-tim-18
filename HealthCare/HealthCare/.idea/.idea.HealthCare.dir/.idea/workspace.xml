@@ -7,10 +7,14 @@
     <list default="true" id="4df1c6e0-0aa0-48a5-ad7d-e293d17f3452" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Appointments.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Appointments.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/DeniedSuggestions.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DeniedSuggestions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/DoctorsData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DoctorsData.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/ManagerData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/ManagerData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/Medication.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Medication.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/MedicationSuggestions.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/MedicationSuggestions.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/Reports.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Reports.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/Medication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Medication.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Manager/Manager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Manager/Manager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
@@ -24,6 +28,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JSON File" />
+      </list>
+    </option>
+  </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
       <filtered-out-file-type name="LOCAL_BRANCH" />
@@ -34,6 +45,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7a1ad32abaee44480b66c2c1fcee9628cca92a4cd272eced5781564201180/Number.Parsing.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c6ad457575d35dcbff26c9a5e3fb1d92f1d3c55f25ef6ebf475367b5d8/List.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -90,7 +102,7 @@
       <workItem from="1652233762632" duration="6512000" />
       <workItem from="1652522662243" duration="6232000" />
       <workItem from="1654348040776" duration="5121000" />
-      <workItem from="1654356996686" duration="4333000" />
+      <workItem from="1654356996686" duration="7108000" />
     </task>
     <servers />
   </component>
@@ -102,5 +114,24 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Doctor/Medication.cs</url>
+          <line>102</line>
+          <properties documentPath="C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\Doctor\Medication.cs" initialLine="102" containingFunctionPresentation="method 'AddDeniedSuggestion'">
+            <startOffsets>
+              <option value="3403" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3430" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

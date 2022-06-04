@@ -1,3 +1,27 @@
-﻿{
-
-}
+[
+  {
+    "Name": "Nesot",
+    "TimesADay": 2,
+    "WhenToConsume": 3,
+    "AllergyTriggers": [
+      0
+    ],
+    "DoctorNote": "Nije dobar",
+    "Ingredients": [
+      "ASFASJGIASHNGIOASGNAIOHG"
+    ]
+  },
+  {
+    "Name": "Lexington",
+    "TimesADay": 0,
+    "WhenToConsume": 3,
+    "AllergyTriggers": [
+      0
+    ],
+    "DoctorNote": "ne valja lek uopste",
+    "Ingredients": [
+      "Loas",
+      "Eksen"
+    ]
+  }
+]

@@ -41,14 +41,23 @@ public class Medication
     }
     public List<string> Ingredients { get => ingredients; set => ingredients = value; }
 
-    public Medication(string name, int timesADay, TimeForMedicine whenToConsume, List<Allergy> allergyTriggers, List<string> ingredients)
+    // public Medication(string name, int timesADay, TimeForMedicine whenToConsume, List<Allergy> allergyTriggers, List<string> ingredients)
+    // {
+    //     this.name = name;
+    //     this.timesADay = timesADay;
+    //     this.whenToConsume = whenToConsume;
+    //     this.allergyTriggers = allergyTriggers;
+    //     this.ingredients = ingredients;
+    //     this.doctorNote = "";
+    // }
+    public Medication(string name, int timesADay, TimeForMedicine whenToConsume, List<Allergy> allergyTriggers, List<string> ingredients, string doctorNote)
     {
         this.name = name;
         this.timesADay = timesADay;
         this.whenToConsume = whenToConsume;
         this.allergyTriggers = allergyTriggers;
         this.ingredients = ingredients;
-        this.doctorNote = "";
+        this.doctorNote  = doctorNote;
     }
     private static void serialize(List<Medication> medications)
     {
@@ -90,9 +99,9 @@ public class Medication
 
     public static void AddDeniedSuggestion(Medication d)
     {
-        List<Medication> deserializedDenials = Deserialize();
+        List<Medication> deserializedDenials = DeserializeDenials();
         deserializedDenials.Add(d);
-        serialize(deserializedDenials);
+        SerializeDenials(deserializedDenials);
     }
 
 
