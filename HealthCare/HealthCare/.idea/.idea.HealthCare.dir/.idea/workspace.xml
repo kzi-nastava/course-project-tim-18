@@ -5,30 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4df1c6e0-0aa0-48a5-ad7d-e293d17f3452" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/Appointments.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/Appointments.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Data/ManagerData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/ManagerData.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Doctor/Prescription.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Prescription.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,8 +23,7 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7a1ad32abaee44480b66c2c1fcee9628cca92a4cd272eced5781564201180/Number.Parsing.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -61,6 +39,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="HotReloadSettingsPage" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RunManager">
@@ -100,6 +79,8 @@
       <workItem from="1652207402558" duration="8029000" />
       <workItem from="1652233762632" duration="6512000" />
       <workItem from="1652522662243" duration="6232000" />
+      <workItem from="1654348040776" duration="5121000" />
+      <workItem from="1654356996686" duration="300000" />
     </task>
     <servers />
   </component>
@@ -116,17 +97,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Program.cs</url>
-          <line>101</line>
-          <properties documentPath="C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\Program.cs" initialLine="99" containingFunctionPresentation="">
+          <url>file://$PROJECT_DIR$/Doctor/Doctor.cs</url>
+          <line>514</line>
+          <properties documentPath="C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\Doctor\Doctor.cs" initialLine="513" containingFunctionPresentation="method 'manageEquipment'">
             <startOffsets>
-              <option value="2269" />
+              <option value="19363" />
             </startOffsets>
             <endOffsets>
-              <option value="2293" />
+              <option value="19406" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
