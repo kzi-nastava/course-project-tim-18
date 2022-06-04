@@ -57,7 +57,7 @@ using HealthCare.Secretary;
      {
          if (doctor.Username == username && doctor.Password == password)
          {
-             doctor.DoctorMenu();
+             doctor.DoctorMenu(manager);
              break;
          }
      }
@@ -66,7 +66,7 @@ using HealthCare.Secretary;
      {
          if (secretary.Username == username && secretary.Password == password)
          {
-             secretary.WriteManu();
+             secretary.WriteManu(manager);
              break;
          }
      }

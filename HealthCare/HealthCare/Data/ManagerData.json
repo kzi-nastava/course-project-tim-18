@@ -1,1 +1,599 @@
-{"Hospital":{"Name":"Medlab","Rooms":[{"RoomType":0,"Name":"A1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":7},{"EquipmentType":2,"Name":"Sto","Amount":1},{"EquipmentType":2,"Name":"Krevet","Amount":2},{"EquipmentType":1,"Name":"Skalper","Amount":13},{"EquipmentType":1,"Name":"Makaze","Amount":5}]},{"RoomType":2,"Name":"B1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":20},{"EquipmentType":2,"Name":"Sto","Amount":4},{"EquipmentType":2,"Name":"Krevet","Amount":10},{"EquipmentType":3,"Name":"Metla","Amount":2},{"EquipmentType":3,"Name":"Sredstvo za ciscenje","Amount":3}]},{"RoomType":1,"Name":"C1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":3},{"EquipmentType":2,"Name":"Sto","Amount":1},{"EquipmentType":2,"Name":"Krevet","Amount":1},{"EquipmentType":0,"Name":"Kompjuter","Amount":2},{"EquipmentType":0,"Name":"Merac za pritisak","Amount":1}]},{"RoomType":0,"Name":"A2","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":3},{"EquipmentType":2,"Name":"Sto","Amount":3},{"EquipmentType":2,"Name":"Krevet","Amount":5},{"EquipmentType":1,"Name":"Sekac","Amount":3},{"EquipmentType":1,"Name":"Skalper","Amount":3}]},{"RoomType":2,"Name":"B2","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":20},{"EquipmentType":2,"Name":"Sto","Amount":4},{"EquipmentType":2,"Name":"Krevet","Amount":10},{"EquipmentType":3,"Name":"Metla","Amount":2},{"EquipmentType":3,"Name":"Sredstvo za ciscenje","Amount":3}]}]},"ManagerRequests":[{"Amount":2,"ExecutionDate":"2022-12-25T00:00:00","OldRoom":{"RoomType":0,"Name":"A1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":7},{"EquipmentType":2,"Name":"Sto","Amount":1},{"EquipmentType":2,"Name":"Krevet","Amount":2},{"EquipmentType":1,"Name":"Skalper","Amount":13},{"EquipmentType":1,"Name":"Makaze","Amount":5}]},"NewRoom":{"RoomType":2,"Name":"B1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":20},{"EquipmentType":2,"Name":"Sto","Amount":4},{"EquipmentType":2,"Name":"Krevet","Amount":10},{"EquipmentType":3,"Name":"Metla","Amount":2},{"EquipmentType":3,"Name":"Sredstvo za ciscenje","Amount":3}]},"Equipment":{"EquipmentType":2,"Name":"Stolica","Amount":20},"Executed":false},{"Amount":4,"ExecutionDate":"2022-04-19T00:00:00","OldRoom":{"RoomType":2,"Name":"B1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":20},{"EquipmentType":2,"Name":"Sto","Amount":4},{"EquipmentType":2,"Name":"Krevet","Amount":10},{"EquipmentType":3,"Name":"Metla","Amount":2},{"EquipmentType":3,"Name":"Sredstvo za ciscenje","Amount":3}]},"NewRoom":{"RoomType":0,"Name":"A2","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":3},{"EquipmentType":2,"Name":"Sto","Amount":3},{"EquipmentType":2,"Name":"Krevet","Amount":5},{"EquipmentType":1,"Name":"Sekac","Amount":3},{"EquipmentType":1,"Name":"Skalper","Amount":3}]},"Equipment":{"EquipmentType":2,"Name":"Sto","Amount":4},"Executed":false},{"Amount":1,"ExecutionDate":"2022-03-02T00:00:00","OldRoom":{"RoomType":0,"Name":"A2","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":3},{"EquipmentType":2,"Name":"Sto","Amount":3},{"EquipmentType":2,"Name":"Krevet","Amount":5},{"EquipmentType":1,"Name":"Sekac","Amount":3},{"EquipmentType":1,"Name":"Skalper","Amount":3}]},"NewRoom":{"RoomType":0,"Name":"A1","EquipmentList":[{"EquipmentType":2,"Name":"Stolica","Amount":7},{"EquipmentType":2,"Name":"Sto","Amount":1},{"EquipmentType":2,"Name":"Krevet","Amount":2},{"EquipmentType":1,"Name":"Skalper","Amount":13},{"EquipmentType":1,"Name":"Makaze","Amount":5}]},"Equipment":{"EquipmentType":2,"Name":"Krevet","Amount":10},"Executed":true}],"RenovationRequest":[],"Username":"admin","Password":"admin"}
+{
+  "Hospital": {
+    "Name": "Medlab",
+    "Rooms": [
+      {
+        "RoomType": 0,
+        "Name": "A1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Kopce",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Zavoj",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Inekcije",
+            "Amount": 22
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Papir",
+            "Amount": 12
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Gaze",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Olovke",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Hanzaplast",
+            "Amount": 9
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Sto",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Stolice",
+            "Amount": 12
+          }
+        ]
+      },
+      {
+        "RoomType": 2,
+        "Name": "B1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Kopce",
+            "Amount": 7
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Zavoj",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Inekcije",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Papir",
+            "Amount": 13
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Gaze",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Olovke",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Hanzaplast",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 20
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 4
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Metla",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Sredstvo za ciscenje",
+            "Amount": 3
+          }
+        ]
+      },
+      {
+        "RoomType": 1,
+        "Name": "C1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Kopce",
+            "Amount": 12
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Zavoj",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Inekcije",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Papir",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Gaze",
+            "Amount": 20
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Olovke",
+            "Amount": 15
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Hanzaplast",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 0,
+            "Name": "Kompjuter",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 0,
+            "Name": "Merac za pritisak",
+            "Amount": 1
+          }
+        ]
+      },
+      {
+        "RoomType": 0,
+        "Name": "A2",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Kopce",
+            "Amount": 13
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Zavoj",
+            "Amount": 9
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Inekcije",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Papir",
+            "Amount": 100
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Gaze",
+            "Amount": 4
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Olovke",
+            "Amount": 25
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Hanzaplast",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Sekac",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Skalper",
+            "Amount": 3
+          }
+        ]
+      },
+      {
+        "RoomType": 3,
+        "Name": "Magacin",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Kopce",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Zavoj",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Inekcije",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Papir",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Gaze",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Olovke",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Hanzaplast",
+            "Amount": 24
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Sto",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Sekac",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Stolice",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Merac za pritisak",
+            "Amount": 5
+          }
+        ]
+      },
+      {
+        "RoomType": 2,
+        "Name": "B2",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Kopce",
+            "Amount": 42
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Zavoj",
+            "Amount": 20
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Inekcije",
+            "Amount": 14
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Papir",
+            "Amount": 34
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Gaze",
+            "Amount": 22
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Olovke",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Hanzaplast",
+            "Amount": 0
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 4
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Metla",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Sredstvo za ciscenje",
+            "Amount": 3
+          }
+        ]
+      }
+    ]
+  },
+  "ManagerRequests": [
+    {
+      "Amount": 2,
+      "ExecutionDate": "2022-12-25T00:00:00",
+      "OldRoom": {
+        "RoomType": 0,
+        "Name": "A1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 7
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Skalper",
+            "Amount": 13
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Makaze",
+            "Amount": 5
+          }
+        ]
+      },
+      "NewRoom": {
+        "RoomType": 2,
+        "Name": "B1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 20
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 4
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Metla",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Sredstvo za ciscenje",
+            "Amount": 3
+          }
+        ]
+      },
+      "Equipment": {
+        "EquipmentType": 2,
+        "Name": "Stolica",
+        "Amount": 20
+      },
+      "Executed": false
+    },
+    {
+      "Amount": 4,
+      "ExecutionDate": "2022-04-19T00:00:00",
+      "OldRoom": {
+        "RoomType": 2,
+        "Name": "B1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 20
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 4
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 10
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Metla",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 3,
+            "Name": "Sredstvo za ciscenje",
+            "Amount": 3
+          }
+        ]
+      },
+      "NewRoom": {
+        "RoomType": 0,
+        "Name": "A2",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Sekac",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Skalper",
+            "Amount": 3
+          }
+        ]
+      },
+      "Equipment": {
+        "EquipmentType": 2,
+        "Name": "Sto",
+        "Amount": 4
+      },
+      "Executed": false
+    },
+    {
+      "Amount": 1,
+      "ExecutionDate": "2022-03-02T00:00:00",
+      "OldRoom": {
+        "RoomType": 0,
+        "Name": "A2",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 5
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Sekac",
+            "Amount": 3
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Skalper",
+            "Amount": 3
+          }
+        ]
+      },
+      "NewRoom": {
+        "RoomType": 0,
+        "Name": "A1",
+        "EquipmentList": [
+          {
+            "EquipmentType": 2,
+            "Name": "Stolica",
+            "Amount": 7
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Sto",
+            "Amount": 1
+          },
+          {
+            "EquipmentType": 2,
+            "Name": "Krevet",
+            "Amount": 2
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Skalper",
+            "Amount": 13
+          },
+          {
+            "EquipmentType": 1,
+            "Name": "Makaze",
+            "Amount": 5
+          }
+        ]
+      },
+      "Equipment": {
+        "EquipmentType": 2,
+        "Name": "Krevet",
+        "Amount": 10
+      },
+      "Executed": true
+    }
+  ],
+  "RenovationRequest": [],
+  "Username": "admin",
+  "Password": "admin"
+}

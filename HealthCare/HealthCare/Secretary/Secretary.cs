@@ -13,7 +13,7 @@ namespace HealthCare.Secretary
             this.username = username;
             this.password = password;
         }
-        
+        //Manager manager = new Manager();
 
         public static List<Secretary> Deserialize()
         {
@@ -191,12 +191,14 @@ namespace HealthCare.Secretary
         public void PrintMainManu()
         {
             Console.WriteLine("-------------OPCIJE---------------");
-            Console.WriteLine("1. Manipulisanje nalogom");
-            Console.WriteLine("2. Blokiraj naloga");
-            Console.WriteLine("3. Odblokiraj naloga");
-            Console.WriteLine("4. Pregled zahtjeva");
-            Console.WriteLine("5  Zakazivanje pregleda");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("4.1  Manipulisanje nalogom");
+            Console.WriteLine("4.2  Blokiraj naloga");
+            Console.WriteLine("4.3  Odblokiraj naloga");
+            Console.WriteLine("4.4  Pregled zahtjeva");
+            Console.WriteLine("4.5  Zakazivanje pregleda");
+            Console.WriteLine("4.6  Nabavka dinamicke opreme");
+            Console.WriteLine("4.7  Rasporedjivanje dinamicke opreme");
+            Console.WriteLine("8    Exit");
             Console.Write("\r\nUnesite broj opcije: ");
 
         }
@@ -250,7 +252,7 @@ namespace HealthCare.Secretary
             }
         }
 
-        public bool WriteManu()
+        public bool WriteManu(Manager manager)
         {
             PrintMainManu();
             switch (Console.ReadLine())
@@ -269,6 +271,16 @@ namespace HealthCare.Secretary
                     return true;
                 case "5":
                     MakingAnAppointment();
+                    return true;
+                case "6":
+                    manager.Load();
+                    manager.DynamicEquipmentRequests();
+                    manager.Save();
+                    return true;
+                case "7":
+                    manager.Load();
+                    manager.DynamicEquipmentDistribution();
+                    manager.Save();
                     return true;
                 default:
                     Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
@@ -301,6 +313,7 @@ namespace HealthCare.Secretary
             }
 
         }
+
         public bool CheckDate(string period)
         {
             DateTime dt;
@@ -316,6 +329,7 @@ namespace HealthCare.Secretary
             }
             return true;
         }
+
         public bool CheckIfAvailable(DateTime appointmentDate)
         {
             List<Patient.Appointment> patientList = Patient.Appointment.appointmentsDeserialization();
@@ -329,9 +343,9 @@ namespace HealthCare.Secretary
             }
             return false;
         }
-
         //----------------------------------------------------------------------------
 
+        //----------------------------------------------------------------------------
         public void MakingAnEmergencyAppointment()
         {
             string username = InputUsername();
@@ -376,6 +390,7 @@ namespace HealthCare.Secretary
 
             }
         }
+        //----------------------------------------------------------------------------
 
     }
 }

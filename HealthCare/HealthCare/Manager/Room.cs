@@ -13,9 +13,10 @@ namespace HealthCare
         private List<Equipment> equipmentList = new List<Equipment>();
 
 
+        public Room()
+        {
 
-
-
+        }
 
         public Room(RoomType roomType, string name)
         {
