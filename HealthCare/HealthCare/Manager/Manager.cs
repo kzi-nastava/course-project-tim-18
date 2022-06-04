@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using HealthCare.Doctor;
 using HealthCare.Patient;
 
 namespace HealthCare
@@ -60,7 +61,8 @@ namespace HealthCare
             Console.WriteLine("5. Zakazivanje renoviranja sobe");
             Console.WriteLine("6. Zakazivanje slozenog renoviranja sobe (spajanje)");
             Console.WriteLine("7. Zakazivanje slozenog renoviranja sobe (razdvajanje)");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Predlaganje leka");
+            Console.WriteLine("9. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -135,6 +137,9 @@ namespace HealthCare
                     MakeComplexRenovationSplitRequest();
                     return true;
                 case "8":
+                    SuggestMedication();
+                    return true;
+                case "9":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
@@ -827,7 +832,94 @@ namespace HealthCare
         }
 
 
-        public void Load()
+        void SuggestMedication()
+        {
+
+
+            Console.Write("Unesi naziv leka - ");
+            string medicationName = Console.ReadLine();
+     
+            
+            Console.Write("Unesi koliko puta lek treba da se uzima dnevno  - ");
+            int timesADay;
+            string timesADayString = Console.ReadLine();
+            if (Int32.TryParse(timesADayString, out timesADay) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+
+
+            Console.WriteLine("1.Pre obroka");
+            Console.WriteLine("2.Tokom obroka");
+            Console.WriteLine("3.Posle obroka");
+            Console.WriteLine("4.Nebitno");
+            Console.WriteLine("Unesi vreme kad lek treba da se unese:");
+
+
+
+
+            string userResponse = Console.ReadLine();
+            TimeForMedicine timeForMedicine;
+
+
+            if (userResponse == "1")
+                timeForMedicine = TimeForMedicine.BeforeTheMeal;
+            else if (userResponse == "2")
+                timeForMedicine = TimeForMedicine.DuringTheMeal;
+            else if (userResponse == "3")
+                timeForMedicine = TimeForMedicine.AfterTheMeal;
+            else
+                timeForMedicine = TimeForMedicine.Irrelevant;
+
+
+            Console.WriteLine("1.Penicilin");
+            Console.WriteLine("2.Antibiotik");
+            Console.WriteLine("3.Sulfonamid");
+            Console.WriteLine("4.Antikonvulziv");
+            Console.WriteLine("5.NSAIL");
+            Console.WriteLine("Unesi redni broj sajstojka koji je sadržan u leku:");
+
+
+             userResponse = Console.ReadLine();
+            Allergy allergy;
+
+
+            if (userResponse == "1")
+                allergy = Allergy.Penicilin;
+            else if (userResponse == "2")
+                allergy = Allergy.Antibiotic;
+            else if (userResponse == "3")
+                allergy = Allergy.Sulfonamides;
+            else if (userResponse == "4")
+                allergy = Allergy.Anticonvulsants;
+            else
+                allergy = Allergy.NSAIDs;
+
+             List<string> ingredients = new List<string>();
+
+
+            while (true)
+            {
+
+               Console.Write("Unesi ime sastojka(ako si završio unesi stop)  - ");
+               
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "stop")
+                    break;
+
+                ingredients.Add(userResponse);
+
+            }
+
+           Medication.addMedicationSuggestion(new Medication(medicationName, timesADay, timeForMedicine, new List<Allergy>() { allergy}, ingredients));
+
+        }
+
+
+    public void Load()
         {
             string file = "../../../Data/ManagerData.json";
             string json = File.ReadAllText(file);

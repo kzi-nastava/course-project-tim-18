@@ -554,7 +554,7 @@ namespace HealthCare.Patient
         {
             Console.WriteLine("Unesite koliko sati pre pijenja leka treba da vam stigne notifikacija:");
             string hoursForNotificationString = Console.ReadLine();
-            this.hoursForNotification = Int32.Parse(numberOfHoursString); 
+            this.hoursForNotification = Int32.Parse(hoursForNotificationString); 
         }
         
         public void Notification_system()
