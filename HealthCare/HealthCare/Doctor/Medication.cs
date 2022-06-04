@@ -9,7 +9,7 @@ public class Medication
     private TimeForMedicine whenToConsume;
     private List<Allergy> allergyTriggers;
     private List<string> ingredients;
-
+    private string doctorNote;
 
     public string Name
     {
@@ -34,6 +34,11 @@ public class Medication
         get => allergyTriggers;
         set => allergyTriggers = value;
     }
+    public string DoctorNote
+    {
+        get => doctorNote;
+        set => doctorNote = value;
+    }
     public List<string> Ingredients { get => ingredients; set => ingredients = value; }
 
     public Medication(string name, int timesADay, TimeForMedicine whenToConsume, List<Allergy> allergyTriggers, List<string> ingredients)
@@ -43,6 +48,7 @@ public class Medication
         this.whenToConsume = whenToConsume;
         this.allergyTriggers = allergyTriggers;
         this.ingredients = ingredients;
+        this.doctorNote = "";
     }
     private static void serialize(List<Medication> medications)
     {
@@ -53,8 +59,8 @@ public class Medication
     {
         string filepath = "../../../Data/Medication.json";
         string jsonText = File.ReadAllText(filepath);
-        List<Medication> deserializedNedications = JsonSerializer.Deserialize<List<Medication>>(jsonText);
-        return deserializedNedications;
+        List<Medication> deserializedMedications = JsonSerializer.Deserialize<List<Medication>>(jsonText);
+        return deserializedMedications;
     }
 
 
@@ -67,10 +73,27 @@ public class Medication
     {
         string filepath = "../../../Data/MedicationSuggestions.json";
         string jsonText = File.ReadAllText(filepath);
-        List<Medication> deserializedNedications = JsonSerializer.Deserialize<List<Medication>>(jsonText);
-        return deserializedNedications;
+        List<Medication> deserializedMedications = JsonSerializer.Deserialize<List<Medication>>(jsonText);
+        return deserializedMedications;
+    }
+    public static  void SerializeDenials(List<Medication> denials)
+    {
+        File.WriteAllText("../../../Data/DeniedSuggestions.json", JsonSerializer.Serialize(denials));
+    }
+    public static List<Medication> DeserializeDenials()
+    {
+        string filepath = "../../../Data/DeniedSuggestions.json";
+        string jsonText = File.ReadAllText(filepath);
+        List<Medication> deserializedDenials = JsonSerializer.Deserialize<List<Medication>>(jsonText);
+        return deserializedDenials;
     }
 
+    public static void AddDeniedSuggestion(Medication d)
+    {
+        List<Medication> deserializedDenials = Deserialize();
+        deserializedDenials.Add(d);
+        serialize(deserializedDenials);
+    }
 
 
 
