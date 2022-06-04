@@ -533,7 +533,7 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Izaberite opremu za azuriranje: ");
                 string s = Console.ReadLine();
                 int index = Int32.Parse(s)-1;
-                if (s == "" || index > equipments.Count || index <= 0)
+                if (s == "" || index >= equipments.Count || index < 0)
                 {
                     Console.WriteLine("Pogresan unos!");
                     return;
@@ -636,6 +636,25 @@ namespace HealthCare.Doctor
         private void manageMedicationMenu()
         {
             List<Medication> suggestions = Medication.DeserializeSuggestions();
+            while (suggestions.Count > 0)
+            {
+                for (int i = 0; i < suggestions.Count; i++)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine(i+1 +".");
+                    Console.WriteLine("Sugestija za " + suggestions[i]);
+                }
+                Console.WriteLine("Izaberite sugestiju leka: ");
+                string s = Console.ReadLine();
+                var index = Int32.Parse(s)-1;
+                if (index < 0 || index >= suggestions.Count)
+                {
+                    Console.WriteLine("Pogresan unos!");
+                    return;
+                }
+            }
+                
+
             
         }
         private void MainMenuPrint()
