@@ -636,6 +636,11 @@ namespace HealthCare.Doctor
         private void manageMedicationMenu()
         {
             List<Medication> suggestions = Medication.DeserializeSuggestions();
+            if (suggestions.Count == 0)
+            {
+                Console.WriteLine("Trenutno nema sugestija lekova za pregled");
+                return;
+            }
             while (suggestions.Count > 0)
             {
                 for (int i = 0; i < suggestions.Count; i++)
