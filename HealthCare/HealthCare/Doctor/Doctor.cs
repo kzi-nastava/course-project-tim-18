@@ -74,6 +74,18 @@ namespace HealthCare.Doctor
             return doctorSpecialization;
         }
 
+        public static void AddAppointment(Appointment appointment)
+        {
+            List<Doctor> doctors = Doctor.Deserialize();
+            foreach (var doctor in doctors)
+            {
+                if (doctor.Username == appointment.Doctor)
+                {
+                    doctor.appointments.Add(appointment);
+                }
+            }
+        }
+
         public static string DoctorsRoom(string username)
         {
             string roomName = "";
@@ -131,10 +143,6 @@ namespace HealthCare.Doctor
             return doctorsMatching;
         }
         
-        public void AddAppointment(Patient.Appointment appointment)
-        {
-            this.appointments.Add(appointment);
-        }
         public bool CreateAppointment()
         {
             Console.Write("Unesite korisnicko ime pacijenta:  ");
@@ -538,6 +546,11 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Unesite kolicinu opreme koja je potrosena: ");
                 s = Console.ReadLine();
                 int amountUsed = Int32.Parse(s);
+                if (amountUsed > chosenEquipment.Amount)
+                {
+                    Console.WriteLine("Greska uneta kolicina je veca od ukupne kolicine dostupne opreme!");
+                    return;
+                }
                 appointmentRoom.EquipmentList[index].Amount -= amountUsed;
                 Console.WriteLine("Nastaviti azuriranje opreme? (y/n)");
                 s = Console.ReadLine();
@@ -619,6 +632,12 @@ namespace HealthCare.Doctor
         {
             
         }
+
+        private void manageMedicationMenu()
+        {
+            List<Medication> suggestions = Medication.DeserializeSuggestions();
+            
+        }
         private void MainMenuPrint()
         {
             Console.WriteLine("===============================================================");
@@ -686,7 +705,7 @@ namespace HealthCare.Doctor
                     performAppointmentMenu(manager);
                     return true;
                 case "4":
-                    //manageMedicationMenu();
+                    manageMedicationMenu();
                     return true;
                 case "5":
                     return false;
