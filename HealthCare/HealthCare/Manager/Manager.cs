@@ -11,13 +11,13 @@ namespace HealthCare
         private List<ManagerRequest> managerRequests = new List<ManagerRequest>();
         private List<RenovationRequest> renovationRequest = new List<RenovationRequest>();
         Room room;
- 
+
 
         public Manager()
         {
             username = "";
             password = "";
-            hospital = null;        
+            hospital = null;
         }
 
 
@@ -62,7 +62,8 @@ namespace HealthCare
             Console.WriteLine("6. Zakazivanje slozenog renoviranja sobe (spajanje)");
             Console.WriteLine("7. Zakazivanje slozenog renoviranja sobe (razdvajanje)");
             Console.WriteLine("8. Predlaganje leka");
-            Console.WriteLine("9. Exit");
+            Console.WriteLine("9. Ponvno predlaganje odbijenih lekova");
+            Console.WriteLine("10. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -108,7 +109,7 @@ namespace HealthCare
             }
         }
 
-    
+
 
         private bool MainMenuWrite()
         {
@@ -140,6 +141,9 @@ namespace HealthCare
                     SuggestMedication();
                     return true;
                 case "9":
+                    SuggestDeclinedMedication();
+                    return true;
+                case "10":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
@@ -231,7 +235,7 @@ namespace HealthCare
                 {
                     hospital.Rooms.Remove(room);
                     return;
-                }    
+                }
             }
         }
 
@@ -319,7 +323,7 @@ namespace HealthCare
                 Console.WriteLine("Uneta neispravna vrednost.");
                 return;
             }
-            if(amountInt > equipment.Amount)
+            if (amountInt > equipment.Amount)
             {
                 Console.WriteLine("Uneta prevelika velicina.");
                 return;
@@ -352,7 +356,7 @@ namespace HealthCare
 
         public bool RoomExist(string name)
         {
-            return hospital.RoomExist(name);        
+            return hospital.RoomExist(name);
         }
 
         public Room GetRoom(string name)
@@ -375,7 +379,7 @@ namespace HealthCare
                 if (managerRequest.ExecutionDate == DateTime.Today && managerRequest.Executed == false)
                 {
                     Room oldRoom = GetRoom(managerRequest.NewRoom.Name);
-                    
+
                     if (oldRoom.EquipmentExist(managerRequest.Equipment.Name) == false)
                         break;
 
@@ -453,7 +457,7 @@ namespace HealthCare
                 Console.WriteLine("2.Sala za pregled");
                 Console.WriteLine("3.Soba za odmor");
                 Console.WriteLine("4.Ostalo");
-                Console.WriteLine("Unesi redni broj:"); 
+                Console.WriteLine("Unesi redni broj:");
 
 
                 userResponse = Console.ReadLine();
@@ -468,7 +472,7 @@ namespace HealthCare
                     roomType = RoomType.Undefined;
 
 
-                
+
             }
 
             Console.WriteLine("Da li ti je bitan tip opreme? (da/ne)");
@@ -592,7 +596,7 @@ namespace HealthCare
         public void MakeRenovationRequest()
         {
 
-            List<Appointment> appointments =  Appointment.appointmentsDeserialization();
+            List<Appointment> appointments = Appointment.appointmentsDeserialization();
 
 
 
@@ -627,7 +631,7 @@ namespace HealthCare
                 DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
 
                 if (appointment.RoomId != roomName)
-                    continue; 
+                    continue;
 
                 if (appointmentDate >= renovationStart && appointmentDate <= renovationEnd)
                 {
@@ -771,7 +775,7 @@ namespace HealthCare
             {
                 DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
 
-                if (appointment.RoomId != roomNameFirst  && appointment.RoomId != roomNameSecond)
+                if (appointment.RoomId != roomNameFirst && appointment.RoomId != roomNameSecond)
                     continue;
 
                 if (appointmentDate >= renovationStart && appointmentDate <= renovationEnd)
@@ -838,8 +842,8 @@ namespace HealthCare
 
             Console.Write("Unesi naziv leka - ");
             string medicationName = Console.ReadLine();
-     
-            
+
+
             Console.Write("Unesi koliko puta lek treba da se uzima dnevno  - ");
             int timesADay;
             string timesADayString = Console.ReadLine();
@@ -882,7 +886,7 @@ namespace HealthCare
             Console.WriteLine("Unesi redni broj sajstojka koji je sadržan u leku:");
 
 
-             userResponse = Console.ReadLine();
+            userResponse = Console.ReadLine();
             Allergy allergy;
 
 
@@ -897,14 +901,14 @@ namespace HealthCare
             else
                 allergy = Allergy.NSAIDs;
 
-             List<string> ingredients = new List<string>();
+            List<string> ingredients = new List<string>();
 
 
             while (true)
             {
 
-               Console.Write("Unesi ime sastojka(ako si završio unesi stop)  - ");
-               
+                Console.Write("Unesi ime sastojka(ako si završio unesi stop)  - ");
+
                 userResponse = Console.ReadLine();
 
                 if (userResponse == "stop")
@@ -915,14 +919,133 @@ namespace HealthCare
             }
 
 
-           
 
-            Medication.addMedicationSuggestion(new Medication(medicationName, timesADay, timeForMedicine, new List<Allergy>() { allergy}, ingredients, ""));
+
+            Medication.addMedicationSuggestion(new Medication(medicationName, timesADay, timeForMedicine, new List<Allergy>() { allergy }, ingredients, ""));
+
+        }
+
+        void SuggestDeclinedMedication()
+        {
+            List<Medication> declinedMedications = Medication.DeserializeDenials();
+
+            for (int i = 0; i < declinedMedications.Count; i++)
+            {
+
+                Console.WriteLine((i + 1).ToString() + ". " + declinedMedications[i].Name);
+
+            }
+
+
+            Console.Write("Unesi redni broj leka koji revidiraš  - ");
+            int index;
+
+
+            string indexString = Console.ReadLine();
+            if (Int32.TryParse(indexString, out index) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+            if (index <= 0)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+
+            string medicationName = declinedMedications[index - 1].Name;
+
+            declinedMedications.Remove(declinedMedications[index]);
+
+            Medication.SerializeDenials(declinedMedications);
+
+
+            Console.Write("Unesi koliko puta lek treba da se uzima dnevno  - ");
+            int timesADay;
+            string timesADayString = Console.ReadLine();
+            if (Int32.TryParse(timesADayString, out timesADay) == false)
+            {
+                Console.WriteLine("Uneta neispravna vrednost.");
+                return;
+            }
+
+
+
+            Console.WriteLine("1.Pre obroka");
+            Console.WriteLine("2.Tokom obroka");
+            Console.WriteLine("3.Posle obroka");
+            Console.WriteLine("4.Nebitno");
+            Console.WriteLine("Unesi vreme kad lek treba da se unese:");
+
+
+
+
+            string userResponse = Console.ReadLine();
+            TimeForMedicine timeForMedicine;
+
+
+            if (userResponse == "1")
+                timeForMedicine = TimeForMedicine.BeforeTheMeal;
+            else if (userResponse == "2")
+                timeForMedicine = TimeForMedicine.DuringTheMeal;
+            else if (userResponse == "3")
+                timeForMedicine = TimeForMedicine.AfterTheMeal;
+            else
+                timeForMedicine = TimeForMedicine.Irrelevant;
+
+
+            Console.WriteLine("1.Penicilin");
+            Console.WriteLine("2.Antibiotik");
+            Console.WriteLine("3.Sulfonamid");
+            Console.WriteLine("4.Antikonvulziv");
+            Console.WriteLine("5.NSAIL");
+            Console.WriteLine("Unesi redni broj sajstojka koji je sadržan u leku:");
+
+
+            userResponse = Console.ReadLine();
+            Allergy allergy;
+
+
+            if (userResponse == "1")
+                allergy = Allergy.Penicilin;
+            else if (userResponse == "2")
+                allergy = Allergy.Antibiotic;
+            else if (userResponse == "3")
+                allergy = Allergy.Sulfonamides;
+            else if (userResponse == "4")
+                allergy = Allergy.Anticonvulsants;
+            else
+                allergy = Allergy.NSAIDs;
+
+            List<string> ingredients = new List<string>();
+
+
+            while (true)
+            {
+
+                Console.Write("Unesi ime sastojka(ako si završio unesi stop)  - ");
+
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "stop")
+                    break;
+
+                ingredients.Add(userResponse);
+
+            }
+
+
+
+
+            Medication.addMedicationSuggestion(new Medication(medicationName, timesADay, timeForMedicine, new List<Allergy>() { allergy }, ingredients, ""));
 
         }
 
 
-    public void Load()
+
+        public void Load()
         {
             string file = "../../../Data/ManagerData.json";
             string json = File.ReadAllText(file);
@@ -933,7 +1056,7 @@ namespace HealthCare
             managerRequests = m.managerRequests;
             ExecuteTodayRequests();
 
-        }   
+        }
 
         public void Save()
         {
