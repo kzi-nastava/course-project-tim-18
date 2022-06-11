@@ -142,7 +142,7 @@ namespace HealthCare.Patient
             Console.WriteLine(appointmentFileData);
         }
 
-        public static void printingAppointmentForUser(string username)
+        public static List<Appointment> printingAppointmentForUser(string username)
         {
             string fileName = "../../../Data/Appointments.json";
             string appointmentFileData = "";
@@ -159,16 +159,47 @@ namespace HealthCare.Patient
 
                 }
             }
-
+            List<Appointment> usersAppointments = new List<Appointment>();
             foreach (Appointment appointment in appointmentsList)
             {
                 if (appointment.patient == username)
                 {
                     Console.WriteLine(appointment);
+                    usersAppointments.Add(appointment);
                 }
+            }
+            return usersAppointments;
         }
+
+        public static List<Appointment> UsersAppointments(string username)
+        {
+            string fileName = "../../../Data/Appointments.json";
+            string appointmentFileData = "";
+            appointmentFileData = File.ReadAllText(fileName);
+            string[] appointments = appointmentFileData.Split('\n');
+            List<Appointment> appointmentsList = new List<Appointment>();
+            foreach (String s in appointments)
+            {
+                if (s != "")
+                {
+                    Appointment? appointment = JsonSerializer.Deserialize<Appointment>(s);
+                    if (appointment != null)
+                        appointmentsList.Add(appointment);
+
+                }
+            }
+            List<Appointment> usersAppointments = new List<Appointment>();
+            foreach (Appointment appointment in appointmentsList)
+            {
+                if (appointment.patient == username)
+                {
+                    //Console.WriteLine(appointment);
+                    usersAppointments.Add(appointment);
+                }
+            }
+            return usersAppointments;
         }
-        
+
         public void deletingAppointment()
         {
             string fileName = "../../../Data/Appointments.json";
@@ -297,20 +328,6 @@ namespace HealthCare.Patient
                 merge(ref(appointments), l, m, r);
             }
         }
-        
-    /*
-    public static void Main(String[] args)
-    {
-        int[] arr = { 12, 11, 13, 5, 6, 7 };
-        Console.WriteLine("Given Array");
-        printArray(arr);
-        MergeSort ob = new MergeSort();
-        ob.sort(arr, 0, arr.Length - 1);
-        Console.WriteLine("\nSorted array");
-        printArray(arr);
-        
-    }
-    */
     }
 }
 

@@ -603,6 +603,60 @@ namespace HealthCare.Patient
 
         }
 
+        public void GradingHospital()
+        {
+            Console.WriteLine("Sve osim komentara ocenjujete brojevima od 1 do 5:");
+            Console.WriteLine("Ocenite kvalitet bolnice:");
+            string howGoodHospitalWas = Console.ReadLine();
+            Console.WriteLine("Koliko ste zadovoljni uslugom bolnice:");
+            string howSatisfiedAreYou = Console.ReadLine(); 
+            Console.WriteLine("Ocenite koliko je bolnica cista:");
+            string howCleanItIs = Console.ReadLine();
+            Console.WriteLine("Da li bi ste preporucili prijatelju usluge bolnice:");
+            string wouldYouSuggest = Console.ReadLine();
+            Console.WriteLine("Unesite vas komentar o bolnici:");
+            string comment = Console.ReadLine();
+            HospitalGrade grade = new HospitalGrade(comment,Int32.Parse(wouldYouSuggest), Int32.Parse(howGoodHospitalWas), Int32.Parse(howSatisfiedAreYou), Int32.Parse(howCleanItIs));
+            grade.SerializeDoctorsGrade();
+        }
+
+        public bool canUserGradeDoctor(string doctor)
+        {
+            List<Appointment> usersAppointments = Appointment.UsersAppointments(this.Username);
+            foreach (Appointment appointment in usersAppointments)
+            {
+                DateTime dateForCheck = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+                DateTime now = DateTime.Now;
+                if (dateForCheck.CompareTo(now) < 0 && doctor == appointment.Doctor)
+                    return true;
+            }
+            return false;
+        }
+
+        public void GradingDoctor()
+        {
+            Console.WriteLine("Mozete oceniti doktore samo kod kojih ste vec imali tretman\nSve osim komentara ocenjujete brojevima od 1 do 5:");
+            Console.WriteLine("Unesite ime doktora:");
+            Appointment.printingAppointmentForUser(this.Username);
+            string doctor = Console.ReadLine();
+            bool validation = canUserGradeDoctor(doctor);
+            if (validation)
+            {
+                Console.WriteLine("Koliko ste zadovoljni uslugom doktora:");
+                string howGoodDoctorWas = Console.ReadLine();
+                Console.WriteLine("Da li bi ste preporucili prijatelju usluge doktora:");
+                string wouldYouSuggest = Console.ReadLine();
+                Console.WriteLine("Unesite vas komentar o doktoru:");
+                string comment = Console.ReadLine();
+                DoctorsGrade grade = new DoctorsGrade(comment, Int32.Parse(wouldYouSuggest), Int32.Parse(howGoodDoctorWas), doctor);
+                grade.SerializeDoctorsGrade();
+            }
+            else
+            {
+                Console.WriteLine("Ne mozete oceniti doktora kod koga niste ni imali tretman!");
+            }
+        }
+
         public void patientMenu()
         {
             string option;
@@ -610,10 +664,10 @@ namespace HealthCare.Patient
             while (true)
             {
 
-                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6 Pregled izvestaja\n7 Pregled doktora\n8 Birajte broj sati koliko pre jela zelite da dobijete notifikaciju o uzimanju leka\n9 Izalazak iz menua");
+                Console.WriteLine("Izaberite opciju koju zelite da izaberete:\n1 Zakazivanje termina\n2 Izmena termina\n3 Brisanje termina\n4 Prikaz termina\n5 Pomoc pri zakazivanju termina\n6 Pregled izvestaja\n7 Pregled doktora\n8 Birajte broj sati koliko pre jela zelite da dobijete notifikaciju o uzimanju leka\n9 Ocenjivanje bolnice\n10 Ocenjivanje doktora\n11 Izalazak iz menua");
                 option = Console.ReadLine();
 
-                if (option == "9")
+                if (option == "11")
                     break;
 
                 if (option == "1")
@@ -632,7 +686,10 @@ namespace HealthCare.Patient
                     this.DoctorOverview();
                 else if (option == "8")
                     this.ChangeOfNotificationTime();
-
+                else if (option == "9")
+                    this.GradingHospital();
+                else if (option == "10")
+                    this.GradingDoctor();
             }
         }
     }
