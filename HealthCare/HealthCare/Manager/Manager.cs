@@ -63,7 +63,8 @@ namespace HealthCare
             Console.WriteLine("7. Zakazivanje slozenog renoviranja sobe (razdvajanje)");
             Console.WriteLine("8. Predlaganje leka");
             Console.WriteLine("9. Ponvno predlaganje odbijenih lekova");
-            Console.WriteLine("10. Exit");
+            Console.WriteLine("10. Pregled rezultata anketa");
+            Console.WriteLine("11. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -144,6 +145,9 @@ namespace HealthCare
                     SuggestDeclinedMedication();
                     return true;
                 case "10":
+                    ViewSurveyResults();
+                    return true;
+                case "11":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
@@ -1319,6 +1323,214 @@ namespace HealthCare
             newEquipment.Amount += amountInt;
             oldEquipment.Amount -= amountInt;
         }
+
+
+        private void ViewSurveyResults()
+        {
+            List<DoctorsGrade> doctorsGrades = DoctorsGrade.DeserializeDoctorsGrade();
+            List<HospitalGrade> hospitalGrades = HospitalGrade.DeserializeHospitalGrade();
+
+
+
+            string userResponse = "";
+
+            while (userResponse != "1" && userResponse != "2")
+            {
+                Console.WriteLine("1.Pregled anketa za bolnicu");
+                Console.WriteLine("2. Pregled anketa za doktora");
+                Console.WriteLine("Unesi opciju: ");
+                userResponse = Console.ReadLine();
+            }
+
+
+            if (userResponse == "1")
+            {
+
+                double averageWouldYouSuggest = 0;
+                int[] countWouldYouSuggest = new int[5];
+
+                double averageHowCleanIs = 0;
+                int[] countHowCleanIs = new int[5];
+
+                double averageHowGoodHospital = 0;
+                int[] countHowGoodHospital = new int[5];
+
+                double averageHowSatisfiedAreYou = 0;
+                int[] countHowSatisfiedAreYou = new int[5];
+
+
+                int i = 1;
+                Console.WriteLine();
+                Console.WriteLine("KOMENTARI");
+                Console.WriteLine("--------------------------------------------------");
+                foreach (HospitalGrade hospitalGrade in hospitalGrades)
+                {
+                    Console.WriteLine(i.ToString() + ". Komentar - " + hospitalGrade.Comment);
+                    i++;
+
+                    averageHowCleanIs += hospitalGrade.HowCleanItIs;
+                    countHowCleanIs[hospitalGrade.HowCleanItIs - 1]++;
+
+                    averageWouldYouSuggest += hospitalGrade.WouldYouSuggest;
+                    countWouldYouSuggest[hospitalGrade.WouldYouSuggest - 1]++;
+
+                    averageHowSatisfiedAreYou += hospitalGrade.HowSatisfiedAreYou;
+                    countHowSatisfiedAreYou[hospitalGrade.HowSatisfiedAreYou - 1]++;
+
+                    averageHowGoodHospital += hospitalGrade.HowGoodHospitalIs;
+                    countHowGoodHospital[hospitalGrade.HowGoodHospitalIs - 1]++;
+
+                }
+                averageWouldYouSuggest /= hospitalGrades.Count;
+                averageHowCleanIs /= hospitalGrades.Count;
+                averageHowGoodHospital /= hospitalGrades.Count;
+                averageHowSatisfiedAreYou /= hospitalGrades.Count;
+
+                Console.WriteLine("OCENE");
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("Prosecna ocene");
+                Console.WriteLine("Da li bi preporucili: " + averageWouldYouSuggest);
+                Console.WriteLine("Koliko Vam se svidja bolnica: " + averageHowGoodHospital);
+                Console.WriteLine("Koliko je cista bolnica: " + averageHowCleanIs);
+                Console.WriteLine("Koliko ste zadovoljni: " + averageHowSatisfiedAreYou);
+
+                for (i = 0; i < 5; i++)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Ocena " + (i + 1));
+                    Console.WriteLine("Da li bi preporucili: " + countWouldYouSuggest[i]);
+                    Console.WriteLine("Koliko Vam se svidja bolnica: " + countHowGoodHospital[i]);
+                    Console.WriteLine("Koliko je cista bolnica: " + countHowCleanIs[i]);
+                    Console.WriteLine("Koliko ste zadovoljni: " + countHowSatisfiedAreYou[i]);
+
+                    Console.WriteLine();
+                }
+
+
+            }
+            else
+            {
+
+                Dictionary<string, List<DoctorsGrade>> counter = new Dictionary<string, List<DoctorsGrade>>();
+
+
+                foreach (DoctorsGrade doctorsGrade in doctorsGrades)
+                {
+                    if (counter.ContainsKey(doctorsGrade.Doctor))
+                    {
+                        counter[doctorsGrade.Doctor].Add(doctorsGrade);
+                    }
+                    else
+                    {
+                        counter[doctorsGrade.Doctor] = new List<DoctorsGrade> { doctorsGrade };
+                    }
+                }
+
+                Dictionary<string, double> sortedDoctors = new Dictionary<string, double>();
+
+                foreach (var item in counter)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Doktor - " + item.Key);
+                    List<DoctorsGrade> grades = item.Value;
+
+                    double averageWouldYouSuggest = 0;
+                    int[] countWouldYouSuggest = new int[5];
+
+                    double averageHowGoodIsDoctor = 0;
+                    int[] countHowGoodIsDoctor = new int[5];
+
+
+                    int i = 1;
+                    Console.WriteLine("------------------------------------------------");
+
+                    foreach (DoctorsGrade doctorsGrade in grades)
+                    {
+                        Console.WriteLine(i.ToString() + ". Komentar - " + doctorsGrade.Comment);
+                        i++;
+
+
+                        averageWouldYouSuggest += doctorsGrade.WouldYouSuggest;
+                        countWouldYouSuggest[doctorsGrade.WouldYouSuggest - 1]++;
+
+                        averageHowGoodIsDoctor += doctorsGrade.HowGoodDoctorWas;
+                        countHowGoodIsDoctor[doctorsGrade.HowGoodDoctorWas - 1]++;
+
+                    }
+                    averageWouldYouSuggest /= grades.Count;
+                    averageHowGoodIsDoctor /= grades.Count;
+
+                    Console.WriteLine();
+                    Console.WriteLine("Prosecna ocene");
+                    Console.WriteLine("Da li bi preporucili: " + averageWouldYouSuggest);
+                    Console.WriteLine("Koliko ste zadovoljni doktorom: " + averageHowGoodIsDoctor);
+                    Console.WriteLine();
+
+                    sortedDoctors[item.Key] = averageHowGoodIsDoctor;
+
+                    for (i = 0; i < 5; i++)
+                    {
+                        Console.WriteLine("Ocena " + (i + 1));
+                        Console.WriteLine("Da li bi preporucili: " + countWouldYouSuggest[i]);
+                        Console.WriteLine("Koliko ste zadovoljni doktorom: " + countHowGoodIsDoctor[i]);
+                        Console.WriteLine();
+                    }
+
+                    Console.WriteLine("------------------------------------------------");
+                    Console.WriteLine();
+
+
+                }
+                Console.WriteLine("Da li hoces ispis tri najbolja ocenjena lekara? (da/ne)");
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "da")
+                {
+                    sortedDoctors = sortedDoctors.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+                    int i = 0;
+                    foreach (var item in sortedDoctors)
+                    {
+                        if (i >= 2)
+                            break;
+
+                        Console.WriteLine((i + 1).ToString() + ". " + item.Key + " - " + item.Value);
+
+                        i++;
+                    }
+
+                }
+
+
+
+                Console.WriteLine("Da li hoces ispis tri najgore ocenjena lekara? (da/ne)");
+                userResponse = Console.ReadLine();
+
+                if (userResponse == "da")
+                {
+                    sortedDoctors = sortedDoctors.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+                    int i = 0;
+                    foreach (var item in sortedDoctors)
+                    {
+                        if (i >= 2)
+                            break;
+
+                        Console.WriteLine((i + 1).ToString() + ". " + item.Key + " - " + item.Value);
+
+                        i++;
+                    }
+
+                }
+
+
+            }
+
+
+
+        }
+
+
 
         //----------------------------------------------------------------------------
 
