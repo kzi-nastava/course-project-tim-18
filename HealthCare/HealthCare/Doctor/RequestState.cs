@@ -1,6 +1,6 @@
 ﻿namespace HealthCare.Doctor;
 
-public class DayOffRequest
+public enum RequestState
 {
     
 }
