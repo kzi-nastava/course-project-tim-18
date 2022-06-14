@@ -627,11 +627,7 @@ namespace HealthCare.Doctor
                 showMenu = MainMenuWrite(manager);
             }
         }
-
-        private void manageMedication()
-        {
-            
-        }
+        
 
         private void manageMedicationMenu()
         {
@@ -697,6 +693,16 @@ namespace HealthCare.Doctor
 
             
         }
+
+        private void printRequest()
+        {
+            Console.WriteLine("==============================");
+            Console.WriteLine("Unesite datum za pocetak slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy");
+        }
+        private void requestDaysOff()
+        {
+            
+        }
         private void MainMenuPrint()
         {
             Console.WriteLine("===============================================================");
@@ -704,7 +710,8 @@ namespace HealthCare.Doctor
             Console.WriteLine("2. Prikaz rasporeda");
             Console.WriteLine("3. Izvodjenje pregleda/operacije");
             Console.WriteLine("4. Upravljanje lekovima");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("5. Zahtev za slobodan dan");
+            Console.WriteLine("6. Exit");
             Console.Write("Izaberite opciju: ");
 
         }
@@ -767,6 +774,9 @@ namespace HealthCare.Doctor
                     manageMedicationMenu();
                     return true;
                 case "5":
+                    requestDaysOff();
+                    return true;
+                case "6":
                     return false;
                 default:
                     Console.WriteLine("\nPogresan unos!\n");
