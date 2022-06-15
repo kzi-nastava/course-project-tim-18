@@ -1,0 +1,26 @@
+[
+  {
+    "VacationStart": "2022-06-13T00:00:00+02:00",
+    "DoctorName": "1",
+    "VacationEnd": "2022-06-19T00:00:00+02:00",
+    "IsUrgent": false,
+    "RequestMessage": "Neka poruka",
+    "State": 2
+  },
+  {
+    "VacationStart": "2022-06-13T00:00:00+02:00",
+    "DoctorName": "2",
+    "VacationEnd": "2022-06-16T00:00:00+02:00",
+    "IsUrgent": true,
+    "RequestMessage": "Neka poruka 2",
+    "State": 2
+  },
+  {
+    "VacationStart": "2022-06-13T00:00:00+02:00",
+    "DoctorName": "1",
+    "VacationEnd": "2022-07-13T00:00:00+02:00",
+    "IsUrgent": false,
+    "RequestMessage": "Neka poruka 3",
+    "State": 2
+  }
+]
