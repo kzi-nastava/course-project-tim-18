@@ -9,6 +9,7 @@
       <change beforePath="$PROJECT_DIR$/Data/DaysOffRequests.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DaysOffRequests.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/ManagerData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/ManagerData.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/RequestDaysOff/DaysOffRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/RequestDaysOff/DaysOffRequest.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" afterDir="false" />
@@ -97,7 +98,7 @@
       <workItem from="1654348040776" duration="5121000" />
       <workItem from="1654356996686" duration="7108000" />
       <workItem from="1655151000625" duration="4603000" />
-      <workItem from="1655398140844" duration="7432000" />
+      <workItem from="1655398140844" duration="7980000" />
     </task>
     <task id="LOCAL-00001" summary="Finish menu for requesting days off">
       <created>1655402536901</created>

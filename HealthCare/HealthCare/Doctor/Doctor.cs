@@ -798,6 +798,10 @@ namespace HealthCare.Doctor
 
             }
             DaysOffRequest request = daysOffRequestMenu();
+            if (request == null)
+            {
+                return;
+            }
             Console.WriteLine("Uspesno podnesen zahtev za period od " + request.VacationStart + " do " + request.VacationEnd);
             if (!request.IsUrgent)
             {
