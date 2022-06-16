@@ -69,4 +69,9 @@ public class DaysOffRequest
         List<DaysOffRequest> deserializedRequests = JsonSerializer.Deserialize<List<DaysOffRequest>>(jsonText);
         return deserializedRequests;
     }
+
+    public override string ToString()
+    {
+        return String.Format("Zahtev( pocetak: {0}, kraj: {1}, hitno: {2}, poruka: {3}, stanje: {4}, dokotr: {5})", vacationStart, vacationEnd, isUrgent, requestMessage, state, doctorName);
+    }
 }
