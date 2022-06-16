@@ -40,10 +40,7 @@ public class DaysOffRequest
         get => state;
         set => state = value;
     }
-    public DaysOffRequest()
-    {
-        
-    }
+
     public DaysOffRequest(DateTime vacationStart, DateTime vacationEnd, bool isUrgent, string requestMessage, RequestState state, string doctorName)
     {
         this.vacationStart = vacationStart;
@@ -52,6 +49,13 @@ public class DaysOffRequest
         this.requestMessage = requestMessage;
         this.state = state;
         this.doctorName = doctorName;
+    }
+
+    public static void AddRequest(DaysOffRequest request)
+    {
+        List<DaysOffRequest> deserializedRequests = Deserialize();
+        deserializedRequests.Add(request);
+        Serialize(deserializedRequests);
     }
     public static void Serialize(List<DaysOffRequest> requests)
     {
@@ -66,9 +70,8 @@ public class DaysOffRequest
         return deserializedRequests;
     }
 
-    
-    public void DaysOffSerialization(List<DaysOffRequest> requests)
+    public override string ToString()
     {
-        File.WriteAllText("../../../Data/DaysOffRequests.json", JsonSerializer.Serialize(requests));
+        return String.Format("Zahtev( pocetak: {0}, kraj: {1}, hitno: {2}, poruka: {3}, stanje: {4}, doktor: {5})", vacationStart, vacationEnd, isUrgent, requestMessage, state, doctorName);
     }
 }
