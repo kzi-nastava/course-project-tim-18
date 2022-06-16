@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using HealthCare.Patient;
+using HealthCare.Secretary;
 
 namespace HealthCare.Doctor
 {
@@ -50,7 +51,7 @@ namespace HealthCare.Doctor
         {
             return String.Format("Doctor( Name: {0}, Surname: {1}, Username: {2}, Password: {3}, Appointments: [{4}])", name, surname, username, password, String.Join("; ",appointments));
         }
-
+        SecretaryService secretaryService = new SecretaryService();
         public static DoctorSpecialization DoctorsSpecialization(string username)
         {
             DoctorSpecialization doctorSpecialization = 0;
@@ -236,7 +237,7 @@ namespace HealthCare.Doctor
                     Console.Write("Pacijent: ");
                     Console.WriteLine(appointments[i].Patient); 
                     Console.WriteLine("Zdravstveni karton pacijenta: ");
-                    patient.MedicalRecord.ViewMedicalRecord(patient.MedicalRecord);
+                    secretaryService.ViewMedicalRecord(patient.MedicalRecord);
                 }
             }
             
@@ -457,12 +458,12 @@ namespace HealthCare.Doctor
                 }
             }
             Console.WriteLine("Zdravstveni karton pacijenta: ");
-            patient.MedicalRecord.ViewMedicalRecord(patient.MedicalRecord);
+            secretaryService.ViewMedicalRecord(patient.MedicalRecord);
             Console.WriteLine("Da li zelite da izmenite nesto iz zdravstvenog kartona(y/n): ");
             string s = Console.ReadLine();
             if (s == "y")
             {
-                patient.MedicalRecord.CreateInput();
+                secretaryService.CreateInput();
             }
             Console.WriteLine("Anamneza: ");
             string anamneza = Console.ReadLine();

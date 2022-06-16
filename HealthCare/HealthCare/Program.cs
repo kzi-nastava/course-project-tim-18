@@ -14,7 +14,8 @@ using HealthCare.Secretary;
 
  List<Patient> patients = Patient.patientDeserialization();
 
- List<Secretary> secretaries = Secretary.Deserialize();
+ List<SecretaryService> secretaries = SecretaryService.Deserialize();
+ SecretaryController secretaryController = new SecretaryController();
 
 
  string userResponse;
@@ -58,17 +59,17 @@ using HealthCare.Secretary;
      {
          if (doctor.Username == username && doctor.Password == password)
          {
-            Secretary.SendNotificationToDoctor(username);
+            SecretaryService.SendNotificationToDoctor(username);
             doctor.DoctorMenu(manager);
             break;
          }
      }
 
-     foreach (Secretary secretary in secretaries)
+     foreach (SecretaryService secretary in secretaries)
      {
          if (secretary.Username == username && secretary.Password == password)
          {
-             secretary.WriteManu(manager);
+            secretaryController.WriteManu(manager);
              break;
          }
      }
@@ -92,7 +93,7 @@ using HealthCare.Secretary;
 
  Patient.Serialize(patients);
 
- Secretary.Serialize(secretaries);
+ SecretaryJDBC.Serialize(secretaries);
 
  Console.WriteLine("Aplikacija ugašena.");
  
