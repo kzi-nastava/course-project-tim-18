@@ -757,9 +757,11 @@ namespace HealthCare.Doctor
                 Console.WriteLine("Hitni zahtevi ne mogu biti duzi od 5 dana");
                 return null;
             }
+            Console.WriteLine("Unesite razlog zbog kog trazite slobodan dan: ");
+            string reason = Console.ReadLine();
             if (checkAppointmentsInSpan(beginningDate, endDate))
             {
-                return new DaysOffRequest(beginningDate, endDate, urgent, "", RequestState.AwaitingDecision, username);
+                return new DaysOffRequest(beginningDate, endDate, urgent, reason, RequestState.AwaitingDecision, username);
             }
             Console.WriteLine("Zauzeti ste u tom periodu!");
             return null;
