@@ -34,17 +34,6 @@ namespace HealthCare.Doctor
             get => specialization;
             set => specialization = value;
         }
-
-        // [JsonConstructor]
-        // public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
-        // {
-        //     this.username = username;
-        //     this.password = password;
-        //     this.name = name;
-        //     this.surname = surname;
-        //     this.appointments = appointments;
-        // }
-
         [JsonConstructor]
         public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId, DoctorSpecialization specialization)
         {
@@ -694,14 +683,60 @@ namespace HealthCare.Doctor
             
         }
 
-        private void printRequest()
+        private bool checkAppointmentsInSpan(DateTime start, DateTime end)
+        {
+            foreach (var appointment in appointments)
+            {
+                DateTime currentAppointmentDate =
+                    DateTime.ParseExact(appointment.TimeOfAppointment, "dd/MM/yyyy HH:mm", null);
+                if (currentAppointmentDate > start && currentAppointmentDate < end)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool urgentInput()
+        {
+            Console.WriteLine("Da li je zahtev hitan(y/n)?");
+            Console.WriteLine("(hitni zahtevi mogu trajati najduze 5 dana)");
+            string urgentInput = Console.ReadLine();
+            bool urgent = urgentInput == "y";
+            return urgent;
+        }
+
+        private DateTime dateInput()
+        {
+            Console.WriteLine("Unesite datum za pocetak slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy)");
+            string beginningDateInput = Console.ReadLine();
+            if ((DateTime.Today - DateTime.ParseExact(beginningDateInput, "dd/MM/yyyy", null)).TotalDays < 2 || DateTime.ParseExact(beginningDateInput, "dd/MM/yyyy", null) < DateTime.Today)
+            {
+                Console.WriteLine("Zahtev mora biti bar 2 dana ubuduće");
+            }
+            DateTime beginningDate = DateTime.ParseExact(beginningDateInput, "dd/MM/yyyy", null);
+            return beginningDate;
+        }
+        private DaysOffRequest daysOffRequestMenu()
         {
             Console.WriteLine("==============================");
-            Console.WriteLine("Unesite datum za pocetak slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy");
-        }
-        private void requestDaysOff()
-        {
-            
+            bool urgent = urgentInput();
+            DateTime beginningDate = dateInput();
+            Console.WriteLine("Unesite datum za kraj slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy)");
+            string endDateInput = Console.ReadLine();
+            DateTime endDate = DateTime.ParseExact(endDateInput, "dd/MM/yyyy", null);
+            if (urgent && (endDate - beginningDate).TotalDays > 5)
+            {
+                Console.WriteLine("Hitni zahtevi ne mogu biti duzi od 5 dana");
+                return null;
+            }
+            if (checkAppointmentsInSpan(beginningDate, endDate))
+            {
+                return new DaysOffRequest(beginningDate, endDate, urgent, "", RequestState.AwaitingDecision, username);
+            }
+            Console.WriteLine("Zauzeti ste u tom periodu!");
+            return null;
         }
         private void MainMenuPrint()
         {
@@ -774,7 +809,7 @@ namespace HealthCare.Doctor
                     manageMedicationMenu();
                     return true;
                 case "5":
-                    requestDaysOff();
+                    daysOffRequestMenu();
                     return true;
                 case "6":
                     return false;
