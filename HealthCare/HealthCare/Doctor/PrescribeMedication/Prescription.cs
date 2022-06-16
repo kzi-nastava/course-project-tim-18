@@ -2,7 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Globalization;
-namespace HealthCare.Doctor;
+namespace HealthCare.Doctor.PrescribeMedication;
 
 public class Prescription
 {

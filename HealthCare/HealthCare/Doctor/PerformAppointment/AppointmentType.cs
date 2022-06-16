@@ -1,4 +1,4 @@
-﻿namespace HealthCare.Doctor
+﻿namespace HealthCare.Doctor.PerformAppointment
 {
     public enum AppointmentType
     {

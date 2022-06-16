@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace HealthCare.Doctor;
+namespace HealthCare.Doctor.PrescribeMedication;
 
 public class Medication
 {

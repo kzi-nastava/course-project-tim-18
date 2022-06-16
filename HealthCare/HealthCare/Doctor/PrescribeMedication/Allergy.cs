@@ -1,4 +1,4 @@
-﻿namespace HealthCare.Doctor;
+﻿namespace HealthCare.Doctor.PrescribeMedication;
 
 public enum Allergy
 {

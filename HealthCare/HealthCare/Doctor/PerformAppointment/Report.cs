@@ -2,7 +2,7 @@
 using HealthCare.Patient;
 using HealthCare.Secretary;
 
-namespace HealthCare.Doctor;
+namespace HealthCare.Doctor.PerformAppointment;
 
 public class Report
 {

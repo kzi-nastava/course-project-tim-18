@@ -11,7 +11,7 @@ namespace HealthCare.Patient
         private string timeOfAppointment;
         private string doctor;
         private string patient;
-        private Doctor.AppointmentType appointmentType;
+        private Doctor.PerformAppointment.AppointmentType appointmentType;
         private string roomId;
         
 
@@ -33,7 +33,7 @@ namespace HealthCare.Patient
             set => patient = value ?? throw new ArgumentNullException(nameof(value));
         }
 
-        public HealthCare.Doctor.AppointmentType AppointmentType
+        public Doctor.PerformAppointment.AppointmentType AppointmentType
         {
             get => appointmentType;
             set => appointmentType = value;
@@ -50,12 +50,12 @@ namespace HealthCare.Patient
             timeOfAppointment = "";
             doctor = "";
             patient = "";
-            appointmentType = HealthCare.Doctor.AppointmentType.Examination;
+            appointmentType = HealthCare.Doctor.PerformAppointment.AppointmentType.Examination;
         }
         
 
         [JsonConstructor]
-        public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.AppointmentType appointmentType)
+        public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.PerformAppointment.AppointmentType appointmentType)
         {
             this.timeOfAppointment = timeOfAppointment;
             this.doctor = doctor;
@@ -64,7 +64,7 @@ namespace HealthCare.Patient
             
         }
         
-        public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.AppointmentType appointmentType, string roomId)
+        public Appointment(string timeOfAppointment, string doctor, string patient, HealthCare.Doctor.PerformAppointment.AppointmentType appointmentType, string roomId)
         {
             this.timeOfAppointment = timeOfAppointment;
             this.doctor = doctor;
@@ -79,7 +79,7 @@ namespace HealthCare.Patient
             this.timeOfAppointment = timeOfAppointment;
             this.doctor = doctor;
             this.patient = patient;
-            this.appointmentType = HealthCare.Doctor.AppointmentType.Examination;
+            this.appointmentType = HealthCare.Doctor.PerformAppointment.AppointmentType.Examination;
             this.roomId = HealthCare.Doctor.Doctor.DoctorsRoom(doctor);
         }
        

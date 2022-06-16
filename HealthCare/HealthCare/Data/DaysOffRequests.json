@@ -30,5 +30,13 @@
     "IsUrgent": false,
     "RequestMessage": ":D",
     "State": 2
+  },
+  {
+    "VacationStart": "2023-02-19T00:00:00",
+    "DoctorName": "1",
+    "VacationEnd": "2023-02-25T00:00:00",
+    "IsUrgent": false,
+    "RequestMessage": "JAD",
+    "State": 2
   }
 ]

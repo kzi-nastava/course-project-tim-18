@@ -155,13 +155,13 @@ namespace HealthCare.Doctor
 
             if (type == "2")
             {
-                this.appointments.Add(new Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, roomId));
+                this.appointments.Add(new Appointment(this.username, patient, period, (PerformAppointment.AppointmentType)Int32.Parse(type)-1, roomId));
             }
             else
             {
                 Console.WriteLine("Unesite sobu za odrzavanje operacije: ");
                 string operationRoom = Console.ReadLine();
-                this.appointments.Add(new Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, operationRoom));
+                this.appointments.Add(new Appointment(this.username, patient, period, (PerformAppointment.AppointmentType)Int32.Parse(type)-1, operationRoom));
                 
             }
             
@@ -347,16 +347,16 @@ namespace HealthCare.Doctor
             deleteAppointment(chosenPatient, this.username, chosenDate);
         }
 
-        private Referral createRefferal(string? doctor, string pacient, DoctorSpecialization? specialization)
+        private PerformAppointment.Referral createRefferal(string? doctor, string pacient, DoctorSpecialization? specialization)
         {
             if (doctor != null)
             {
-                return new Referral(doctor, pacient);
+                return new PerformAppointment.Referral(doctor, pacient);
             }
             else
             {
                 string referredDoctor = findDoctorInField(specialization.GetValueOrDefault()).Username;
-                return new Referral(referredDoctor, pacient);
+                return new PerformAppointment.Referral(referredDoctor, pacient);
             }
         }
 
@@ -466,7 +466,7 @@ namespace HealthCare.Doctor
             }
             Console.WriteLine("Anamneza: ");
             string anamneza = Console.ReadLine();
-            Report.addReport(new Report(appointments[index], anamneza, patient.MedicalRecord));
+            PerformAppointment.Report.addReport(new PerformAppointment.Report(appointments[index], anamneza, patient.MedicalRecord));
             if (this.Specialization == DoctorSpecialization.Pediatrician)
             {
                 Console.WriteLine("Da li zelite da uputite pacijenta nekome? (y/n)");
@@ -553,13 +553,13 @@ namespace HealthCare.Doctor
         }
         private void prescribeMedicineMenu(Patient.Patient patient)
         {
-            Prescription prescription = new Prescription();
-            List<Medication> availableMedications = Medication.Deserialize();
+            PrescribeMedication.Prescription prescription = new PrescribeMedication.Prescription();
+            List<PrescribeMedication.Medication> availableMedications = PrescribeMedication.Medication.Deserialize();
             while (availableMedications.Count > 0)
             {
                 for (int i = 0; i < availableMedications.Count; i++)
                 {
-                    Medication medication = availableMedications[i];
+                    PrescribeMedication.Medication medication = availableMedications[i];
                     Console.Write(i + 1 + ". ");
                     Console.WriteLine(medication.Name);
                 }
@@ -621,7 +621,7 @@ namespace HealthCare.Doctor
 
         private void manageMedicationMenu()
         {
-            List<Medication> suggestions = Medication.DeserializeSuggestions();
+            List<PrescribeMedication.Medication> suggestions = PrescribeMedication.Medication.DeserializeSuggestions();
             if (suggestions.Count == 0)
             {
                 Console.WriteLine("Trenutno nema sugestija lekova za pregled");
@@ -649,14 +649,14 @@ namespace HealthCare.Doctor
                 s = Console.ReadLine();
                 if (s == "y")
                 {
-                    Medication.addMedication(suggestions[index]);
+                    PrescribeMedication.Medication.addMedication(suggestions[index]);
                     suggestions.RemoveAt(index);
                 }else if (s == "n")
                 {
                     Console.Write("Unesite razlog za odbijanje: ");
                     string reasonForDenial = Console.ReadLine();
                     suggestions[index].DoctorNote = reasonForDenial;
-                    Medication.AddDeniedSuggestion(suggestions[index]);
+                    PrescribeMedication.Medication.AddDeniedSuggestion(suggestions[index]);
                     suggestions.RemoveAt(index);
                 }
                 else
@@ -678,7 +678,7 @@ namespace HealthCare.Doctor
                     return;
                 }
             }
-            Medication.SerializeSuggestions(suggestions);
+            PrescribeMedication.Medication.SerializeSuggestions(suggestions);
                 
 
             

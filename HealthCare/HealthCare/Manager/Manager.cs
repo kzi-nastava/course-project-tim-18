@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 using HealthCare.Doctor;
+using HealthCare.Doctor.PrescribeMedication;
 using HealthCare.Patient;
 
 namespace HealthCare

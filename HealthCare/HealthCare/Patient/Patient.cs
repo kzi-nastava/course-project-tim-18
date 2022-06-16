@@ -138,7 +138,7 @@ namespace HealthCare.Patient
                     if (Appointment.isAppointmentValid(stringTimeBeingChecked, doctor) == true)
                     {
                         Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
-                            HealthCare.Doctor.AppointmentType.Examination);
+                            HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                         Console.WriteLine(appointment);
                         recommendedAppointments.Add(appointment);
                         return recommendedAppointments;
@@ -165,7 +165,7 @@ namespace HealthCare.Patient
                         if (Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username) == true)
                         {
                             Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username, this.username,
-                                HealthCare.Doctor.AppointmentType.Examination);
+                                HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                             recommendedAppointments.Add(appointment);
                             if (recommendedAppointments.Count == 3)
                             {
@@ -230,7 +230,7 @@ namespace HealthCare.Patient
                     if (Appointment.isAppointmentValid(stringTimeBeingChecked, doctor))
                     {
                         Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
-                            HealthCare.Doctor.AppointmentType.Examination);
+                            HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                         recommendedAppointments.Add(appointment);
                         return recommendedAppointments;
                     }
@@ -242,7 +242,7 @@ namespace HealthCare.Patient
                             {
                                 Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username,
                                     this.username,
-                                    HealthCare.Doctor.AppointmentType.Examination);
+                                    HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                                 recommendedAppointments.Add(appointment);
 
                             }
@@ -329,7 +329,7 @@ namespace HealthCare.Patient
                 if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
                 {
                     Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username,
-                        HealthCare.Doctor.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
+                        HealthCare.Doctor.PerformAppointment.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
                     Doctor.Doctor.addAppointmentForDoctor(appointment, doctor);
                     appointment.serializeAppointment();
                 }
@@ -471,15 +471,15 @@ namespace HealthCare.Patient
 
         public void ReportsOverview()
         {
-            List<Report> reports = Report.deserializeForPatient(this.Username);
+            List<Doctor.PerformAppointment.Report> reports = Doctor.PerformAppointment.Report.deserializeForPatient(this.Username);
             Console.WriteLine(
                 "Unesite po kojem kriterijumu zelite pregled:\n1 Sortirani po datumu\n2 Pregledi odredjenog doktora\n3 Pregledi po specijalnosti doktora");
             string option = Console.ReadLine();
             if (option == "1")
             {
                 Console.WriteLine("Tretmani su sortirani po datumu pregleda: ");
-                Report.SortReport(ref reports, 0, reports.Count - 1);
-                foreach (Report report in reports)
+                Doctor.PerformAppointment.Report.SortReport(ref reports, 0, reports.Count - 1);
+                foreach (Doctor.PerformAppointment.Report report in reports)
                 {
                     Console.WriteLine("Karton: " + report.MedicalRecord + " termin: " + report.Appointment +
                                       "\n opis: " + report.Description);
@@ -490,7 +490,7 @@ namespace HealthCare.Patient
             {
                 Console.WriteLine("Unesite ime doktora za koga zelite da vidite tretmane:");
                 string doctor = Console.ReadLine();
-                foreach (Report report in reports)
+                foreach (Doctor.PerformAppointment.Report report in reports)
                 {
                     if (report.Appointment.Doctor == doctor)
                     {
@@ -506,7 +506,7 @@ namespace HealthCare.Patient
                                   "Pedijatan, ginekolog, dermatolog, kardiolog, endokrinolog, gastroentrolog, neurolog, onkolog, radiolog, urinolog");
                 string specialization = Console.ReadLine();
                 int valueSpecialization = int.Parse(specialization) + 1;
-                foreach (Report report in reports)
+                foreach (Doctor.PerformAppointment.Report report in reports)
                 {
                     DoctorSpecialization doctorsSpecialization =
                         Doctor.Doctor.DoctorsSpecialization(report.Appointment.Doctor);
@@ -559,14 +559,14 @@ namespace HealthCare.Patient
         
         public void Notification_system()
         {
-            List<Prescription> prescriptions = Doctor.Prescription.DeserializePrescription();
-            foreach(Prescription prescription in prescriptions)
+            List<Doctor.PrescribeMedication.Prescription> prescriptions = Doctor.PrescribeMedication.Prescription.DeserializePrescription();
+            foreach(Doctor.PrescribeMedication.Prescription prescription in prescriptions)
             {
                 if (this.Username == prescription.Patient)
                 {
-                    foreach(Medication medication in prescription.Medications)
+                    foreach(Doctor.PrescribeMedication.Medication medication in prescription.Medications)
                     {
-                        if(medication.WhenToConsume == Doctor.TimeForMedicine.AfterTheMeal)
+                        if(medication.WhenToConsume == Doctor.PrescribeMedication.TimeForMedicine.AfterTheMeal)
                         {
                             DateTime time = DateTime.Now;
                             TimeSpan hoursBeforeTaking = new TimeSpan( this.hoursForNotification , 0 , 0 );
@@ -575,7 +575,7 @@ namespace HealthCare.Patient
                                 Console.WriteLine("Ne zaboravite da uzmete lek nakon obroka!");
                             }
                         }
-                        if (medication.WhenToConsume == Doctor.TimeForMedicine.DuringTheMeal)
+                        if (medication.WhenToConsume == Doctor.PrescribeMedication.TimeForMedicine.DuringTheMeal)
                         {
                             DateTime time = DateTime.Now;
                             TimeSpan hoursBeforeTaking = new TimeSpan(this.hoursForNotification, 0, 0);
@@ -584,7 +584,7 @@ namespace HealthCare.Patient
                                 Console.WriteLine("Ne zaboravite da uzmete lek u toku obroka!");
                             }
                         }
-                        if (medication.WhenToConsume == Doctor.TimeForMedicine.BeforeTheMeal)
+                        if (medication.WhenToConsume == Doctor.PrescribeMedication.TimeForMedicine.BeforeTheMeal)
                         {
                             DateTime time = DateTime.Now;
                             TimeSpan hoursBeforeTaking = new TimeSpan(this.hoursForNotification, 0, 0);
