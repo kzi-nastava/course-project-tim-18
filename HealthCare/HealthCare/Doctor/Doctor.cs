@@ -702,8 +702,11 @@ namespace HealthCare.Doctor
         private void checkNotifications()
         {
             List<DaysOffRequest> deserizaliedRequests = DaysOffRequest.Deserialize();
-            foreach (var deserizaliedRequest in deserizaliedRequests)
+            List<DaysOffRequest> requestsToSerialize = DaysOffRequest.Deserialize();
+            
+            for (int i = 0; i < deserizaliedRequests.Count; i++)
             {
+                DaysOffRequest deserizaliedRequest = deserizaliedRequests[i];
                 if (deserizaliedRequest.DoctorName == username &&
                     deserizaliedRequest.State != RequestState.AwaitingDecision)
                 {
@@ -717,9 +720,10 @@ namespace HealthCare.Doctor
                         Console.WriteLine("Odbijen vam je " + deserizaliedRequest + " za slobodne dane!");
                     }
 
-                    deserizaliedRequests.Remove(deserizaliedRequest);
+                    requestsToSerialize.RemoveAt(i);
                 }
             }
+            DaysOffRequest.Serialize(requestsToSerialize);
         }
         private bool urgentInput()
         {
