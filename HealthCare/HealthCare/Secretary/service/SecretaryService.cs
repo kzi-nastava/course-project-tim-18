@@ -5,26 +5,27 @@ using System.Text.Json.Serialization;
 
 namespace HealthCare.Secretary
 {
-    public class Secretary : User
+    public class SecretaryService : User
     {
-
-        [JsonConstructor]
-        public Secretary(string username, string password)
+        SecretaryJDBC secretaryJDBC = new SecretaryJDBC();
+        public SecretaryService(string username, string password)
         {
             this.username = username;
             this.password = password;
         }
-        
+        public SecretaryService()
+        {
+        }
         //GENERAL FUNCTIONS----------------------------------------------------------
-        public static List<Secretary> Deserialize()
+        public static List<SecretaryService> Deserialize()
         {
             string path = "../../../Data/SecretariesData.json";
             string jsonText = File.ReadAllText(path);
-            List<Secretary> secretaries = JsonSerializer.Deserialize<List<Secretary>>(jsonText);
+            List<SecretaryService> secretaries = JsonSerializer.Deserialize<List<SecretaryService>>(jsonText);
             return secretaries;
         }
 
-        public static void Serialize(List<Secretary> secretaries)
+        public static void Serialize(List<SecretaryService> secretaries)
         {
             File.WriteAllText("../../../Data/SecretariesData.json", JsonSerializer.Serialize(secretaries));
         }
@@ -45,15 +46,52 @@ namespace HealthCare.Secretary
         //----------------------------------------------------------------------------
 
         //CRUD------------------------------------------------------------------------
+        public MedicalRecord CreateInput()
+        {
+            Console.Write("\nIme: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Prezime: ");
+            string lastname = Console.ReadLine();
+
+            Console.Write("Adresa: ");
+            string address = Console.ReadLine();
+
+            Console.Write("Korisnicko ime: ");
+            string username = Console.ReadLine();
+
+            Console.Write("Lozinka: ");
+            string password = Console.ReadLine();
+
+            Console.Write("Email: ");
+            string email = Console.ReadLine();
+
+            Console.Write("Visina: ");
+            string height = Console.ReadLine();
+
+            Console.Write("Tezina: ");
+            string weight = Console.ReadLine();
+
+            Console.Write("Krvna grupa: ");
+            string bloodType = Console.ReadLine();
+
+
+            MedicalRecord account = new MedicalRecord(name, lastname, address, username, password, email, height, weight, bloodType);
+            return account;
+
+        }
+
         public void CreatePatientAccount()
         {
-            MedicalRecord newMedicalRecord = new MedicalRecord();
-            MedicalRecord medicalRecord = newMedicalRecord.CreateInput();
+            MedicalRecord newMedicalRecord = CreateInput();
+            //newMedicalRecord.CreateInput();
+            //SecretaryJDBC newMedicalRecord = new SecretaryJDBC();
+            //SecretaryJDBC medicalRecord = new newMedicalRecord.CreateInput();
 
-            newMedicalRecord.PrintMedicalRecord(medicalRecord);
-            newMedicalRecord.SerializePatient(medicalRecord);
+            PrintMedicalRecord(newMedicalRecord);
+            secretaryJDBC.SerializePatient(newMedicalRecord);
 
-            Patient.Patient patient = new Patient.Patient(medicalRecord.Username, medicalRecord.Password, medicalRecord);
+            Patient.Patient patient = new Patient.Patient(newMedicalRecord.Username, newMedicalRecord.Password, newMedicalRecord);
             patient.serializePatient();
         }
 
@@ -62,12 +100,12 @@ namespace HealthCare.Secretary
             string username = InputUsername();
             MedicalRecord newMedicalRecord = new MedicalRecord();
 
-            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
+            List<Patient.Patient> patientList = secretaryJDBC.patientDeserialization();
             foreach (Patient.Patient patient in patientList)
             {
                 if (patient.Username == username)
                 {
-                    newMedicalRecord.PrintMedicalRecord(patient.MedicalRecord);
+                    PrintMedicalRecord(patient.MedicalRecord);
                     string userResponse = Input("Da li zelite blokirati ovaj nalog? ");
                     if (userResponse == "da")
                     {
@@ -81,12 +119,12 @@ namespace HealthCare.Secretary
         {
             string username = InputUsername();
             MedicalRecord newMedicalRecord = new MedicalRecord();
-
-            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
+            
+            List<Patient.Patient> patientList = secretaryJDBC.patientDeserialization();
             foreach (Patient.Patient patient in patientList)
             {
                 if (patient.Username == username)
-                    newMedicalRecord.DeleteFromMedicalRecord(username);
+                    secretaryJDBC.DeleteFromMedicalRecord(username);
                 patient.DeleteFromPatients(username);
 
             }
@@ -118,7 +156,7 @@ namespace HealthCare.Secretary
 
             foreach (Patient.BlockedPatients blockedPatient in blockedPatientsList)
             {
-                newMedicalRecord.ViewMedicalRecord(blockedPatient.Patient.MedicalRecord);
+                ViewMedicalRecord(blockedPatient.Patient.MedicalRecord);
             }
 
             string unblock = InputUsername();
@@ -180,125 +218,13 @@ namespace HealthCare.Secretary
         }
         //----------------------------------------------------------------------------
 
-        //MANU------------------------------------------------------------------------
-        public void PrintHeader(string title)
-        {
-            Console.WriteLine("\n-------------------------" + title + "-----------------------------");
-        }
 
-        public void PrintMainManu()
-        {
-            Console.WriteLine("-------------OPCIJE---------------");
-            Console.WriteLine("1  Manipulisanje nalogom");
-            Console.WriteLine("2  Blokiraj naloga");
-            Console.WriteLine("3  Odblokiraj naloga");
-            Console.WriteLine("4  Pregled zahtjeva");
-            Console.WriteLine("5  Zakazivanje pregleda");
-            Console.WriteLine("6  Nabavka dinamicke opreme");
-            Console.WriteLine("7  Rasporedjivanje dinamicke opreme");
-            Console.WriteLine("8  Pregled zahtjeva za slobodne dane");
-            Console.WriteLine("9  Exit");
-
-            Console.Write("\r\nUnesite broj opcije: ");
-
-        }
-
-        public void PrintCRUDManu()
-        {
-            Console.WriteLine("\n1. Keiraj nalog");
-            Console.WriteLine("2. Procitaj nalog");
-            Console.WriteLine("3. Izmijeni nalog");
-            Console.WriteLine("4. Obrisi nalog");
-            Console.WriteLine("5. Vratite se nazad");
-            Console.Write("\r\nUnesite broj opcije: ");
-
-        }
-
-        public void CheckInput()
-        {
-            bool showMenu = true;
-            while (showMenu)
-            {
-                showMenu = WriteCRUDManu();
-            }
-        }
-
-        public bool WriteCRUDManu()
-        {
-            PrintCRUDManu();
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    PrintHeader("KREIRAJ NALOG");
-                    CreatePatientAccount();
-                    return true;
-                case "2":
-                    PrintHeader("PREGLEDAJ NALOG");
-                    ReadPatientAccount();
-                    return true;
-                case "3":
-                    PrintHeader("IZMIJENI NALOG");
-                    UpdatePatientAccount();
-                    return true;
-                case "4":
-                    PrintHeader("OBRISI NALOG");
-                    DeletePatientAccount();
-                    return true;
-                case "5":
-                    return false;
-                default:
-                    Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
-                    return true;
-            }
-        }
-
-        public bool WriteManu(Manager manager)
-        {
-            PrintMainManu();
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    CheckInput();
-                    return true;
-                case "2":
-                    ReadPatientAccount();
-                    return true;
-                case "3":
-                    UnblockingPatientsAccount();
-                    return true;
-                case "4":
-                    ViewingPatientRequests();
-                    return true;
-                case "5":
-                    MakingAnAppointment();
-                    return true;
-                case "6":
-                    manager.Load();
-                    manager.DynamicEquipmentRequests();
-                    manager.Save();
-                    return true;
-                case "7":
-                    manager.Load();
-                    manager.DynamicEquipmentDistribution();
-                    manager.Save();
-                    return true;
-                case "8":
-                    ViewDayOffRequests();
-                    return true;
-                default:
-                    Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
-                    return true;
-            }
-
-
-        }
-        //----------------------------------------------------------------------------
 
         //INSTRUCTIONS----------------------------------------------------------------
         public void MakingAnAppointment()
         {
-           string username = InputUsername();
-           List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
+            string username = InputUsername();
+            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
             foreach (Patient.Patient patient in patientList)
             {
@@ -312,7 +238,7 @@ namespace HealthCare.Secretary
                         Patient.Appointment newAppointment = new Patient.Appointment(date, patient.MedicalRecord.Doktor, patient.Username);
                         newAppointment.serializeAppointment();
                     }
-                }      
+                }
             }
 
         }
@@ -359,7 +285,7 @@ namespace HealthCare.Secretary
             {
                 if (patient.Username == username)
                 {
-                    string specialization =Input("Unesite specijalnost doktora: ");
+                    string specialization = Input("Unesite specijalnost doktora: ");
                     FindValidDoctor(specialization);
                 }
             }
@@ -387,7 +313,7 @@ namespace HealthCare.Secretary
             {
                 if (appointment.Doctor == doctor.Name)
                 {
-                   
+
 
                 }
 
@@ -406,7 +332,7 @@ namespace HealthCare.Secretary
             {
                 if (request.State.ToString() == "AwaitingDecision")
                 {
-                    PrintDayOffRequests(request,i);
+                    PrintDayOffRequests(request, i);
                 }
                 i++;
 
@@ -420,7 +346,7 @@ namespace HealthCare.Secretary
 
         }
 
-        private void PrintDayOffRequests(DaysOffRequest request ,int i)
+        private void PrintDayOffRequests(DaysOffRequest request, int i)
         {
             Console.WriteLine("----------------------------------------------");
             Console.WriteLine("ZAHTJEV " + i);
@@ -442,17 +368,17 @@ namespace HealthCare.Secretary
             List<Doctor.DaysOffRequest> daysOffList = Doctor.DaysOffRequest.Deserialize();
             foreach (Doctor.DaysOffRequest request in daysOffList)
             {
-                if(i == numberOfRequest)
+                if (i == numberOfRequest)
                 {
                     if (option == "odbij")
                     {
-                        RejectDaysOffRequest(request,daysOffList);
-                        
+                        RejectDaysOffRequest(request, daysOffList);
+
                     }
                     if (option == "prihvati")
                     {
                         AcceptDaysOffRequest(request, daysOffList);
-                        
+
                     }
                 }
                 i++;
@@ -507,5 +433,30 @@ namespace HealthCare.Secretary
             }
         }
         //----------------------------------------------------------------------------
+
+
+        //MEDICAL RECORD//------------------------------------------------------------
+        public void ViewMedicalRecord(MedicalRecord record)
+        {
+            string[] title = { "Ime", "Prezime", "Adresa", "Korisnicko ime", "Lozinka", "Email", "Visina", "Tezina", "Krvna grupa" };
+            string[] population = { record.Name, record.Lastname, record.Address, record.Username, record.Password, record.Email, record.Height, record.Weight, record.BloodType };
+            var sb = new System.Text.StringBuilder();
+            sb.Append(String.Format("\n{0,-20} {1,-10}\n---------------------------------\n", "Labela", "Podaci"));
+            for (int index = 0; index < title.Length; index++)
+                sb.Append(String.Format("{0,-20} {1,-10}\n", title[index], population[index]));
+            sb.Append("---------------------------------");
+            Console.WriteLine(sb);
+        }
+
+        public void PrintMedicalRecord(MedicalRecord account)
+        {
+            Console.WriteLine("\n-------------------------------------------------------------");
+            Console.WriteLine("                   ZDRAVSTVENI KARTON                 ");
+            Console.WriteLine("-------------------------------------------------------------");
+            ViewMedicalRecord(account);
+            Console.WriteLine("-------------------------------------------------------------");
+        }
+        //----------------------------------------------------------------------------
     }
+
 }
