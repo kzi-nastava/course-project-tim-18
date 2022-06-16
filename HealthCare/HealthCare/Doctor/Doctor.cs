@@ -9,14 +9,14 @@ namespace HealthCare.Doctor
     {
         private string name;
         private string surname;
-        private List<Patient.Appointment>? appointments;
+        private List<Appointment>? appointments;
         private string roomId;
         private DoctorSpecialization specialization;
 
         public Doctor() {
             username = "";
             password = "";
-            appointments = new List<Patient.Appointment>();
+            appointments = new List<Appointment>();
             name = "";
             surname  = "";
             roomId = "";
@@ -27,26 +27,15 @@ namespace HealthCare.Doctor
 
         public string RoomId { get => roomId; set => roomId = value; }
 
-        public List<Patient.Appointment> Appointments { get => appointments; set => appointments = value; }
+        public List<Appointment> Appointments { get => appointments; set => appointments = value; }
         
         public DoctorSpecialization Specialization
         {
             get => specialization;
             set => specialization = value;
         }
-
-        // [JsonConstructor]
-        // public Doctor(string username, string password,string name, string surname,List<Patient.Appointment> appointments)
-        // {
-        //     this.username = username;
-        //     this.password = password;
-        //     this.name = name;
-        //     this.surname = surname;
-        //     this.appointments = appointments;
-        // }
-
         [JsonConstructor]
-        public Doctor(string username, string password, string name, string surname, List<Patient.Appointment> appointments, string roomId, DoctorSpecialization specialization)
+        public Doctor(string username, string password, string name, string surname, List<Appointment> appointments, string roomId, DoctorSpecialization specialization)
         {
             this.username = username;
             this.password = password;
@@ -74,17 +63,6 @@ namespace HealthCare.Doctor
             return doctorSpecialization;
         }
 
-        public static void AddAppointment(Appointment appointment)
-        {
-            List<Doctor> doctors = Doctor.Deserialize();
-            foreach (var doctor in doctors)
-            {
-                if (doctor.Username == appointment.Doctor)
-                {
-                    doctor.appointments.Add(appointment);
-                }
-            }
-        }
 
         public static string DoctorsRoom(string username)
         {
@@ -143,7 +121,7 @@ namespace HealthCare.Doctor
             return doctorsMatching;
         }
         
-        public bool CreateAppointment()
+        private bool CreateAppointment()
         {
             Console.Write("Unesite korisnicko ime pacijenta:  ");
             string patient = Console.ReadLine();
@@ -177,22 +155,22 @@ namespace HealthCare.Doctor
 
             if (type == "2")
             {
-                this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, roomId));
+                this.appointments.Add(new Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, roomId));
             }
             else
             {
                 Console.WriteLine("Unesite sobu za odrzavanje operacije: ");
                 string operationRoom = Console.ReadLine();
-                this.appointments.Add(new Patient.Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, operationRoom));
+                this.appointments.Add(new Appointment(this.username, patient, period, (AppointmentType)Int32.Parse(type)-1, operationRoom));
                 
             }
             
             return true;
         }
         
-        public void readAppointments()
+        private void readAppointments()
         {
-            foreach (Patient.Appointment a in appointments)
+            foreach (Appointment a in appointments)
             {
                 Console.WriteLine(a);
             }
@@ -204,7 +182,7 @@ namespace HealthCare.Doctor
             {
                 if (d.username == doctor)
                 {
-                    foreach (Patient.Appointment a in d.appointments)
+                    foreach (Appointment a in d.appointments)
                     {
                         if (a.Patient == patient && a.TimeOfAppointment == date)
                         {
@@ -416,7 +394,6 @@ namespace HealthCare.Doctor
                 {
                     Console.WriteLine("Greska pri unosu!");
                     Console.WriteLine("Izlazak..");
-                    return;
                 }
             }
             else if (s == "2")
@@ -448,7 +425,7 @@ namespace HealthCare.Doctor
                 }
                 else
                 {
-                    //TODO pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x) when referral is added to medicalrecord
+                    // pacient.MedicalRecord.Referral = createRefferal(null, pacient.Username, (DoctorSpecialization)x) when referral is added to medicalrecord
                 }
             }
             else
@@ -561,7 +538,20 @@ namespace HealthCare.Doctor
             }
 
         }
-        public void prescribeMedicineMenu(Patient.Patient patient)
+
+        public static void addAppointmentForDoctor(Appointment appointment, string doctorusername)
+        {
+            List<Doctor> doctors = Deserialize();
+            foreach (var doctor in doctors)
+            {
+                if (doctorusername == doctor.Username)
+                {
+                    doctor.appointments.Add(appointment);
+                    return;
+                }
+            }
+        }
+        private void prescribeMedicineMenu(Patient.Patient patient)
         {
             Prescription prescription = new Prescription();
             List<Medication> availableMedications = Medication.Deserialize();
@@ -694,14 +684,130 @@ namespace HealthCare.Doctor
             
         }
 
-        private void printRequest()
+        private bool checkAppointmentsInSpan(DateTime start, DateTime end)
         {
-            Console.WriteLine("==============================");
-            Console.WriteLine("Unesite datum za pocetak slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy");
+            foreach (var appointment in appointments)
+            {
+                DateTime currentAppointmentDate =
+                    DateTime.ParseExact(appointment.TimeOfAppointment, "dd/MM/yyyy HH:mm", null);
+                if (currentAppointmentDate > start && currentAppointmentDate < end)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void checkNotifications()
+        {
+            List<DaysOffRequest> deserizaliedRequests = DaysOffRequest.Deserialize();
+            List<DaysOffRequest> requestsToSerialize = DaysOffRequest.Deserialize();
+            
+            for (int i = 0; i < deserizaliedRequests.Count; i++)
+            {
+                DaysOffRequest deserizaliedRequest = deserizaliedRequests[i];
+                if (deserizaliedRequest.DoctorName == username &&
+                    deserizaliedRequest.State != RequestState.AwaitingDecision)
+                {
+                    if (deserizaliedRequest.State == RequestState.Accepted)
+                    {
+                        Console.WriteLine("Prihvacen vam je " + deserizaliedRequest + " za slobodne dane!");
+                    }
+
+                    if (deserizaliedRequest.State == RequestState.Denied)
+                    {
+                        Console.WriteLine("Odbijen vam je " + deserizaliedRequest + " za slobodne dane!");
+                    }
+
+                    requestsToSerialize.RemoveAt(i);
+                }
+            }
+            DaysOffRequest.Serialize(requestsToSerialize);
+        }
+        private bool urgentInput()
+        {
+            Console.WriteLine("Da li je zahtev hitan(y/n)?");
+            Console.WriteLine("(hitni zahtevi mogu trajati najduze 5 dana)");
+            string urgentInput = Console.ReadLine();
+            bool urgent = urgentInput == "y";
+            return urgent;
+        }
+
+        private DateTime dateInput()
+        {
+            Console.WriteLine("Unesite datum za pocetak slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy)");
+            string beginningDateInput = Console.ReadLine();
+            if ((DateTime.ParseExact(beginningDateInput, "dd/MM/yyyy", null) - DateTime.Today).TotalDays < 2 || DateTime.ParseExact(beginningDateInput, "dd/MM/yyyy", null) < DateTime.Today)
+            {
+                Console.WriteLine("Zahtev mora biti bar 2 dana ubuduće");
+            }
+            DateTime beginningDate = DateTime.ParseExact(beginningDateInput, "dd/MM/yyyy", null);
+            return beginningDate;
+        }
+        private DaysOffRequest daysOffRequestMenu()
+        {
+            bool urgent = urgentInput();
+            DateTime beginningDate = dateInput();
+            Console.WriteLine("Unesite datum za kraj slobodnih dana( mora biti bar 2 dana unapred)(format dd/MM/yyyy)");
+            string endDateInput = Console.ReadLine();
+            DateTime endDate = DateTime.ParseExact(endDateInput, "dd/MM/yyyy", null);
+            if (urgent && (endDate - beginningDate).TotalDays > 5)
+            {
+                Console.WriteLine("Hitni zahtevi ne mogu biti duzi od 5 dana");
+                return null;
+            }
+            Console.WriteLine("Unesite razlog zbog kog trazite slobodan dan: ");
+            string reason = Console.ReadLine();
+            if (checkAppointmentsInSpan(beginningDate, endDate))
+            {
+                return new DaysOffRequest(beginningDate, endDate, urgent, reason, RequestState.AwaitingDecision, username);
+            }
+            Console.WriteLine("Zauzeti ste u tom periodu!");
+            return null;
+        }
+
+        private void previewRequests()
+        {
+            List<DaysOffRequest> deserializedRequests = DaysOffRequest.Deserialize();
+            foreach (var deserializedRequest in deserializedRequests)
+            {
+                if (username == deserializedRequest.DoctorName)
+                {
+                    Console.WriteLine("============================");
+                    Console.WriteLine(deserializedRequest);
+                    Console.WriteLine("============================");
+                }
+            }
         }
         private void requestDaysOff()
         {
-            
+            Console.WriteLine("==============================");
+            Console.WriteLine("1. Pregled zahteva");
+            Console.WriteLine("2. Novi zahtev");
+            string choice = Console.ReadLine();
+           
+            if (choice == "1")
+            {
+                previewRequests();
+                return;
+            }if (choice != "2")
+            {
+                Console.WriteLine(choice + " nije validna opcija");
+                return;
+
+            }
+            DaysOffRequest request = daysOffRequestMenu();
+            if (request == null)
+            {
+                return;
+            }
+            Console.WriteLine("Uspesno podnesen zahtev za period od " + request.VacationStart + " do " + request.VacationEnd);
+            if (!request.IsUrgent)
+            {
+                DaysOffRequest.AddRequest(request);
+            }
+            Console.WriteLine("==============================");
         }
         private void MainMenuPrint()
         {
@@ -758,6 +864,7 @@ namespace HealthCare.Doctor
         }
         private bool MainMenuWrite(Manager manager)
         {
+            checkNotifications();
             MainMenuPrint();
             switch (Console.ReadLine())
             {

@@ -50,6 +50,13 @@ public class DaysOffRequest
         this.state = state;
         this.doctorName = doctorName;
     }
+
+    public static void AddRequest(DaysOffRequest request)
+    {
+        List<DaysOffRequest> deserializedRequests = Deserialize();
+        deserializedRequests.Add(request);
+        Serialize(deserializedRequests);
+    }
     public static void Serialize(List<DaysOffRequest> requests)
     {
         File.WriteAllText("../../../Data/DaysOffRequests.json", JsonSerializer.Serialize(requests));
@@ -61,5 +68,10 @@ public class DaysOffRequest
         string jsonText = File.ReadAllText(filepath);
         List<DaysOffRequest> deserializedRequests = JsonSerializer.Deserialize<List<DaysOffRequest>>(jsonText);
         return deserializedRequests;
+    }
+
+    public override string ToString()
+    {
+        return String.Format("Zahtev( pocetak: {0}, kraj: {1}, hitno: {2}, poruka: {3}, stanje: {4}, doktor: {5})", vacationStart, vacationEnd, isUrgent, requestMessage, state, doctorName);
     }
 }
