@@ -7,13 +7,28 @@
     <list default="true" id="4df1c6e0-0aa0-48a5-ad7d-e293d17f3452" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Data/DaysOffRequests.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DaysOffRequests.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/ManagerData.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/ManagerData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/Allergy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PrescribeMedication/Allergy.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/AppointmentType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PerformAppointment/AppointmentType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/DaysOffRequest.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/Medication.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PrescribeMedication/Medication.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/Prescription.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PrescribeMedication/Prescription.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/Referral.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PerformAppointment/Referral.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/Report.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PerformAppointment/Report.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/RequestDaysOff/DaysOffRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/RequestDaysOff/DaysOffRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/RequestState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/RequestDaysOff/RequestState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Doctor/TimeForMedicine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/PrescribeMedication/TimeForMedicine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patient/Patient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/Patient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/AppointmentsRequest.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/AppointmentsRequest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

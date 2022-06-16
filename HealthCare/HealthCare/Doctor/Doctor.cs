@@ -841,6 +841,7 @@ namespace HealthCare.Doctor
         private bool CRUDMenuWrite()
         {
             CRUDMenuPrint();
+            
             switch (Console.ReadLine())
             {
                 case "1":
@@ -892,6 +893,7 @@ namespace HealthCare.Doctor
             }
 
         }
+        
 
         public float DoctorsAvgGrade()
         {

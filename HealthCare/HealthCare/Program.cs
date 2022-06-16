@@ -48,6 +48,7 @@ using HealthCare.Secretary;
 
      if(manager.Username == username && manager.Password == password)
      {
+        
          manager.DoctorMenu();
      }
 
@@ -57,8 +58,9 @@ using HealthCare.Secretary;
      {
          if (doctor.Username == username && doctor.Password == password)
          {
-             doctor.DoctorMenu(manager);
-             break;
+            Secretary.SendNotificationToDoctor(username);
+            doctor.DoctorMenu(manager);
+            break;
          }
      }
 

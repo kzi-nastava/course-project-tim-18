@@ -1,3 +1,4 @@
 {"HoursForNotification":2,"MedicalRecord":{"Name":"b","Lastname":"b","Address":"b","Username":"b","Password":"b","Email":"b","Height":"b","Weight":"b","BloodType":"b","Doktor":"ilija1","Allergies":[]},"Username":"b","Password":"b"}
 {"HoursForNotification":1,"MedicalRecord":{"Name":"a","Lastname":"a","Address":"a","Username":"a","Password":"a","Email":"a","Height":"a","Weight":"a","BloodType":"a","Doktor":"ilija1","Allergies":[]},"Username":"a","Password":"a"}
 {"HoursForNotification":2,"MedicalRecord":{"Name":"d","Lastname":"d","Address":"d","Username":"d","Password":"d","Email":"d","Height":"d","Weight":"d","BloodType":"d","Doktor":"ilija1","Allergies":[]},"Username":"d","Password":"d"}
+{"HoursForNotification":0,"MedicalRecord":{"Name":"Jovan","Lastname":"Jovic","Address":"Novi Sad","Username":"jovan","Password":"j","Email":"jovan@gmail.com","Height":"178","Weight":"68","BloodType":"A\u002B","Doktor":null,"Allergies":null},"Username":"jovan","Password":"j"}
