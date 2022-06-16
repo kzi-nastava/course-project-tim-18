@@ -7,22 +7,15 @@
     <list default="true" id="4df1c6e0-0aa0-48a5-ad7d-e293d17f3452" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.HealthCare.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patient/Patient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Patient/Patient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.assets.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.genruntimeconfig.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/HealthCare.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -47,6 +40,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7a1ad32abaee44480b66c2c1fcee9628cca92a4cd272eced5781564201180/Number.Parsing.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/Ilija/Desktop/xyz/USI/course-project-tim-18/HealthCare/HealthCare/Patient/Patient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c6ad457575d35dcbff26c9a5e3fb1d92f1d3c55f25ef6ebf475367b5d8/List.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -106,7 +100,16 @@
       <workItem from="1654348040776" duration="5121000" />
       <workItem from="1654356996686" duration="7108000" />
       <workItem from="1655151000625" duration="4603000" />
+      <workItem from="1655398140844" duration="6919000" />
     </task>
+    <task id="LOCAL-00001" summary="Finish menu for requesting days off">
+      <created>1655402536901</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655402536901</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -117,12 +120,14 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Finish menu for requesting days off" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish menu for requesting days off" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Doctor/Medication.cs</url>
+          <url>file://$PROJECT_DIR$/Doctor/PrescribeMedication/Medication.cs</url>
           <line>102</line>
           <properties documentPath="C:\Users\Ilija\Desktop\xyz\USI\course-project-tim-18\HealthCare\HealthCare\Doctor\Medication.cs" initialLine="102" containingFunctionPresentation="method 'AddDeniedSuggestion'">
             <startOffsets>

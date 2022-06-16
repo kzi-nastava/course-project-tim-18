@@ -63,17 +63,6 @@ namespace HealthCare.Doctor
             return doctorSpecialization;
         }
 
-        public static void AddAppointment(Appointment appointment)
-        {
-            List<Doctor> doctors = Doctor.Deserialize();
-            foreach (var doctor in doctors)
-            {
-                if (doctor.Username == appointment.Doctor)
-                {
-                    doctor.appointments.Add(appointment);
-                }
-            }
-        }
 
         public static string DoctorsRoom(string username)
         {
@@ -132,7 +121,7 @@ namespace HealthCare.Doctor
             return doctorsMatching;
         }
         
-        public bool CreateAppointment()
+        private bool CreateAppointment()
         {
             Console.Write("Unesite korisnicko ime pacijenta:  ");
             string patient = Console.ReadLine();
@@ -549,7 +538,20 @@ namespace HealthCare.Doctor
             }
 
         }
-        public void prescribeMedicineMenu(Patient.Patient patient)
+
+        public static void addAppointmentForDoctor(Appointment appointment, string doctorusername)
+        {
+            List<Doctor> doctors = Deserialize();
+            foreach (var doctor in doctors)
+            {
+                if (doctorusername == doctor.Username)
+                {
+                    doctor.appointments.Add(appointment);
+                    return;
+                }
+            }
+        }
+        private void prescribeMedicineMenu(Patient.Patient patient)
         {
             Prescription prescription = new Prescription();
             List<Medication> availableMedications = Medication.Deserialize();
@@ -699,7 +701,25 @@ namespace HealthCare.Doctor
 
         private void checkNotifications()
         {
-            List<DaysOffRequest>
+            List<DaysOffRequest> deserizaliedRequests = DaysOffRequest.Deserialize();
+            foreach (var deserizaliedRequest in deserizaliedRequests)
+            {
+                if (deserizaliedRequest.DoctorName == username &&
+                    deserizaliedRequest.State != RequestState.AwaitingDecision)
+                {
+                    if (deserizaliedRequest.State == RequestState.Accepted)
+                    {
+                        Console.WriteLine("Prihvacen vam je " + deserizaliedRequest + " za slobodne dane!");
+                    }
+
+                    if (deserizaliedRequest.State == RequestState.Denied)
+                    {
+                        Console.WriteLine("Odbijen vam je " + deserizaliedRequest + " za slobodne dane!");
+                    }
+
+                    deserizaliedRequests.Remove(deserizaliedRequest);
+                }
+            }
         }
         private bool urgentInput()
         {
@@ -773,7 +793,10 @@ namespace HealthCare.Doctor
             }
             DaysOffRequest request = daysOffRequestMenu();
             Console.WriteLine("Uspesno podnesen zahtev za period od " + request.VacationStart + " do " + request.VacationEnd);
-            DaysOffRequest.AddRequest(request);
+            if (!request.IsUrgent)
+            {
+                DaysOffRequest.AddRequest(request);
+            }
             Console.WriteLine("==============================");
         }
         private void MainMenuPrint()
