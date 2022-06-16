@@ -40,7 +40,10 @@ public class DaysOffRequest
         get => state;
         set => state = value;
     }
-
+    public DaysOffRequest()
+    {
+        
+    }
     public DaysOffRequest(DateTime vacationStart, DateTime vacationEnd, bool isUrgent, string requestMessage, RequestState state, string doctorName)
     {
         this.vacationStart = vacationStart;
@@ -61,5 +64,11 @@ public class DaysOffRequest
         string jsonText = File.ReadAllText(filepath);
         List<DaysOffRequest> deserializedRequests = JsonSerializer.Deserialize<List<DaysOffRequest>>(jsonText);
         return deserializedRequests;
+    }
+
+    
+    public void DaysOffSerialization(List<DaysOffRequest> requests)
+    {
+        File.WriteAllText("../../../Data/DaysOffRequests.json", JsonSerializer.Serialize(requests));
     }
 }

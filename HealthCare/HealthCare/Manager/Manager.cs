@@ -1072,6 +1072,13 @@ namespace HealthCare
         }
 
         //EQUIPMENT REQUESTS----------------------------------------------------------
+        public string Input(string text)
+        {
+            Console.Write(text);
+            string option = Console.ReadLine();
+            return option;
+        }
+
         public void DynamicEquipmentRequests()
         {
             List<Equipment> equipmentList = new List<Equipment>();
@@ -1090,26 +1097,21 @@ namespace HealthCare
                 }
             }
 
-            Console.Write("\nUnesite opremu: ");
-            string newEqupment = Console.ReadLine();
-
-            Console.Write("Unesite kolicinu: ");
-            string inputQuantity = Console.ReadLine();
+            string newEqupment = Input("\nUnesite opremu: ");
+            string inputQuantity =Input("Unesite kolicinu: ");
 
             CheckSentRequest(newEqupment, inputQuantity, equipmentList);
-
 
         }
 
         private void CheckSentRequest(string newEqupment, string inputQuantity, List<Equipment> equipmentList)
         {
-            EquipmentRequest equipmentRequests = new EquipmentRequest();
-            List<EquipmentRequest> equipmentRequestList = equipmentRequests.EquipmentRequestDeserialization();
-
             bool isTrue = false;
+            EquipmentRequest equipmentRequests = new EquipmentRequest();
+
+            List<EquipmentRequest> equipmentRequestList = equipmentRequests.EquipmentRequestDeserialization();
             foreach (EquipmentRequest equipmentRequest in equipmentRequestList)
             {
-
                 if (equipmentRequest.Equipment.Name == newEqupment)
                 {
                     isTrue = true;
@@ -1139,7 +1141,6 @@ namespace HealthCare
 
         public void SendRequest(List<Equipment> equipment, Room room, string newEquipment, string inputQuantity)
         {
-
             int newQuantity = Int32.Parse(inputQuantity);
 
             foreach (Equipment equipmentt in equipment)
@@ -1147,7 +1148,7 @@ namespace HealthCare
                 if (equipmentt.Name == newEquipment)
                 {
                     Equipment equipment1 = new Equipment(equipmentt.EquipmentType, equipmentt.Name, newQuantity);
-                    EquipmentRequest equipmentRequest = new EquipmentRequest(equipment1, DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                    EquipmentRequest equipmentRequest = new EquipmentRequest(equipment1, DateTime.Now.ToString("MM/dd/yyyy HH:mm"));
                     equipmentRequest.EquipmentRequestSerialization();
                 }
             }
@@ -1156,26 +1157,26 @@ namespace HealthCare
         public void CheckHours(List<Equipment> equipment)
         {
             EquipmentRequest equipmentRequests = new EquipmentRequest();
-            List<EquipmentRequest> equipmentRequestList = equipmentRequests.EquipmentRequestDeserialization();
 
+            List<EquipmentRequest> equipmentRequestList = equipmentRequests.EquipmentRequestDeserialization();
             foreach (EquipmentRequest equipmentRequest in equipmentRequestList)
             {
                 var parsedDate = DateTime.Parse(equipmentRequest.ExecutionDate);
-                var parsedDateNow = DateTime.Parse(DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
+                var parsedDateNow = DateTime.Parse(DateTime.Now.ToString());
 
-                DateTime parsedDateAfterOneDay = parsedDate.AddMonths(1);
+                DateTime parsedDateAfterOneDay = parsedDate.AddDays(1);
                 PrintDateTimeOfRequest(equipmentRequest, parsedDateNow, parsedDateAfterOneDay);
 
                 int res = DateTime.Compare(parsedDateNow, parsedDateAfterOneDay);
                 if (res == -1)
                 {
-                    Console.WriteLine("Nije proslo 24h od podnesenog zahtjeva");
-                    Console.WriteLine("=========================================");
+                    PrintTimeMessage("Nije proslo ");
+                    
                 }
                 if (res == 1)
                 {
-                    Console.WriteLine("Proslo je 24h od podnesenog zahtjeva");
-                    Console.WriteLine("=========================================");
+                    PrintTimeMessage("Proslo je  ");
+                 
                     foreach (Equipment equipment1 in equipment)
                     {
                         if (equipment1.Name == equipmentRequest.Equipment.Name)
@@ -1185,6 +1186,12 @@ namespace HealthCare
                     }
                 }
             }
+        }
+
+        private void PrintTimeMessage(string v)
+        {
+            Console.WriteLine(v + "24h od podnesenog zahtjeva");
+            Console.WriteLine("=========================================");
         }
 
         private void ReplaceEquipmentAmountValues(Equipment equipment1, EquipmentRequest equipmentRequest)
@@ -1221,18 +1228,15 @@ namespace HealthCare
         public void DynamicEquipmentDistribution()
         {
             string[] dynamicEquipment = { "Kopce", "Zavoj", "Inekcije", "Papir", "Gaze", "Olovke", "Hanzaplast" };
+
             List<string> dynamicEquipmentList = new List<string>(dynamicEquipment);
-
-
             List<Equipment> equipmentList = new List<Equipment>();
             foreach (Room room in hospital.Rooms)
             {
-                List<string> emptyList = new List<string>();
                 Console.WriteLine("============================");
                 Console.WriteLine(room.Name);
                 Console.WriteLine("============================\n");
                 CheckUnavailableEquipment(dynamicEquipmentList, room);
-
 
             }
 
@@ -1267,10 +1271,8 @@ namespace HealthCare
         }
 
         private void MakeDistribution()
-        {
-
-            Console.Write("Unesi naziv prostorije iz koje se uzima oprema: ");
-            string oldRoomName = Console.ReadLine();
+        {   
+            string oldRoomName =Input("Unesi naziv prostorije iz koje se uzima oprema: ");
             if (RoomExist(oldRoomName) == false)
             {
                 Console.WriteLine("Unijeta neispravna vrijednost.");
@@ -1278,8 +1280,8 @@ namespace HealthCare
             }
 
             Room oldRoom = GetRoom(oldRoomName);
-            Console.Write("Unesi naziv opreme: ");
-            string equipmentName = Console.ReadLine();
+            string equipmentName = Input("Unesi naziv opreme: ");
+
             if (oldRoom.EquipmentExist(equipmentName) == false)
             {
                 Console.WriteLine("Unijeta neispravna vrijednost.");
@@ -1287,11 +1289,9 @@ namespace HealthCare
             }
             Equipment oldEquipment = oldRoom.GetEquipment(equipmentName);
 
-
-
-            Console.Write("Unesi kolicinu: ");
+            
             int amountInt;
-            string amountString = Console.ReadLine();
+            string amountString = Input("Unesi kolicinu: ");
             if (Int32.TryParse(amountString, out amountInt) == false)
             {
                 Console.WriteLine("Unijeta neispravna vrijednost.");
@@ -1303,8 +1303,8 @@ namespace HealthCare
                 return;
             }
 
-            Console.Write("Unesi naziv prostorije u koju se oprema premijesta: ");
-            string newRoomName = Console.ReadLine();
+            
+            string newRoomName =Input("Unesi naziv prostorije u koju se oprema premijesta: ");
             if (RoomExist(newRoomName) == false)
             {
                 Console.WriteLine("Unijeta neispravna vrijednost.");
@@ -1323,8 +1323,8 @@ namespace HealthCare
             newEquipment.Amount += amountInt;
             oldEquipment.Amount -= amountInt;
         }
-
-
+        //----------------------------------------------------------------------------
+        
         private void ViewSurveyResults()
         {
             List<DoctorsGrade> doctorsGrades = DoctorsGrade.DeserializeDoctorsGrade();
@@ -1529,10 +1529,5 @@ namespace HealthCare
 
 
         }
-
-
-
-        //----------------------------------------------------------------------------
-
     }
 }

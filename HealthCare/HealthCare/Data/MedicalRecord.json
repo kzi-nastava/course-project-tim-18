@@ -1,2 +1,3 @@
-{"Name":"a","Lastname":"a","Address":"a","Username":"a","Password":"a","Email":"a","Height":"a","Weight":"a","BloodType":"a"}
-{"Name":"e","Lastname":"e","Address":"e","Username":"e","Password":"e","Email":"e","Height":"e","Weight":"e","BloodType":"e"}
+{"Name":"a","Lastname":"a","Address":"a","Username":"a","Password":"a","Email":"a","Height":"a","Weight":"a","BloodType":"a","Doktor":null,"Allergies":null}
+{"Name":"e","Lastname":"e","Address":"e","Username":"e","Password":"e","Email":"e","Height":"e","Weight":"e","BloodType":"e","Doktor":null,"Allergies":null}
+{"Name":"Jovan","Lastname":"Jovic","Address":"Novi Sad","Username":"jovan","Password":"j","Email":"jovan@gmail.com","Height":"178","Weight":"68","BloodType":"A\u002B","Doktor":null,"Allergies":null}

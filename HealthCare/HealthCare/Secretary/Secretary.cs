@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using HealthCare.Doctor;
+using System.Globalization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -14,7 +15,7 @@ namespace HealthCare.Secretary
             this.password = password;
         }
         
-
+        //GENERAL FUNCTIONS----------------------------------------------------------
         public static List<Secretary> Deserialize()
         {
             string path = "../../../Data/SecretariesData.json";
@@ -27,12 +28,21 @@ namespace HealthCare.Secretary
         {
             File.WriteAllText("../../../Data/SecretariesData.json", JsonSerializer.Serialize(secretaries));
         }
+
         public string InputUsername()
         {
             Console.Write("\nUnesite korisnicko ime pacijenta: ");
             string username = Console.ReadLine();
             return username;
         }
+
+        public string Input(string text)
+        {
+            Console.Write(text);
+            string option = Console.ReadLine();
+            return option;
+        }
+        //----------------------------------------------------------------------------
 
         //CRUD------------------------------------------------------------------------
         public void CreatePatientAccount()
@@ -50,18 +60,15 @@ namespace HealthCare.Secretary
         public void ReadPatientAccount()
         {
             string username = InputUsername();
-
-            string account = "";
             MedicalRecord newMedicalRecord = new MedicalRecord();
-            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
+            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
             foreach (Patient.Patient patient in patientList)
             {
                 if (patient.Username == username)
                 {
                     newMedicalRecord.PrintMedicalRecord(patient.MedicalRecord);
-                    Console.Write("Da li zelite blokirati ovaj nalog? ");
-                    string userResponse = Console.ReadLine();
+                    string userResponse = Input("Da li zelite blokirati ovaj nalog? ");
                     if (userResponse == "da")
                     {
                         BlockingPatientAccount(patient);
@@ -72,13 +79,10 @@ namespace HealthCare.Secretary
 
         public void DeletePatientAccount()
         {
-
             string username = InputUsername();
-
-
             MedicalRecord newMedicalRecord = new MedicalRecord();
-            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
 
+            List<Patient.Patient> patientList = Patient.Patient.patientDeserialization();
             foreach (Patient.Patient patient in patientList)
             {
                 if (patient.Username == username)
@@ -143,14 +147,8 @@ namespace HealthCare.Secretary
                 Console.WriteLine(appointment);
             }
 
-
-            Console.Write("Unesite ime doktora: ");
-            string doctor = Console.ReadLine();
-
-
-            Console.Write("Unesite datum i vrijeme: ");
-            string date = Console.ReadLine();
-
+            string doctor = Input("Unesite ime doktora: ");
+            string date = Input("Unesite datum i vrijeme");
 
             foreach (Patient.AppointmentRequests appointment in appointmentlist)
             {
@@ -198,11 +196,12 @@ namespace HealthCare.Secretary
             Console.WriteLine("5  Zakazivanje pregleda");
             Console.WriteLine("6  Nabavka dinamicke opreme");
             Console.WriteLine("7  Rasporedjivanje dinamicke opreme");
-            Console.WriteLine("8  Exit");
+            Console.WriteLine("8  Pregled zahtjeva za slobodne dane");
+            Console.WriteLine("9  Exit");
+
             Console.Write("\r\nUnesite broj opcije: ");
 
         }
-
 
         public void PrintCRUDManu()
         {
@@ -253,7 +252,6 @@ namespace HealthCare.Secretary
             }
         }
 
-
         public bool WriteManu(Manager manager)
         {
             PrintMainManu();
@@ -284,6 +282,9 @@ namespace HealthCare.Secretary
                     manager.DynamicEquipmentDistribution();
                     manager.Save();
                     return true;
+                case "8":
+                    ViewDayOffRequests();
+                    return true;
                 default:
                     Console.WriteLine("\nPogresan unos, pokusajte ponovo!\n");
                     return true;
@@ -304,8 +305,7 @@ namespace HealthCare.Secretary
                 if (patient.Username == username && patient.MedicalRecord.Doktor != "")
                 {
                     Console.WriteLine("Doktor: " + patient.MedicalRecord.Doktor);
-                    Console.Write("\nUnesite datum pregleda: ");
-                    string date = Console.ReadLine();
+                    string date = Input("\nUnesite datum pregleda: ");
                     Boolean isTrue = CheckDate(date);
                     if (isTrue)
                     {
@@ -316,6 +316,7 @@ namespace HealthCare.Secretary
             }
 
         }
+
         public bool CheckDate(string period)
         {
             DateTime dt;
@@ -331,6 +332,7 @@ namespace HealthCare.Secretary
             }
             return true;
         }
+
         public bool CheckIfAvailable(DateTime appointmentDate)
         {
             List<Patient.Appointment> patientList = Patient.Appointment.appointmentsDeserialization();
@@ -344,9 +346,10 @@ namespace HealthCare.Secretary
             }
             return false;
         }
-
         //----------------------------------------------------------------------------
 
+
+        //EMERGENCY APPOINTMENT REQUESTS----------------------------------------------
         public void MakingAnEmergencyAppointment()
         {
             string username = InputUsername();
@@ -356,8 +359,7 @@ namespace HealthCare.Secretary
             {
                 if (patient.Username == username)
                 {
-                    Console.WriteLine("Unesite specijalnost doktora: ");
-                    string specialization = Console.ReadLine();
+                    string specialization =Input("Unesite specijalnost doktora: ");
                     FindValidDoctor(specialization);
                 }
             }
@@ -391,6 +393,119 @@ namespace HealthCare.Secretary
 
             }
         }
+        //----------------------------------------------------------------------------
 
+
+        //DAYS OFF REQUESTS-----------------------------------------------------------
+        public void ViewDayOffRequests()
+        {
+            List<Doctor.DaysOffRequest> daysOffList = Doctor.DaysOffRequest.Deserialize();
+            int i = 1;
+
+            foreach (Doctor.DaysOffRequest request in daysOffList)
+            {
+                if (request.State.ToString() == "AwaitingDecision")
+                {
+                    PrintDayOffRequests(request,i);
+                }
+                i++;
+
+            }
+            string answer = Input("Da li zelite odobriti/odbiti zahtjev? ");
+            if (answer == "da")
+            {
+                string numberOfRequest = Input("Unesite broj zahtjeva: ");
+                AcceptOrRejectDaysOffRequest(numberOfRequest);
+            }
+
+        }
+
+        private void PrintDayOffRequests(DaysOffRequest request ,int i)
+        {
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("ZAHTJEV " + i);
+            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine(request.VacationStart);
+            Console.WriteLine(request.VacationEnd);
+            Console.WriteLine(request.DoctorName);
+            Console.WriteLine(request.State);
+            Console.WriteLine("----------------------------------------------\n");
+        }
+
+        private void AcceptOrRejectDaysOffRequest(string? number)
+        {
+            int numberOfRequest = Int32.Parse(number);
+            int i = 1;
+
+            string option = Input("Unesite opciju odbij/prihvati: ");
+
+            List<Doctor.DaysOffRequest> daysOffList = Doctor.DaysOffRequest.Deserialize();
+            foreach (Doctor.DaysOffRequest request in daysOffList)
+            {
+                if(i == numberOfRequest)
+                {
+                    if (option == "odbij")
+                    {
+                        RejectDaysOffRequest(request,daysOffList);
+                        
+                    }
+                    if (option == "prihvati")
+                    {
+                        AcceptDaysOffRequest(request, daysOffList);
+                        
+                    }
+                }
+                i++;
+            }
+        }
+
+        private void AcceptDaysOffRequest(DaysOffRequest request, List<DaysOffRequest> daysOffList)
+        {
+            Doctor.RequestState requestStateAccepted = Doctor.RequestState.Accepted;
+            request.State = requestStateAccepted;
+
+            Doctor.DaysOffRequest daysOffRequest = new Doctor.DaysOffRequest(request.VacationStart, request.VacationEnd, request.IsUrgent, request.RequestMessage, request.State, request.DoctorName);
+            daysOffRequest.DaysOffSerialization(daysOffList);
+        }
+
+        private void RejectDaysOffRequest(DaysOffRequest request, List<DaysOffRequest> daysOffList)
+        {
+            Doctor.RequestState requestStateDenied = Doctor.RequestState.Denied;
+            string explanation = Input("Unesite obrazlozenje: ");
+
+            request.RequestMessage = explanation;
+            request.State = requestStateDenied;
+
+            Doctor.DaysOffRequest daysOffRequest = new Doctor.DaysOffRequest(request.VacationStart, request.VacationEnd, request.IsUrgent, request.RequestMessage, request.State, request.DoctorName);
+            daysOffRequest.DaysOffSerialization(daysOffList);
+        }
+
+        public static void SendNotificationToDoctor(string doctorName)
+        {
+            Console.WriteLine("Notifikacija za slobodne dane");
+            Console.WriteLine("-----------------------------------");
+
+            List<Doctor.DaysOffRequest> daysOffList = Doctor.DaysOffRequest.Deserialize();
+            foreach (Doctor.DaysOffRequest request in daysOffList)
+            {
+                if (request.DoctorName == doctorName)
+                {
+                    PrintNotification(request);
+                }
+            }
+        }
+
+        private static void PrintNotification(DaysOffRequest request)
+        {
+            if (request.State.ToString() == "Accepted")
+            {
+                Console.WriteLine("Odobren zahtjev za slobodne dane!");
+            }
+            if (request.State.ToString() == "Denied")
+            {
+                Console.WriteLine("Odbijen zahtjev za slobodne dane!");
+            }
+        }
+        //----------------------------------------------------------------------------
     }
 }
