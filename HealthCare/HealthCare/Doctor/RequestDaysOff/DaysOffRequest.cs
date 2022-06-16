@@ -61,7 +61,10 @@ public class DaysOffRequest
     {
         File.WriteAllText("../../../Data/DaysOffRequests.json", JsonSerializer.Serialize(requests));
     }
-
+    public void DaysOffSerialization(List<DaysOffRequest> requests)
+    {
+        File.WriteAllText("../../../Data/DaysOffRequests.json", JsonSerializer.Serialize(requests));
+    }
     public static List<DaysOffRequest> Deserialize()
     {
         string filepath = "../../../Data/DaysOffRequests.json";

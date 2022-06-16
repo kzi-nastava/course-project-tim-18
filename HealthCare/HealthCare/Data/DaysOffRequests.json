@@ -4,7 +4,7 @@
     "DoctorName": "2",
     "VacationEnd": "2022-06-16T00:00:00+02:00",
     "IsUrgent": false,
-    "RequestMessage": "Neka poruka 2",
+    "RequestMessage": "Neka poruka 1",
     "State": 2
   },
   {
@@ -12,7 +12,7 @@
     "DoctorName": "1",
     "VacationEnd": "2022-07-13T00:00:00+02:00",
     "IsUrgent": false,
-    "RequestMessage": "Neka poruka 3",
+    "RequestMessage": "Neka poruka 2",
     "State": 2
   },
   {
