@@ -5,25 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4df1c6e0-0aa0-48a5-ad7d-e293d17f3452" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Secretary/model/MedicalRecord.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Secretary/persistence/SecretaryJDBC.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Secretary/ui/SecretaryController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/HealthCare/DesignTimeBuild/.dtbcache.v2" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/HealthCare/DesignTimeBuild/.dtbcache.v2" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.vs/HealthCare/v17/.suo" beforeDir="false" afterPath="$PROJECT_DIR$/../.vs/HealthCare/v17/.suo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/DaysOffRequests.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/DaysOffRequests.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Data/MedicalRecord.json" beforeDir="false" afterPath="$PROJECT_DIR$/Data/MedicalRecord.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Doctor/Doctor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Doctor/Doctor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Secretary/MedicalRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Secretary/MedicalRecord.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Secretary/Secretary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Secretary/service/SecretaryService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net6.0/HealthCare.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/Patients.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/Patients.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/HealthCare.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/ref/HealthCare.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/net6.0/refint/HealthCare.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net6.0/refint/HealthCare.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Secretary/model/MedicalRecord.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Secretary/model/MedicalRecord.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +90,7 @@
       <workItem from="1655151000625" duration="4603000" />
       <workItem from="1655398140844" duration="7980000" />
       <workItem from="1655416248937" duration="757000" />
+      <workItem from="1655417085925" duration="308000" />
     </task>
     <task id="LOCAL-00001" summary="Finish menu for requesting days off">
       <created>1655402536901</created>

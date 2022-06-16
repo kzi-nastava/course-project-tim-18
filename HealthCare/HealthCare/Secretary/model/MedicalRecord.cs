@@ -18,7 +18,7 @@ namespace HealthCare.Secretary
         private string weight;
         private string bloodType;
         private string doktor;
-        private List<Doctor.Allergy> allergies;
+        private List<Doctor.PrescribeMedication.Allergy> allergies;
 
 
         public MedicalRecord(string name, string lastname, string address, string username, string password, string email, string height, string weight, string bloodType)
@@ -111,7 +111,7 @@ namespace HealthCare.Secretary
             set { doktor = value; }
         }
 
-        public List<Doctor.Allergy> Allergies
+        public List<Doctor.PrescribeMedication.Allergy> Allergies
         {
             get { return allergies; }
             set { allergies = value; }
