@@ -8,7 +8,7 @@ public class Report
 {
     private Appointment appointment;
     private string description;
-    private MedicalRecord patientMedicalRecord;
+    private Secretary.MedicalRecord patientMedicalRecord;
 
     public Appointment Appointment
     {
