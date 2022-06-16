@@ -50,6 +50,13 @@ public class DaysOffRequest
         this.state = state;
         this.doctorName = doctorName;
     }
+
+    public static void AddRequest(DaysOffRequest request)
+    {
+        List<DaysOffRequest> deserializedRequests = Deserialize();
+        deserializedRequests.Add(request);
+        Serialize(deserializedRequests);
+    }
     public static void Serialize(List<DaysOffRequest> requests)
     {
         File.WriteAllText("../../../Data/DaysOffRequests.json", JsonSerializer.Serialize(requests));
