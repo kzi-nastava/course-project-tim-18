@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "AllergyTriggers": [ 1 ],
+    "DoctorNote": "",
+    "Ingredients": [ "Alec", "Mali" ],
+    "Name": "Asteriks",
+    "TimesADay": 2,
+    "WhenToConsume": 3
+  },
+  {
+    "Name": "Ads",
+    "TimesADay": 1,
+    "WhenToConsume": 1,
+    "AllergyTriggers": [ 0 ],
+    "DoctorNote": "",
+    "Ingredients": []
+  }
+]
