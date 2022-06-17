@@ -2,6 +2,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using HealthCare.Patient;
+using HealthCare.Patient.Grading;
 using HealthCare.Secretary;
 
 namespace HealthCare.Doctor
@@ -10,14 +11,14 @@ namespace HealthCare.Doctor
     {
         private string name;
         private string surname;
-        private List<Appointment>? appointments;
+        private List<Patient.CreatingAppointment.Appointment>? appointments;
         private string roomId;
         private DoctorSpecialization specialization;
 
         public Doctor() {
             username = "";
             password = "";
-            appointments = new List<Appointment>();
+            appointments = new List<Patient.CreatingAppointment.Appointment>();
             name = "";
             surname  = "";
             roomId = "";
@@ -28,7 +29,7 @@ namespace HealthCare.Doctor
 
         public string RoomId { get => roomId; set => roomId = value; }
 
-        public List<Appointment> Appointments { get => appointments; set => appointments = value; }
+        public List<Patient.CreatingAppointment.Appointment> Appointments { get => appointments; set => appointments = value; }
         
         public DoctorSpecialization Specialization
         {
@@ -36,7 +37,7 @@ namespace HealthCare.Doctor
             set => specialization = value;
         }
         [JsonConstructor]
-        public Doctor(string username, string password, string name, string surname, List<Appointment> appointments, string roomId, DoctorSpecialization specialization)
+        public Doctor(string username, string password, string name, string surname, List<Patient.CreatingAppointment.Appointment> appointments, string roomId, DoctorSpecialization specialization)
         {
             this.username = username;
             this.password = password;
@@ -156,13 +157,13 @@ namespace HealthCare.Doctor
 
             if (type == "2")
             {
-                this.appointments.Add(new Appointment(this.username, patient, period, (PerformAppointment.AppointmentType)Int32.Parse(type)-1, roomId));
+                this.appointments.Add(new Patient.CreatingAppointment.Appointment(this.username, patient, period, (PerformAppointment.AppointmentType)Int32.Parse(type)-1, roomId));
             }
             else
             {
                 Console.WriteLine("Unesite sobu za odrzavanje operacije: ");
                 string operationRoom = Console.ReadLine();
-                this.appointments.Add(new Appointment(this.username, patient, period, (PerformAppointment.AppointmentType)Int32.Parse(type)-1, operationRoom));
+                this.appointments.Add(new Patient.CreatingAppointment.Appointment(this.username, patient, period, (PerformAppointment.AppointmentType)Int32.Parse(type)-1, operationRoom));
                 
             }
             
@@ -171,7 +172,7 @@ namespace HealthCare.Doctor
         
         private void readAppointments()
         {
-            foreach (Appointment a in appointments)
+            foreach (Patient.CreatingAppointment.Appointment a in appointments)
             {
                 Console.WriteLine(a);
             }
@@ -183,7 +184,7 @@ namespace HealthCare.Doctor
             {
                 if (d.username == doctor)
                 {
-                    foreach (Appointment a in d.appointments)
+                    foreach (Patient.CreatingAppointment.Appointment a in d.appointments)
                     {
                         if (a.Patient == patient && a.TimeOfAppointment == date)
                         {
@@ -540,7 +541,7 @@ namespace HealthCare.Doctor
 
         }
 
-        public static void addAppointmentForDoctor(Appointment appointment, string doctorusername)
+        public static void addAppointmentForDoctor(Patient.CreatingAppointment.Appointment appointment, string doctorusername)
         {
             List<Doctor> doctors = Deserialize();
             foreach (var doctor in doctors)

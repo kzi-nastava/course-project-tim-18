@@ -6,11 +6,11 @@ namespace HealthCare.Doctor.PerformAppointment;
 
 public class Report
 {
-    private Appointment appointment;
+    private Patient.CreatingAppointment.Appointment appointment;
     private string description;
     private Secretary.MedicalRecord patientMedicalRecord;
 
-    public Appointment Appointment
+    public Patient.CreatingAppointment.Appointment Appointment
     {
         get => appointment;
         set => appointment = value;
@@ -28,7 +28,7 @@ public class Report
     }
     public Report(){}
 
-    public Report(Appointment appointment, string description, MedicalRecord medicalRecord)
+    public Report(Patient.CreatingAppointment.Appointment appointment, string description, MedicalRecord medicalRecord)
     {
         Appointment = appointment;
         Description = description;
@@ -90,7 +90,7 @@ public class Report
       
                 int k = l;
                 while (i < n1 && j < n2) {
-                    if (DateTime.Compare(Appointment.stringToDateTime(L[i].Appointment.TimeOfAppointment),Appointment.stringToDateTime(R[j].Appointment.TimeOfAppointment)) >= 0) 
+                    if (DateTime.Compare(Patient.CreatingAppointment.Appointment.stringToDateTime(L[i].Appointment.TimeOfAppointment), Patient.CreatingAppointment.Appointment.stringToDateTime(R[j].Appointment.TimeOfAppointment)) >= 0) 
                     {
                         reports[k] = L[i];
                         i++;

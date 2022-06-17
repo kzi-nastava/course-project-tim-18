@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using System.Globalization;
 using HealthCare.Doctor;
 
-namespace HealthCare.Patient
+namespace HealthCare.Patient.CreatingAppointment
 {
     public class Appointment
     {

@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Globalization;
 
-namespace HealthCare.Patient
+namespace HealthCare.Patient.Grading
 {
     class HospitalGrade
     {
@@ -63,7 +63,7 @@ namespace HealthCare.Patient
             HospitalGradeFileData = File.ReadAllText(fileName);
             string[] HospitalGrades = HospitalGradeFileData.Split('\n');
             List<HospitalGrade> HospitalGradeList = new List<HospitalGrade>();
-            foreach (String s in HospitalGrades)
+            foreach (string s in HospitalGrades)
             {
                 if (s != "")
                 {

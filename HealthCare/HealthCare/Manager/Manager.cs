@@ -599,7 +599,7 @@ namespace HealthCare
         public void MakeRenovationRequest()
         {
 
-            List<Appointment> appointments = Appointment.appointmentsDeserialization();
+            List<Patient.CreatingAppointment.Appointment> appointments = Patient.CreatingAppointment.Appointment.appointmentsDeserialization();
 
 
 
@@ -629,9 +629,9 @@ namespace HealthCare
                 return;
             }
 
-            foreach (Appointment appointment in appointments)
+            foreach (Patient.CreatingAppointment.Appointment appointment in appointments)
             {
-                DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+                DateTime appointmentDate = Patient.CreatingAppointment.Appointment.stringToDateTime(appointment.TimeOfAppointment);
 
                 if (appointment.RoomId != roomName)
                     continue;
@@ -657,7 +657,7 @@ namespace HealthCare
         public void MakeComplexRenovationSplitRequest()
         {
 
-            List<Appointment> appointments = Appointment.appointmentsDeserialization();
+            List<Patient.CreatingAppointment.Appointment> appointments = Patient.CreatingAppointment.Appointment.appointmentsDeserialization();
 
             Console.Write("Unesi naziv prostorije koje se renovira - ");
             string roomName = Console.ReadLine();
@@ -683,9 +683,9 @@ namespace HealthCare
                 return;
             }
 
-            foreach (Appointment appointment in appointments)
+            foreach (Patient.CreatingAppointment.Appointment appointment in appointments)
             {
-                DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+                DateTime appointmentDate = Patient.CreatingAppointment.Appointment.stringToDateTime(appointment.TimeOfAppointment);
 
                 if (appointment.RoomId != roomName)
                     continue;
@@ -739,7 +739,7 @@ namespace HealthCare
         public void MakeComplexRenovationJoinRequest()
         {
 
-            List<Appointment> appointments = Appointment.appointmentsDeserialization();
+            List<Patient.CreatingAppointment.Appointment> appointments = Patient.CreatingAppointment.Appointment.appointmentsDeserialization();
 
             Console.Write("Unesi naziv prve prostorije koje se renovira - ");
             string roomNameFirst = Console.ReadLine();
@@ -774,9 +774,9 @@ namespace HealthCare
                 return;
             }
 
-            foreach (Appointment appointment in appointments)
+            foreach (Patient.CreatingAppointment.Appointment appointment in appointments)
             {
-                DateTime appointmentDate = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+                DateTime appointmentDate = Patient.CreatingAppointment.Appointment.stringToDateTime(appointment.TimeOfAppointment);
 
                 if (appointment.RoomId != roomNameFirst && appointment.RoomId != roomNameSecond)
                     continue;

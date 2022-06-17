@@ -1,39 +1,40 @@
-namespace HealthCare.Patient;
+namespace HealthCare.Patient.Grading;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Globalization;
 using HealthCare.Doctor;
+
 public class DoctorsGrade
 {
     private string comment;
     private int wouldYouSuggest;
     private int howGoodDoctorWas;
     private string doctor;
-    
+
     public int HowGoodDoctorWas
     {
         get => howGoodDoctorWas;
         set => howGoodDoctorWas = value;
     }
-    
+
     public int WouldYouSuggest
     {
         get => wouldYouSuggest;
         set => wouldYouSuggest = value;
     }
-    
+
     public string Comment
     {
         get => comment;
         set => comment = value ?? throw new ArgumentNullException(nameof(value));
     }
-    
+
     public string Doctor
     {
         get => doctor;
         set => doctor = value ?? throw new ArgumentNullException(nameof(value));
     }
-    
+
     public DoctorsGrade(string comment, int wouldYouSuggest, int howGoodDoctorWas, string doctor)
     {
         this.howGoodDoctorWas = howGoodDoctorWas;
@@ -41,7 +42,7 @@ public class DoctorsGrade
         this.comment = comment;
         this.doctor = doctor;
     }
-    
+
     public static List<DoctorsGrade> DeserializeDoctorsGrade()
     {
         string fileName = "../../../Data/DoctorsGrade.json";
@@ -49,7 +50,7 @@ public class DoctorsGrade
         DoctorsGradeFileData = File.ReadAllText(fileName);
         string[] DoctorsGrades = DoctorsGradeFileData.Split('\n');
         List<DoctorsGrade> DoctorsGradeList = new List<DoctorsGrade>();
-        foreach (String s in DoctorsGrades)
+        foreach (string s in DoctorsGrades)
         {
             if (s != "")
             {
@@ -74,5 +75,5 @@ public class DoctorsGrade
         json += JsonSerializer.Serialize(this) + "\n"; ;
         File.WriteAllText(fileName, json);
     }
-    
+
 }
