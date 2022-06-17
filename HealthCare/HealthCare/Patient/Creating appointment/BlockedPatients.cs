@@ -1,7 +1,7 @@
 ﻿
 using System.Text.Json;
 
-namespace HealthCare.Patient
+namespace HealthCare.Patient.CreatingAppointment
 {
     public class BlockedPatients
     {

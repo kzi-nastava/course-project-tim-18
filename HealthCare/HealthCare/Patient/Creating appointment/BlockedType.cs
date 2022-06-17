@@ -1,4 +1,4 @@
-﻿namespace HealthCare.Patient
+﻿namespace HealthCare.Patient.CreatingAppointment
 {
     public enum BlockedType
     {

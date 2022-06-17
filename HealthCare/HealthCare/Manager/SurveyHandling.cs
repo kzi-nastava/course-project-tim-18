@@ -1,5 +1,4 @@
-﻿
-using HealthCare.Patient;
+﻿using HealthCare.Patient.Grading;
 
 namespace HealthCare
 {

@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Text.Json;
 using HealthCare.Doctor;
+using HealthCare.Patient.Grading;
 using HealthCare.Secretary;
 
 namespace HealthCare.Patient
@@ -72,7 +73,7 @@ namespace HealthCare.Patient
             }
 
             File.WriteAllText(fileName, json);
-            BlockedPatients blocked = new BlockedPatients(BlockedType.Patient, this);
+            CreatingAppointment.BlockedPatients blocked = new CreatingAppointment.BlockedPatients(CreatingAppointment.BlockedType.Patient, this);
             blocked.serializeBlockedPatient();
         }
 
@@ -103,10 +104,10 @@ namespace HealthCare.Patient
             File.WriteAllText(fileName, json);
         }
 
-        public List<Appointment> DoctorAppointmentsRecommendation(string doctor, string timeOfStartString,
+        public List<CreatingAppointment.Appointment> DoctorAppointmentsRecommendation(string doctor, string timeOfStartString,
             string timeOfFinishString, string dateOfFinishString)
         {
-            List<Appointment> recommendedAppointments = new List<Appointment>();
+            List<CreatingAppointment.Appointment> recommendedAppointments = new List<CreatingAppointment.Appointment>();
             string[] dateAsArray = dateOfFinishString.Split("/");
             int day = int.Parse(dateAsArray[0]) + 1;
             int month = int.Parse(dateAsArray[1]);
@@ -135,9 +136,9 @@ namespace HealthCare.Patient
                     timeBeingChecked = timeBeingChecked + timeNeededForExamption;
                     minutes = minutes + timeNeededForExamption;
                     string stringTimeBeingChecked = timeBeingChecked.ToString("dd/MM/yyyy HH:mm");
-                    if (Appointment.isAppointmentValid(stringTimeBeingChecked, doctor) == true)
+                    if (CreatingAppointment.Appointment.isAppointmentValid(stringTimeBeingChecked, doctor) == true)
                     {
-                        Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
+                        CreatingAppointment.Appointment appointment = new CreatingAppointment.Appointment(stringTimeBeingChecked, doctor, this.username,
                             HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                         Console.WriteLine(appointment);
                         recommendedAppointments.Add(appointment);
@@ -162,15 +163,15 @@ namespace HealthCare.Patient
                         timeBeingChecked = timeBeingChecked + timeNeededForExamption;
                         minutes = minutes + timeNeededForExamption;
                         string stringTimeBeingChecked = timeBeingChecked.ToString("dd/MM/yyyy HH:mm");
-                        if (Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username) == true)
+                        if (CreatingAppointment.Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username) == true)
                         {
-                            Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username, this.username,
+                            CreatingAppointment.Appointment appointment = new CreatingAppointment.Appointment(stringTimeBeingChecked, d.Username, this.username,
                                 HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                             recommendedAppointments.Add(appointment);
                             if (recommendedAppointments.Count == 3)
                             {
                                 Console.WriteLine("Pronadjeni termini su najpriblizniji unetim kriterijumima:");
-                                foreach (Appointment a in recommendedAppointments)
+                                foreach (CreatingAppointment.Appointment a in recommendedAppointments)
                                 {
                                     Console.WriteLine(a);
                                 }
@@ -186,7 +187,7 @@ namespace HealthCare.Patient
             }
 
             Console.WriteLine("Pronadjeni termini su najpriblizniji unetim kriterijumima:");
-            foreach (Appointment a in recommendedAppointments)
+            foreach (CreatingAppointment.Appointment a in recommendedAppointments)
             {
                 Console.WriteLine(a);
             }
@@ -194,10 +195,10 @@ namespace HealthCare.Patient
             return recommendedAppointments;
         }
 
-        public List<Appointment> DateTimeAppointmentsRecommendation(string doctor, string timeOfStartString,
+        public List<CreatingAppointment.Appointment> DateTimeAppointmentsRecommendation(string doctor, string timeOfStartString,
             string timeOfFinishString, string dateOfFinishString)
         {
-            List<Appointment> recommendedAppointments = new List<Appointment>();
+            List<CreatingAppointment.Appointment> recommendedAppointments = new List<CreatingAppointment.Appointment>();
             string[] dateAsArray = dateOfFinishString.Split("/");
             int day = int.Parse(dateAsArray[0]) + 1;
             int month = int.Parse(dateAsArray[1]);
@@ -227,9 +228,9 @@ namespace HealthCare.Patient
                     timeBeingChecked = timeBeingChecked + timeNeededForExamption;
                     minutes = minutes + timeNeededForExamption;
                     string stringTimeBeingChecked = timeBeingChecked.ToString("dd/MM/yyyy HH:mm");
-                    if (Appointment.isAppointmentValid(stringTimeBeingChecked, doctor))
+                    if (CreatingAppointment.Appointment.isAppointmentValid(stringTimeBeingChecked, doctor))
                     {
-                        Appointment appointment = new Appointment(stringTimeBeingChecked, doctor, this.username,
+                        CreatingAppointment.Appointment appointment = new CreatingAppointment.Appointment(stringTimeBeingChecked, doctor, this.username,
                             HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                         recommendedAppointments.Add(appointment);
                         return recommendedAppointments;
@@ -238,9 +239,9 @@ namespace HealthCare.Patient
                     {
                         foreach (Doctor.Doctor d in doctors)
                         {
-                            if (Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username))
+                            if (CreatingAppointment.Appointment.isAppointmentValid(stringTimeBeingChecked, d.Username))
                             {
-                                Appointment appointment = new Appointment(stringTimeBeingChecked, d.Username,
+                                CreatingAppointment.Appointment appointment = new CreatingAppointment.Appointment(stringTimeBeingChecked, d.Username,
                                     this.username,
                                     HealthCare.Doctor.PerformAppointment.AppointmentType.Examination);
                                 recommendedAppointments.Add(appointment);
@@ -274,14 +275,14 @@ namespace HealthCare.Patient
             string option = Console.ReadLine();
             if (option == "1")
             {
-                List<Appointment> recommendedAppointments =
+                List<CreatingAppointment.Appointment> recommendedAppointments =
                     DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
                 Console.WriteLine(
                     "Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
                 string appointmentOptionS = Console.ReadLine();
                 int appointmentOption = int.Parse(appointmentOptionS);
                 int i = 0;
-                foreach (Appointment appointment in recommendedAppointments)
+                foreach (CreatingAppointment.Appointment appointment in recommendedAppointments)
                 {
                     i += 1;
                     if (i == appointmentOption)
@@ -294,14 +295,14 @@ namespace HealthCare.Patient
 
             if (option == "2")
             {
-                List<Appointment> recommendedAppointments =
+                List<CreatingAppointment.Appointment> recommendedAppointments =
                     DoctorAppointmentsRecommendation(doctor, timeOfStart, timeOfFinish, dateOfFinish);
                 Console.WriteLine(
                     "Unesite redni broj ispred appointmenta koji zelite da zakazete ukoliko ne zelite ni jedan unesite bilo sta drugo");
                 string appointmentOptionS = Console.ReadLine();
                 int appointmentOption = int.Parse(appointmentOptionS);
                 int i = 0;
-                foreach (Appointment appointment in recommendedAppointments)
+                foreach (CreatingAppointment.Appointment appointment in recommendedAppointments)
                 {
                     i += 1;
                     if (i == appointmentOption)
@@ -318,7 +319,7 @@ namespace HealthCare.Patient
         {
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
-            AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Create);
+            CreatingAppointment.AntiTrolCounter counter = new CreatingAppointment.AntiTrolCounter(this.username, dateInString, typeOfChange.Create);
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol == true)
             {
@@ -326,11 +327,11 @@ namespace HealthCare.Patient
                 //string doctor = Console.ReadLine();
                 Console.WriteLine("Unesite vreme tretmana koji zelite da zakazete:(u formatu DD/MM/YYYY hh:mm ");
                 string timeOfAppointment = Console.ReadLine();
-                if (Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
+                if (CreatingAppointment.Appointment.isAppointmentValid(timeOfAppointment, doctor) == true)
                 {
-                    Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username,
+                    CreatingAppointment.Appointment appointment = new CreatingAppointment.Appointment(timeOfAppointment, doctor, this.username,
                         HealthCare.Doctor.PerformAppointment.AppointmentType.Examination, Doctor.Doctor.DoctorsRoom(doctor));
-                    Doctor.Doctor.addAppointmentForDoctor(appointment, doctor);
+                    //Doctor.Doctor.addAppointmentForDoctor(appointment, doctor);
                     appointment.serializeAppointment();
                 }
             }
@@ -352,18 +353,18 @@ namespace HealthCare.Patient
 
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
-            AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
+            CreatingAppointment.AntiTrolCounter counter = new CreatingAppointment.AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol)
             {
-                Appointment.printingAppointment();
+                CreatingAppointment.Appointment.printingAppointment();
                 Console.WriteLine("Unesite vreme tretmana koji zelite da izmenite:(u formatu DD/MM/YYYY hh:mm ");
                 string timeOfAppointment = Console.ReadLine();
                 Console.WriteLine("Unesite ime doktora kod koga zelite da izmenite tretman: ");
                 string doctor = Console.ReadLine();
-                List<Appointment> appointments = Appointment.appointmentsDeserialization();
+                List<CreatingAppointment.Appointment> appointments = CreatingAppointment.Appointment.appointmentsDeserialization();
                 bool validationOfNewAppointment = false;
-                Appointment oldAppointment = new Appointment();
+                CreatingAppointment.Appointment oldAppointment = new CreatingAppointment.Appointment();
                 int indexOfRequest = 0;
                 for (int i = 0; i < appointments.Count; i++)
                 {
@@ -380,7 +381,7 @@ namespace HealthCare.Patient
                             oldAppointment = appointments[i];
                             appointments[i].Doctor = newDoctor;
                             appointments[i].RoomId = Doctor.Doctor.DoctorsRoom(newDoctor);
-                            if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment,
+                            if (CreatingAppointment.Appointment.isAppointmentValid(appointments[i].TimeOfAppointment,
                                     appointments[i].Doctor))
                                 validationOfNewAppointment = true;
                         }
@@ -391,7 +392,7 @@ namespace HealthCare.Patient
                             string newTimeOfAppointment = Console.ReadLine();
                             oldAppointment = appointments[i];
                             appointments[i].TimeOfAppointment = newTimeOfAppointment;
-                            if (Appointment.isAppointmentValid(appointments[i].TimeOfAppointment,
+                            if (CreatingAppointment.Appointment.isAppointmentValid(appointments[i].TimeOfAppointment,
                                     appointments[i].Doctor))
                             {
                                 validationOfNewAppointment = true;
@@ -401,14 +402,14 @@ namespace HealthCare.Patient
                     }
                 }
 
-                DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
+                DateTime timeChecked = CreatingAppointment.Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if (validationOfNewAppointment)
                     if (timeDifference.TotalDays > 2)
-                        Appointment.serializingListOfAppointments(appointments);
+                        CreatingAppointment.Appointment.serializingListOfAppointments(appointments);
                     else
                     {
-                        AppointmentRequests appointmentRequest = new AppointmentRequests(oldAppointment,
+                        CreatingAppointment.AppointmentRequests appointmentRequest = new CreatingAppointment.AppointmentRequests(oldAppointment,
                             appointments[indexOfRequest], typeOfChange.Update);
                         appointmentRequest.serializeAppointmentRequest();
                     }
@@ -424,7 +425,7 @@ namespace HealthCare.Patient
         {
             DateTime now = DateTime.Now;
             string dateInString = now.ToString("dd/MM/yyyy HH:mm");
-            AntiTrolCounter counter = new AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
+            CreatingAppointment.AntiTrolCounter counter = new CreatingAppointment.AntiTrolCounter(this.username, dateInString, typeOfChange.Update);
             bool validationOfAntiTrol = counter.validation();
             if (validationOfAntiTrol == true)
             {
@@ -432,15 +433,15 @@ namespace HealthCare.Patient
                 string doctor = Console.ReadLine();
                 Console.WriteLine("Unesite vreme tretmana koji zelite da izbrisete:(u formatu DD/MM/YYYY hh:mm ");
                 string timeOfAppointment = Console.ReadLine();
-                Appointment appointment = new Appointment(timeOfAppointment, doctor, this.username);
-                DateTime timeChecked = Appointment.stringToDateTime(timeOfAppointment);
+                CreatingAppointment.Appointment appointment = new CreatingAppointment.Appointment(timeOfAppointment, doctor, this.username);
+                DateTime timeChecked = CreatingAppointment.Appointment.stringToDateTime(timeOfAppointment);
                 TimeSpan timeDifference = timeChecked.Subtract(DateTime.Now);
                 if (timeDifference.TotalDays > 2)
                     appointment.deletingAppointment();
                 else
                 {
-                    AppointmentRequests appointmentRequest =
-                        new AppointmentRequests(appointment, appointment, typeOfChange.Delete);
+                    CreatingAppointment.AppointmentRequests appointmentRequest =
+                        new CreatingAppointment.AppointmentRequests(appointment, appointment, typeOfChange.Delete);
                     appointmentRequest.serializeAppointmentRequest();
                 }
 
@@ -623,10 +624,10 @@ namespace HealthCare.Patient
 
         public bool canUserGradeDoctor(string doctor)
         {
-            List<Appointment> usersAppointments = Appointment.UsersAppointments(this.Username);
-            foreach (Appointment appointment in usersAppointments)
+            List<CreatingAppointment.Appointment> usersAppointments = CreatingAppointment.Appointment.UsersAppointments(this.Username);
+            foreach (CreatingAppointment.Appointment appointment in usersAppointments)
             {
-                DateTime dateForCheck = Appointment.stringToDateTime(appointment.TimeOfAppointment);
+                DateTime dateForCheck = CreatingAppointment.Appointment.stringToDateTime(appointment.TimeOfAppointment);
                 DateTime now = DateTime.Now;
                 if (dateForCheck.CompareTo(now) < 0 && doctor == appointment.Doctor)
                     return true;
@@ -638,7 +639,7 @@ namespace HealthCare.Patient
         {
             Console.WriteLine("Mozete oceniti doktore samo kod kojih ste vec imali tretman\nSve osim komentara ocenjujete brojevima od 1 do 5:");
             Console.WriteLine("Unesite ime doktora:");
-            Appointment.printingAppointmentForUser(this.Username);
+            CreatingAppointment.Appointment.printingAppointmentForUser(this.Username);
             string doctor = Console.ReadLine();
             bool validation = canUserGradeDoctor(doctor);
             if (validation)
@@ -678,7 +679,7 @@ namespace HealthCare.Patient
                 else if (option == "3")
                     this.deletingAppointment();
                 else if (option == "4")
-                    Appointment.printingAppointmentForUser(this.Username);
+                    CreatingAppointment.Appointment.printingAppointmentForUser(this.Username);
                 else if (option == "5")
                     this.AppointmentRecommendation();
                 else if (option == "6")
